@@ -1,17 +1,17 @@
-<h1 align="center">╳ (dotfiles)</h1>
+<h1 align="center">μ (dotfiles)</h1>
 
->   [!CAUTION]
->   Currently in heavy development; not intended for public use.
+> [!CAUTION]
+> Currently in heavy development; not intended for public use.
 
 ## Architecture
 
--   To set up device-specific tweaks, add `.x` / `.x.*` files in the same directory.
--   Execute `x.nu` to create symlinks/copies to relevant config directories.
+- To set up device-specific tweaks, add `.u` / `.u.*` files in the same directory.
+- Execute `u.nu` to create symlinks/copies to relevant config directories.
 
 ## Requirements
 
--   [**Nushell**](https://github.com/nushell/nushell) 0.105.0+
--   [**fzf**](https://github.com/junegunn/fzf) 0.64.0+
+- [**Nushell**](https://github.com/nushell/nushell) 0.105.0+
+- [**fzf**](https://github.com/junegunn/fzf) 0.64.0+
 
 ## License
 

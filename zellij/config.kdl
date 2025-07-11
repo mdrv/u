@@ -1,0 +1,61 @@
+session_serialization false // https://zellij.dev/documentation/options#session_serialization
+default_mode "locked"
+theme "tokyo-night-storm" // https://zellij.dev/documentation/theme-list
+// theme "cyberdream"
+mouse_mode true
+
+keybinds {
+    unbind "Ctrl g" "Ctrl p" "Ctrl n" "Ctrl s" "Ctrl o" "Ctrl t" "Ctrl h" "Ctrl b" "Ctrl q"
+    shared_except "locked" {
+        bind "Alt z" { SwitchToMode "locked"; }
+        bind "Alt q" { Quit; }
+        unbind "Alt i" "Alt o"
+    }
+    locked {
+        bind "Alt z" { SwitchToMode "normal"; }
+    }
+    pane {
+        bind "Alt p" { SwitchToMode "Normal"; }
+    }
+    resize {
+        bind "Alt n" { SwitchToMode "Normal"; }
+    }
+    scroll {
+        bind "Alt s" { SwitchToMode "Normal"; }
+    }
+    session {
+        bind "Alt o" { SwitchToMode "Normal"; }
+    }
+    tab {
+        bind "Alt t" { SwitchToMode "Normal"; }
+        bind "Shift Left" "Shift h" { MoveTab "Left"; }
+        bind "Shift Right" "Shift l" { MoveTab "Right"; }
+    }
+    move {
+        bind "Alt m" { SwitchToMode "Normal"; }
+    }
+    tmux {
+        bind "Alt b" { SwitchToMode "Normal"; }
+    }
+    shared_except "pane" "locked" {
+        bind "Alt p" { SwitchToMode "Pane"; }
+    }
+    shared_except "resize" "locked" {
+        bind "Alt n" { SwitchToMode "Resize"; }
+    }
+    shared_except "scroll" "locked" {
+        bind "Alt s" { SwitchToMode "Scroll"; }
+    }
+    shared_except "session" "locked" {
+        bind "Alt o" { SwitchToMode "Session"; }
+    }
+    shared_except "tab" "locked" {
+        bind "Alt t" { SwitchToMode "Tab"; }
+    }
+    shared_except "move" "locked" {
+        bind "Alt m" { SwitchToMode "Move"; }
+    }
+    shared_except "tmux" "locked" {
+        bind "Alt b" { SwitchToMode "Tmux"; }
+    }
+}
