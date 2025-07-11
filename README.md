@@ -15,8 +15,8 @@
 
 ## License
 
-![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)
-
 This project is made available under [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.html).
+
+![GPLv3](https://www.gnu.org/graphics/gplv3-127x51.png)
 
 <p align="center"><sub><strong>© 2025 MEDRIVIA ／ Umar Alfarouk</strong></sub></p>

@@ -9,12 +9,12 @@
 		"source": "~/.config/fastfetch/ascii.txt"
 	},
 	"modules": [
-        {
-		    "type": "title",
-            "color": {
-                "host": "magenta"
-            }
-        },
+		{
+			"type": "title",
+			"color": {
+				"host": "magenta"
+			}
+		},
 		"separator",
 		"os",
 		"host",
@@ -37,13 +37,13 @@
 		// "gpu", // slow on android
 		"memory",
 		"swap",
-        "disk",
-        // {
-        //     "type": "disk",
-        //     "folders": "/:/sdcard2" // preventing android too-many list
-        // },
+		"disk",
+		// {
+		//     "type": "disk",
+		//     "folders": "/:/sdcard2" // preventing android too-many list
+		// },
 		// "publicip", // aaded manually, but too slow;
-        "localip",
+		"localip",
 		"battery",
 		"poweradapter",
 		// "locale",
