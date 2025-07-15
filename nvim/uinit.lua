@@ -56,6 +56,7 @@ o.number = true
 o.relativenumber = true
 o.termguicolors = true
 o.laststatus = 3
+o.shada = "!,'1000<50,s10,h" -- default: !,'100<50,s10,h
 
 vim.filetype.add({
     extension = {
