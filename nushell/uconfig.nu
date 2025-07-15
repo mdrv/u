@@ -1,6 +1,16 @@
 $env.config.show_banner = false
 $env.config.render_right_prompt_on_last_line = true
 
+if (is-admin) {
+    print "⚠️ You are logged in as root."
+} else if (which fastfetch | is-empty) {
+    print $"(ansi bb)📢 fastfetch (ansi y)is not installed!(ansi reset)"
+} else if (^tty | complete).stdout =~ "^/dev/tty" {
+    ^fastfetch -l arch --logo-padding-top 0
+} else {
+    ^fastfetch
+}
+
 const $d = $nu.default-config-dir
 const _ = $"($d)/empty.nu"
 
