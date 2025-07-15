@@ -14,6 +14,11 @@ if (is-admin) {
 const $d = $nu.default-config-dir
 const _ = $"($d)/empty.nu"
 
+const f = 'zoxide.nu'; const p = $"($d)/($f)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r)can’t be sourced!(ansi reset)"
+if not ($p | path exists) {print $_E}
+source (if ($p | path exists) {$p} else {$_})
+
 const f = 'u/'; const p = $"($d)/($f)"
 const _E = $"(ansi bb)🚨 ($f) (ansi r) can’t be used!(ansi reset)"
 if not ($p | path exists) {print $_E}
