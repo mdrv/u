@@ -1,7 +1,7 @@
-local u = {}
+local M = {}
 
 -- ternary conditional operator / inline if
-u.IIF = function(cond, T, F)
+M.IIF = function(cond, T, F)
 	if cond then
 		return T
 	else
@@ -9,4 +9,4 @@ u.IIF = function(cond, T, F)
 	end
 end
 
-return u
+return M
