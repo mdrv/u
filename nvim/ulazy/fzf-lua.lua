@@ -48,6 +48,13 @@ return {
 			{ desc = "Search oldfiles (fzf-lua)" },
 		},
 		{
+			"<Leader>og",
+			function()
+				require("fzf-lua").live_grep()
+			end,
+			{ desc = "live_grep (fzf-lua)" },
+		},
+		{
 			"<Leader>hh",
 			function()
 				require("fzf-lua").helptags()
