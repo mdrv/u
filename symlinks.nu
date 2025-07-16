@@ -16,6 +16,11 @@ const DATA = {
 			tokyonight-storm.ini
 		]
 	}
+	hypr: {
+		items: [
+			hyprland.conf
+		]
+	}
 	kitty: {
 		items: [
 			kitty.conf
@@ -82,14 +87,14 @@ export def main [
 ] {
 	let app_data = ($DATA | get $app_name)
 	[$app_data] | flatten | par-each {|$app|
-		let default_target_dir = ($app.target? | default ($nu.home-path)/.config/($app_name))
-		if ($default_target_dir | path type) != "dir" {
-			error make { msg: $"Target is not a directory: ($default_target_dir)" }
+		let target_dir = ($app.target? | default ($nu.home-path)/.config/($app_name))
+		if ($target_dir | path type) != "dir" {
+			error make { msg: $"Target is not a directory: ($target_dir)" }
 		}
 		$app.items | par-each {|$item|
 			let $source = ([$PWD $app_name $in] | path join)
-			print $"($source) → ($app.target)(ansi defd)/($item)(ansi reset)"
-			ln -sf $source ($app.target)/
+			print $"($source) → ($target_dir)(ansi defd)/($item)(ansi reset)"
+			ln -sf $source ($target_dir)/
 		} | ignore
 	} | ignore
 }
