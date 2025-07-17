@@ -27,7 +27,7 @@ o.mouse = IIF(uname.machine == "x86_64", "a", "")
 o.backupcopy = "yes"
 
 -- :h 'modeline'
-o.modeline = false
+o.modeline = true
 
 -- :h 'showmode'
 o.showmode = false
@@ -81,7 +81,7 @@ for i = 0, 9 do
 	table.insert(alphanumeric, tostring(i))
 end
 for _, char in ipairs(alphanumeric) do
-	vim.keymap.set({ "n", "v" }, "q" .. char, "", { desc = "noop" })
+	vim.keymap.set({ "n", "v" }, "q" .. char, "", { desc = "noop", remap = false, silent = true })
 end
 
 -- id=keymaps

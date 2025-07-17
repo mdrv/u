@@ -16,6 +16,11 @@ const DATA = {
 			tokyonight-storm.ini
 		]
 	}
+	home: {
+		items: [
+			{ gitconfig: .gitconfig }
+		]
+	}
 	hypr: {
 		items: [
 			hyprland.conf
@@ -72,6 +77,7 @@ http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm
 		target: $nu.default-config-dir # = ($nu.home-path)/.config/($app_name)
 		items: [
 			u
+			uinit.nu
 			uconfig.nu
 			uenv.nu
 		]

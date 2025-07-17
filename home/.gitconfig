@@ -1,6 +1,5 @@
-[user]
-	email = medrivia@gmail.com
-	name = Umar Alfarouk
+[include]
+	path = .u.gitconfig
 [filter "lfs"]
 	smudge = git-lfs smudge --skip -- %f
 	process = git-lfs filter-process --skip
@@ -9,7 +8,7 @@
 [credential]
 	helper = store
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [push]
 	recurseSubmodules = check
 [color]
