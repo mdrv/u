@@ -9,6 +9,7 @@ export def --wrapped x [mod_name: string@mod_list, ...args: string] {nu -n ($env
 
 # overwrites mod.nu
 export def main [] {
+	cd $env.FILE_PWD
     print -n "Generating mod.nu"
     mut str = ""
     for x in (ls *.nu | get name) {

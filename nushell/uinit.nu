@@ -45,4 +45,12 @@ source (if ($p | path exists) {$p} else {$_})
 	} else {
 		print $" 📢 (ansi bb)atuin(ansi y) can’t be executed!(ansi reset)"
 	}
+
+	print -n $"Preparing (ansi bb)u/mod.nu(ansi reset)"
+	if ($"($d)/u/mod_.nu" | path exists) {
+		nu -n $"($d)/u/mod_.nu" | ignore
+		print " ✅"
+	} else {
+		print $" 📢 (ansi bb)u/mod_.nu(ansi y) can’t be executed!(ansi reset)"
+	}
 }
