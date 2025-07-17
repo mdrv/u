@@ -16,7 +16,9 @@ return {
 	opts = {
 		fuzzy = {
 			sorts = {
+				-- must specify all used sorts
 				"exact",
+				"score",
 				"sort_text",
 			},
 		},
