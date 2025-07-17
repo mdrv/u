@@ -1,3 +1,11 @@
+ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath("config"), ".u.lua"))
+if not ok then
+	U = {
+		LV = 0
+	}
+end
+ok = nil
+
 local IIF = require("utils").IIF
 
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -96,15 +104,6 @@ vim.keymap.set("n", "<Leader>xll", ":.lua<CR>", { desc = "Execute Lua on current
 vim.keymap.set("v", "<Leader>xll", ":'<,'>lua<CR>", { desc = "Execute Lua on selection", silent = true })
 vim.keymap.set("n", "<Leader>tcd", ":tcd %:h<CR>", { desc = "Navigate tab (go) to current file directory" })
 
-function _G._statusline_completion()
-	if vim.tbl_contains(LP(), "blink.cmp") then
-		return "(B)"
-	elseif vim.tbl_contains(LP(), "nvim-cmp") then
-		return "(N)"
-	end
-	return "-"
-end
-
 function _G._statusline_lsp()
 	local tmp = vim.lsp.get_clients({ bufnr = 0 })
 	return "<" .. table.concat(
@@ -174,40 +173,7 @@ local function statusline()
 	)
 end
 
--- id=lazy.nvim-setup2
---
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 vim.o.statusline = statusline()
--- id=lazy.nvim-setup1
--- l: https://lazy.folke.io/installation
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
-end
-vim.opt.rtp:prepend(lazypath)
-
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		require("lazy").setup({ import = "ulazy" })
-	end,
-})
-vim.keymap.set("n", "<Leader>lz", "<Cmd>Lazy<CR>", { desc = "Open lazy.nvim panel" })
 
 -- id=util-set_theme_with_fallback
 -- can be used anywhere
@@ -229,7 +195,7 @@ end
 local themes = {
     dark = {
         "cyberdream", "tokyonight-storm", "tokyonight", "kanagawa", "juliana", "minimal", "sonokai", -- external
-        "slate", "habamax", "desert", "default", "industry", "lunaperche", "darkblue", -- built-in
+        "default", "slate", "habamax", "desert", "industry", "lunaperche", "darkblue", -- built-in
     },
     light = {
         -- "cyberdream-light", -- H: Has issue with transparency
@@ -259,6 +225,44 @@ vim.diagnostic.config({
 		},
 	},
 })
+
+if U.LV < 1 then
+	return
+end
+
+-- id=lazy.nvim-setup2
+--
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- id=lazy.nvim-setup1
+-- l: https://lazy.folke.io/installation
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		require("lazy").setup({ import = "ulazy" })
+	end,
+})
+vim.keymap.set("n", "<Leader>lz", "<Cmd>Lazy<CR>", { desc = "Open lazy.nvim panel" })
 
 vim.keymap.set({ "n" }, "<leader>li", "<Cmd>checkhealth vim.lsp<CR>", { desc = "Check LSP" })
 

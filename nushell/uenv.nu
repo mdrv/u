@@ -47,8 +47,7 @@ def createLeftPrompt [--transient] {
     [
 		$"(ansi defd)($env.USER)@($env.HOSTNAME)"
 		($path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)")
-		$"(ansi yd)\(($git_current_ref)\) "
-	] | str join $"(ansi reset) "
+	] ++ if ($git_current_ref | is-empty) {[]} else {[$"(ansi yd)\(($git_current_ref)\) "]} | str join $"(ansi reset) "
 }
 
 def createRightPrompt [--transient] {
