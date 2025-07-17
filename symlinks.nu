@@ -44,7 +44,7 @@ const DATA = {
 			uinit.lua
 			utils.lua
 		]
-		message: r#'Enable plugins by adding `.u.lua`: `return {LV = 1}`
+		message: r#'Enable plugins by adding `.u.lua`: `return {LV = 1}`'#
 	}
 	quickshell: {
 		items: [
