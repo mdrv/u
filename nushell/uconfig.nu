@@ -56,4 +56,14 @@ def rgfzf [
 ] {
     rg --max-depth $max_depth --follow --color=always --line-number --no-heading $s | fzf --ansi --height 50%
 }
+alias rf = rgfzf
 
+def sftpd [host: string] {
+    ^sftp $"($host):(pwd)"
+}
+
+def cataas_size_list [] { [xsmall small medium square] }
+def cataas [size: string@cataas_size_list = "small"] {
+    http get $'https://cataas.com/cat?type=($size)' | chafa --exact-size=on
+}
+alias meow = cataas
