@@ -1,7 +1,7 @@
 export def --wrapped main [
 	...url: string
 ] {
-	let $l = (^hyprctl clients -j | from json | where class == hypr-hx)
+	let $l = (^hyprctl clients -j | from json | where class == hypr-ax)
 	if ($l | is-not-empty) {
 		let cur_x = (^hyprctl cursorpos | parse "{x}, {y}" | get x.0 | into int)
 		let $workspace_id = (^hyprctl activeworkspace -j | from json | get id)
@@ -21,9 +21,9 @@ export def --wrapped main [
 			^hyprctl dispatch movetoworkspace +0, $"address:($l.0.address)"
 		}
 	} else {
-		^firefox --new-window --name hypr-hx -p hx ...$url
+		^firefox --new-window --name hypr-ax -p ax ...$url
 		loop {
-			let $l = (^hyprctl clients -j | from json | where class == hypr-hx)
+			let $l = (^hyprctl clients -j | from json | where class == hypr-ax)
 			if ($l | is-not-empty) {
 				# hyprctl dispatch focuswindow $"address:($l.0.address)"
 				hyprctl dispatch movewindow r
