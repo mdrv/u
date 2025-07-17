@@ -14,6 +14,12 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
+		fuzzy = {
+			sorts = {
+				"exact",
+				"sort_text",
+			},
+		},
 		completion = {
 			-- recommended for minuet-ai.nvim
 			-- trigger = { prefetch_on_insert = false },
@@ -23,7 +29,7 @@ return {
 					auto_insert = false,
 				},
 			},
-            documentation = { window = { border = "bold" } },
+			documentation = { window = { border = "bold" } },
 			menu = {
 				border = "rounded",
 				draw = {

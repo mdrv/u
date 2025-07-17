@@ -25,6 +25,7 @@ return {
 							local cwd = selected[1]:match("[^\t]+$") or selected[1]
 							require("fzf-lua").files({
 								cwd = cwd,
+								follow = true,
 								actions = {
 									tab = {
 										fn = function()

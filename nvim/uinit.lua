@@ -1,7 +1,7 @@
 ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath("config"), ".u.lua"))
 if not ok then
 	U = {
-		LV = 0
+		LV = 0,
 	}
 end
 ok = nil
@@ -67,16 +67,16 @@ o.laststatus = 3
 o.shada = "!,'1000,<50,s10,h" -- default: !,'100,<50,s10,h
 
 vim.filetype.add({
-    extension = {
-        nuon = "nu",
-        caddy = "caddy",
-    },
-    filename = {
-        ["Caddyfile"] = "caddy",
-    },
-    pattern = {
-        ["${HOME}/.config/hypr/.*.conf"] = "hyprlang",
-    },
+	extension = {
+		nuon = "nu",
+		caddy = "caddy",
+	},
+	filename = {
+		["Caddyfile"] = "caddy",
+	},
+	pattern = {
+		["${HOME}/.config/hypr/.*.conf"] = "hyprlang",
+	},
 })
 
 -- id=disable-macro
@@ -268,7 +268,7 @@ vim.keymap.set({ "n" }, "<leader>li", "<Cmd>checkhealth vim.lsp<CR>", { desc = "
 
 -- load lsp files (by default; lsp must be configured and enabled to trigger load)
 for _, path in ipairs(vim.api.nvim_get_runtime_file("**/ulsp/*.lua", true)) do
-	local id = vim.fs.basename(path):sub(1,-5)
+	local id = vim.fs.basename(path):sub(1, -5)
 	local config = dofile(path)
 	vim.lsp.config._configs[id] = vim.tbl_deep_extend("force", vim.lsp.config._configs[id] or {}, config)
 end
@@ -298,7 +298,9 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
 				vim.lsp.enable(key)
 			end,
 			["default"] = function(selected, opts)
-				if selected == nil then return end
+				if selected == nil then
+					return
+				end
 				local key = selected[1]:match("^([%w_]+)%s?") -- don’t forget underscore
 				local root_markers = vim.lsp.config._configs[key].root_markers or nil
 				local config = vim.tbl_deep_extend(
@@ -328,26 +330,26 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
 end, { desc = "Start LSP (with fzf-lua)" })
 
 vim.keymap.set({ "n" }, "<leader>lxa", function()
-    vim.notify("Stopping all LSP clients...")
-    vim.lsp.stop_client(vim.lsp.get_clients())
+	vim.notify("Stopping all LSP clients...")
+	vim.lsp.stop_client(vim.lsp.get_clients())
 end, { desc = "Stop all LSP clients" })
 
 vim.keymap.set({ "n" }, "<leader>lxi", function()
-    require("fzf-lua").fzf_exec(function(fzf_cb)
-        local clients = vim.lsp.get_clients()
-        for _, client in ipairs(clients) do
-            if client.name ~= "null-ls" then
-                local str = string.format("%s %s %s", client.id, client.name, client.root_dir)
-                fzf_cb(str)
-            end
-        end
-        fzf_cb()
-    end, {
-        actions = {
-            ["default"] = function(selected)
-                local id = selected[1]:match("^(%d+)%s?")
-                vim.lsp.stop_client(tonumber(id))
-            end,
-        },
-    })
+	require("fzf-lua").fzf_exec(function(fzf_cb)
+		local clients = vim.lsp.get_clients()
+		for _, client in ipairs(clients) do
+			if client.name ~= "null-ls" then
+				local str = string.format("%s %s %s", client.id, client.name, client.root_dir)
+				fzf_cb(str)
+			end
+		end
+		fzf_cb()
+	end, {
+		actions = {
+			["default"] = function(selected)
+				local id = selected[1]:match("^(%d+)%s?")
+				vim.lsp.stop_client(tonumber(id))
+			end,
+		},
+	})
 end, { desc = "Stop LSP (with fzf-lua)" })
