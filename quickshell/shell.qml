@@ -94,6 +94,7 @@ Scope {
 				id: toplevel
 
 				screen: modelData
+                exclusionMode: ExclusionMode.Ignore
 
 				anchors {
 					top: true
@@ -156,6 +157,7 @@ Scope {
 
 				property var modelData
 				screen: modelData
+                exclusionMode: ExclusionMode.Ignore
 
 				anchors {
 					// right: true
