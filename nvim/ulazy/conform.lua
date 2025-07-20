@@ -4,10 +4,11 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "dprint", "stylua" },
-			javascript = { "dprint", "biome", "prettierd", "prettier" },
-			javascriptreact = { "dprint", "biome", "prettierd", "prettier" },
-			typescript = { "dprint", "biome", "prettierd", "prettier" },
-			typescriptreact = { "dprint", "biome", "prettierd", "prettier" },
+			javascript = { "dprint" },
+			javascriptreact = { "dprint" },
+			typescript = { "dprint" },
+			typescriptreact = { "dprint" },
+			markdown = { "dprint" },
 			svelte = { "dprint" },
 			json = { "dprint" },
 			jsonc = { "dprint" },

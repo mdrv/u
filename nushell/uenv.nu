@@ -13,6 +13,8 @@ $env.PATH = ($env.PATH ++ [
     # add more if needed...
 ] | uniq | where {path exists})
 
+$env.TMPDIR = $nu.temp-path
+
 $env.EDITOR = "nvim"
 
 $env.LANG = "en_US.UTF-8"
@@ -29,6 +31,10 @@ $env.LC_TELEPHONE = "en_US.UTF-8"
 $env.LC_MEASUREMENT = "en_US.UTF-8"
 $env.LC_IDENTIFICATION = "en_US.UTF-8"
 $env.LC_ALL = "en_US.UTF-8"
+
+if ($"($nu.default-config-dir)/.u.nuon" | path exists) {
+	open ($nu.default-config-dir)/.u.nuon | get ENV? | default {} | load-env
+}
 
 def createLeftPrompt [--transient] {
     let dir = match (do -i { $env.PWD | path relative-to $nu.home-path }) {

@@ -224,6 +224,7 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.HINT] = "⏺",
 		},
 	},
+	severity_sort = true,
 })
 
 if U.LV < 1 then

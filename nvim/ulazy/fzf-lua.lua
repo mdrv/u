@@ -49,6 +49,16 @@ return {
 			{ desc = "Search oldfiles (fzf-lua)" },
 		},
 		{
+			"<Leader>of",
+			function()
+				require("fzf-lua").files({
+					cwd = cwd,
+					follow = true,
+				})
+			end,
+			{ desc = "Search files (fzf-lua)" },
+		},
+		{
 			"<Leader>og",
 			function()
 				require("fzf-lua").live_grep()
