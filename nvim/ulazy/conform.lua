@@ -14,6 +14,9 @@ return {
 			jsonc = { "dprint" },
 			html = { "dprint" },
 			toml = { "dprint" },
+			css = { "dprint" },
+			scss = { "dprint" },
+			yaml = { "dprint" },
 		},
 	},
 	keys = {

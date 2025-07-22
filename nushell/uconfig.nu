@@ -41,6 +41,7 @@ alias n = nvim
 alias dp = dprint
 alias zj = zellij
 alias H = Hyprland
+alias gdl = gallery-dl
 
 alias umod = nu ~/.config/nushell/u/mod_.nu
 alias um = u mount
