@@ -1,0 +1,44 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	"modules": [
+        {
+		    "type": "title",
+            "color": {
+                "host": "magenta"
+            }
+        },
+		"separator",
+		"os",
+		"host",
+		"kernel",
+		"uptime",
+		"packages",
+		"shell",
+		"editor", // added manually
+		// "display",
+		// "de",
+		// "wm",
+		// "wmtheme",
+		// "theme",
+		// "icons",
+		// "font",
+		// "cursor",
+		// "terminal",
+		// "terminalfont",
+		"cpu",
+		// "gpu", // slow on android
+		"memory",
+		"swap",
+        {
+            "type": "disk",
+            "folders": "/:/n:/sdcard2" // preventing android too-many list
+        },
+		// "publicip", // aaded manually, but too slow;
+        "localip",
+		"battery",
+		"poweradapter",
+		// "locale",
+		"break",
+		"colors"
+	]
+}
