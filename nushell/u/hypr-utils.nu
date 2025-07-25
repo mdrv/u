@@ -29,7 +29,7 @@ export def --wrapped main [
 		opacity | alpha => {
 			let mod = ($args.1 | into float)
 			let address = (hyprctl activewindow -j | from json | get address)
-			let f = ($nu.temp-path)/hypr-alpha-($address).nuon
+			let f = $"($nu.temp-path)/hypr-alpha-($address).nuon"
 			let _alpha = if $args.2? == 'fixed' {$mod} else if ($f | path exists) {
 					(open $f) + $mod
 				} else { 1.0 + $mod }
@@ -47,7 +47,7 @@ export def --wrapped main [
 		rounding => {
 			let mod = ($args.1 | into int)
 			let address = (hyprctl activewindow -j | from json | get address)
-			let f = ($nu.temp-path)/hypr-rounding-($address).nuon
+			let f = $"($nu.temp-path)/hypr-rounding-($address).nuon"
 			let _rounding = if $args.2? == 'fixed' {$mod} else if ($f | path exists) {
 					(open $f) + $mod
 				} else { 0 + $mod }

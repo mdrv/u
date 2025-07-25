@@ -21,8 +21,8 @@
     markup = "full"
     format = "<b><u>%s</u></b>\n<i>%b</i>"
 
-[ua-screenshot]
-    appname = ua-screenshot
+[ushot]
+    appname = ushot
     background = "#00000000"
     # new_icon = "/usr/share/icons/Adwaita/scalable/devices/camera-web.svg"
     # min_icon_size = 16

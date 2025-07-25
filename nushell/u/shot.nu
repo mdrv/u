@@ -23,14 +23,14 @@ def _shot [
             if ($nuon.curpos != $tmp) {
                 {curpos: $tmp, pid: $nu.pid, running: true} | to nuon | save -f $NUON_FILE
             } else {
-                ^dunstify -u low -t 500 -a ua-screenshot "🛇"
+                ^dunstify -u low -t 500 -a ushot "🛇"
                 $">\t($LOG_TIME) 🛇 \(idle cursor)\n" | save -a $LOG_FILE
                 return 4sec
             }
         }
 
         if (^pidof -sq tofi | complete | get exit_code) == 0 {
-            ^dunstify -u low -t 500 -a ua-screenshot "🛇"
+            ^dunstify -u low -t 500 -a ushot "🛇"
             $">\t($LOG_TIME) 🛇 \(tofi)\n" | save -a $LOG_FILE
             return 4sec
         } # BLOCKED APP LAUNCHER
@@ -43,7 +43,7 @@ def _shot [
         if ($CLASS | is-empty) { return (if $quality == 'low' {4sec} else if $quality == 'high' {15sec} else {10sec}) }
         let $CLASS = ($CLASS | get initialClass)
         # if not $force and $CLASS in [foot Min] {
-        #     ^dunstify -u low -t 500 -a ua-screenshot "🛇"
+        #     ^dunstify -u low -t 500 -a ushot "🛇"
         #     $">\t($LOG_TIME) 🛇 \(($CLASS))\n" | save -a $LOG_FILE
         #     return 4sec
         # } # BLOCKED SPECIFIC CLASS
@@ -68,7 +68,7 @@ def _shot [
 		# H: Cannot pass binary to avifenc
 		# H: Also, a shame Nushell can’t store stdout inside a temp file (process substitution)
 		# l: https://github.com/nushell/nushell/issues/10610
-		# let $tmp = mktemp -t "ua-screenshot-XXXXXX.jpg"
+		# let $tmp = mktemp -t "ushot-XXXXXX.jpg"
 		let $tmp = mktemp -t "ushot-XXXXXX.png"
 
 		# jxl
@@ -82,12 +82,12 @@ def _shot [
 
 		rm -f $tmp # don’t forget to remove temp
 
-        if $notify {^dunstify -u low -t 500 -a ua-screenshot "⛶"}
+        if $notify {^dunstify -u low -t 500 -a ushot "⛶"}
         $">\t($LOG_TIME) ⛶ \(($CLASS) → ($FILE))\n" | save -a $LOG_FILE
         return (if $quality == 'low' {4sec} else if $quality == 'high' {15sec} else {10sec})
     } catch {|err|
         $">\t($LOG_TIME) ✗ ($err)\n" | save -a $LOG_FILE
-        ^dunstify -u critical -t 2000 -a ua-screenshot "ERROR" $err.msg
+        ^dunstify -u critical -t 2000 -a ushot "ERROR" $err.msg
     }
 }
 
@@ -139,7 +139,7 @@ export def main [
     } else if $notify {
         _shot --notify --quality $quality
     } else if $toggle {
-        let CRON_PREFIX = "* * * * * nu ~/.config/nushell/u/ua-screenshot.nu --loop"
+        let CRON_PREFIX = "* * * * * nu ~/.config/nushell/u/ushot.nu --loop"
         let CRON_TEXT = $CRON_PREFIX + (if ($quality | is-not-empty) {$" --quality ($quality)"} else {""})
         let $cronlist = (^crontab -l | lines)
 
@@ -157,13 +157,13 @@ export def main [
             ($_cronlist | str join "\n") + "\n" | ^crontab -
 
             $">\t($LOG_TIME) ⏺️\n" | save -a $LOG_FILE
-            ^dunstify -u low -t 1000 -a ua-screenshot "🔴"
+            ^dunstify -u low -t 1000 -a ushot "🔴"
             main --loop # WARNING: will block/potentially spawn multiple instances
         } else {
             ($_cronlist | str join "\n") + "\n" | ^crontab -
 
             $">\t($LOG_TIME) ⏹️\n" | save -a $LOG_FILE
-            ^dunstify -u low -t 1000 -a ua-screenshot "⬛"
+            ^dunstify -u low -t 1000 -a ushot "⬛"
             if ($NUON_FILE | path exists) {
                 let $nuon = (open --raw $NUON_FILE | from nuon)
                 ^kill $nuon.pid
@@ -171,7 +171,7 @@ export def main [
 
             # BUG: When stopping at 01, cron is still running
 
-            # let $pids = (ps -l | where command =~ "ua-screenshot.nu --loop" | get pid)
+            # let $pids = (ps -l | where command =~ "ushot.nu --loop" | get pid)
             # for $pid in $pids {^kill $pid}
         }
     }

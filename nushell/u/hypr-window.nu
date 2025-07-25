@@ -9,7 +9,7 @@ export def main [--tmp: string, --exec (-x)] {
     let state = (^hyprctl -j clients)
     let active_window = (^hyprctl -j activewindow)
 
-    let current_addr = ($active_window | from json | get address -i)
+    let current_addr = ($active_window | from json | get address -o)
 
     let window = ($state | from json | where monitor != -1 | par-each {get address workspace.name title | str join " "} | str join "\n" |
         sed $"s|($current_addr | default "unknown")|focused ->|" |

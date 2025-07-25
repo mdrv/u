@@ -1,4 +1,7 @@
 const DATA = {
+	atuin: {
+		items: [ config.toml ]
+	}
 	dunstrc: {
 		items: [ dunstrc ]
 	}
