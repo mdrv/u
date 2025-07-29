@@ -60,6 +60,12 @@ alias mpvxx = u mpv q15 ft5-ladspa [*.flac]
 alias mpvxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
 alias mpvxxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)
 
+def mg --wrapped [
+	...cmd: string
+] {
+	glob /x/g/*/.git | par-each {|path| run-external "git" "-C" $path "--work-tree" ($path | path parse | get parent) ...$cmd | complete | insert path $path | print } | ignore
+}
+
 def rgfzf [
     s: string = ""
     --max-depth (-d): number = 3
