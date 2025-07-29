@@ -105,7 +105,7 @@ export def main [
 ] {
 	let app_data = ($DATA | get $app_name)
 	$app_data |	into-list | par-each {|$app|
-		let app_target_dir = ($app.target? | default ($nu.home-path)/.config/($app_name) )
+		let app_target_dir = ($app.target? | default $"($nu.home-path)/.config/($app_name)" )
 		if ($app_target_dir | path type) != "dir" {
 			error make { msg: $"Target is not a directory: ($app_target_dir)" }
 		}
@@ -119,7 +119,7 @@ export def main [
 			ln -sf $source ($item_target_dir)/
 		} | ignore
 		if ($app.message? | is-not-empty) {
-			print (ansi rb)($app.message)(ansi reset)
+			print $"(ansi rb)($app.message)(ansi reset)"
 		}
 	} | ignore
 }
