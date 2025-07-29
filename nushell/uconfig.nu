@@ -40,9 +40,13 @@ const _E = $"(ansi bb)🚨 ($f) (ansi r) can’t be used!(ansi reset)"
 if not ($p | path exists) {print $_E}
 use (if ($p | path exists) {$p} else {$_})
 
+alias l = ls
 alias b = bun
 alias g = git
 alias n = nvim
+alias s = serai
+alias h = hirari
+alias ac = aichat
 alias dp = dprint
 alias zj = zellij
 alias H = Hyprland

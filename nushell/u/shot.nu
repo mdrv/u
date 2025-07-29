@@ -91,6 +91,7 @@ def _shot [
     }
 }
 
+# TODO: disable cron option (rather than toggle)
 export def main [
     --loop
     --quality (-q): string
@@ -139,7 +140,7 @@ export def main [
     } else if $notify {
         _shot --notify --quality $quality
     } else if $toggle {
-        let CRON_PREFIX = "* * * * * nu ~/.config/nushell/u/ushot.nu --loop"
+        let CRON_PREFIX = "* * * * * nu ~/.config/nushell/u/shot.nu --loop"
         let CRON_TEXT = $CRON_PREFIX + (if ($quality | is-not-empty) {$" --quality ($quality)"} else {""})
         let $cronlist = (^crontab -l | lines)
 
