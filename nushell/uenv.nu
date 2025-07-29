@@ -96,10 +96,3 @@ if not ($HOSTNAME_PATH | path exists) or (open $HOSTNAME_PATH | str trim) in [""
     input $"($HOSTNAME_PATH): " | str trim | sudo tee $HOSTNAME_PATH out> /dev/null
 }
 $env.HOSTNAME = (open $HOSTNAME_PATH --raw | str trim)
-
-# l: https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-if (which carapace | is-not-empty) {
-    $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-    mkdir ~/.cache/carapace
-    carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
-}

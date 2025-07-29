@@ -24,8 +24,7 @@ const _E = $"(ansi bb)🚨 ($f) (ansi r)can’t be sourced!(ansi reset)"
 if not ($p | path exists) {print $_E}
 source (if ($p | path exists) {$p} else {$_})
 
-# l: https://carapace-sh.github.io/carapace-bin/setup.html#nushell
-const f = 'carapace/init.nu'; const p = $"~/.cache/($f)"
+const f = 'carapace.nu'; const p = $"($d)/($f)"
 const _E = $"(ansi bb)🚨 ($f) (ansi r)can’t be sourced!(ansi reset)"
 if not ($p | path exists) {print $_E}
 source (if ($p | path exists) {$p} else {$_})

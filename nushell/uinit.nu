@@ -40,10 +40,18 @@ source (if ($p | path exists) {$p} else {$_})
 
 	print -n $"Adding (ansi bb)atuin.nu(ansi reset)"
 	if (which atuin | is-not-empty) {
-		^atuin init nu --disable-up-arrow | save -f $"($d)/atuin.nu"
+		^atuin init nu --disable-up-arrow | str replace --all "get -i" "get -o" | save -f $"($d)/atuin.nu"
 		print " ✅"
 	} else {
 		print $" 📢 (ansi bb)atuin(ansi y) can’t be executed!(ansi reset)"
+	}
+
+	print -n $"Adding (ansi bb)carapace.nu(ansi reset)"
+	if (which carapace | is-not-empty) {
+		carapace _carapace nushell | str replace --all "get -i" "get -o" | save -f $"($d)/carapace.nu"
+		print " ✅"
+	} else {
+		print $" 📢 (ansi bb)carapace(ansi y) can’t be executed!(ansi reset)"
 	}
 
 	print -n $"Preparing (ansi bb)u/mod.nu(ansi reset)"

@@ -38,6 +38,7 @@ export def hyprland [] {
 	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc
 	run-external ...$PACMAN imagemagick libvips libopenslide poppler-glib chafa libheif
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
+	run-external ...$PACMAN neovide
 	print $"Might be needed: vulkan-intel"
 	print $"AUR: bibata-cursor-git quickshell-git google-breakpad localsend-bin tofi ttf-twemoji"
 }
