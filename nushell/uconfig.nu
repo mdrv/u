@@ -58,6 +58,7 @@ alias us = u sync
 alias mpvxx = u mpv q15 ft5-ladspa [*.flac]
 alias mpvxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
 alias mpvxxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)
+alias shizuku = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
 def mg --wrapped [
 	...cmd: string
