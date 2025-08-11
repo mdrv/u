@@ -274,6 +274,8 @@ for _, path in ipairs(vim.api.nvim_get_runtime_file("**/ulsp/*.lua", true)) do
 	vim.lsp.config._configs[id] = vim.tbl_deep_extend("force", vim.lsp.config._configs[id] or {}, config)
 end
 
+vim.lsp.enable("svelte")
+
 vim.keymap.set({ "n" }, "<leader>ls", function()
 	local ft = vim.bo.filetype
 	-- https://github.com/ibhagwan/fzf-lua/wiki/Advanced

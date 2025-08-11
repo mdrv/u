@@ -40,7 +40,7 @@ def _shot [
         }
         # H: Fix error: Cannot find column initial class
         let $CLASS = (hyprctl activewindow -j | from json)
-        if ($CLASS | is-empty) { return (if $quality == 'low' {4sec} else if $quality == 'high' {15sec} else {10sec}) }
+        if ($CLASS | is-empty) { return (if $quality == 'low' {4sec} else if $quality == 'high' {4sec} else {4sec}) }
         let $CLASS = ($CLASS | get initialClass)
         # if not $force and $CLASS in [foot Min] {
         #     ^dunstify -u low -t 500 -a ushot "🛇"
