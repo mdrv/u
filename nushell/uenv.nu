@@ -96,3 +96,4 @@ if not ($HOSTNAME_PATH | path exists) or (open $HOSTNAME_PATH | str trim) in [""
     input $"($HOSTNAME_PATH): " | str trim | sudo tee $HOSTNAME_PATH out> /dev/null
 }
 $env.HOSTNAME = (open $HOSTNAME_PATH --raw | str trim)
+$env.USER = ($env | get USER -o | default (whoami | str trim))
