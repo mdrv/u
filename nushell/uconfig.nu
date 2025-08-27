@@ -43,6 +43,7 @@ alias l = ls
 alias b = bun
 alias g = git
 alias n = nvim
+alias m = micro
 alias s = serai
 alias h = hirari
 alias ac = aichat
