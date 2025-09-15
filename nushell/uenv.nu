@@ -11,6 +11,8 @@ $env.PATH = ($env.PATH ++ [
     # $"($env.HOME)/.local/bin" # for non-latest python
     # $env.PNPM_HOME
     # add more if needed...
+	"/home/linuxbrew/.linuxbrew/bin"
+	"/home/linuxbrew/.linuxbrew/sbin"
 ] | uniq | where {path exists})
 
 $env.TMPDIR = $nu.temp-path
@@ -31,6 +33,10 @@ $env.LC_TELEPHONE = "en_US.UTF-8"
 $env.LC_MEASUREMENT = "en_US.UTF-8"
 $env.LC_IDENTIFICATION = "en_US.UTF-8"
 $env.LC_ALL = "en_US.UTF-8"
+
+$env.HOMEBREW_PREFIX = "/home/linuxbrew/.linuxbrew"
+$env.HOMEBREW_CELLAR = "/home/linuxbrew/.linuxbrew/Cellar"
+$env.HOMEBREW_REPOSITORY = "/home/linuxbrew/.linuxbrew/Homebrew"
 
 if ($"($nu.default-config-dir)/.u.nuon" | path exists) {
 	open ($nu.default-config-dir)/.u.nuon | get ENV? | default {} | load-env

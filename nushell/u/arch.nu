@@ -14,7 +14,7 @@ export def essential [] {
 }
 
 export def cli [] {
-	run-external ...$PACMAN rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash
+	run-external ...$PACMAN rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin"
 }
 
@@ -38,6 +38,7 @@ export def hyprland [] {
 	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc gthumb
 	run-external ...$PACMAN imagemagick libvips libopenslide poppler-glib chafa libheif
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
+	run-external ...$PACMAN mkvtoolnix-cli mkvtoolnix-gui
 	run-external ...$PACMAN neovide fcitx5 fcitx5-config-qt
 	print $"Might be needed: vulkan-intel"
 	print $"AUR: grimblast-git bibata-cursor-git quickshell-git google-breakpad localsend-bin tofi ttf-twemoji bulky"
