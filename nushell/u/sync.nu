@@ -69,7 +69,7 @@ export def main [
 
     let remote = ($REMOTE_LIST | input list -f "Choose your VPS")
     if ($remote | is-empty) {
-        break
+        return
     }
 
     let $local_path = ([$prefix $dir] | path join)
