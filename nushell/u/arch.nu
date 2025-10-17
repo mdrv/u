@@ -19,7 +19,7 @@ export def cli [] {
 }
 
 export def dev [] {
-	run-external ...$PACMAN svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver
+	run-external ...$PACMAN base-devel stylua svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver
 	print $"AUR: carapace-bin bun-bin"
 }
 
