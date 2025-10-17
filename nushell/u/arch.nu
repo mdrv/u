@@ -14,7 +14,7 @@ export def essential [] {
 }
 
 export def cli [] {
-	run-external ...$PACMAN rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
+	run-external ...$PACMAN aichat rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin"
 }
 
