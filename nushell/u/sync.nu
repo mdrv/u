@@ -51,14 +51,21 @@ group = true
 use ($nu.default-config-dir + "/u/confirm-if.nu")
 alias cif = confirm-if
 
+# https://github.com/nushell/nushell/discussions/13999#discussioncomment-10838086
+def "nu-complete files" [
+	prefix: string
+] { 
+	let word = $prefix | split row -r '\s+' | last
+	glob $"($word)*" | path relative-to $env.PWD 
+}
+
 export def main [
     args: list<string> = []
     --confirm (-c)
     --generate (-g)
-    --prefix (-p) = "/"
-    --dir (-d): string
+    --dir (-d): string@"nu-complete files"
 ] {
-	let $dir = ($dir | default (open ($nu.default-config-dir)/.u.nuon | get SYNC.DEFAULT_DIR))
+	let $dir = ($dir | default (open ($nu.default-config-dir)/.u.nuon | get SYNC.DEFAULT_DIR) | path expand)
 	let REMOTE_LIST = (open ($nu.default-config-dir)/.u.nuon | get SYNC.REMOTE_LIST)
 	# assert device-specific config
 
@@ -72,8 +79,8 @@ export def main [
         return
     }
 
-    let $local_path = ([$prefix $dir] | path join)
-    let $remote_path = ([$"ssh://root@($remote.ip):($remote.port)//" $dir] | path join)
+    let $local_path = $dir
+    let $remote_path = ([$"ssh://root@($remote.ip):($remote.port)/" $dir] | str join)
 
     let hosts = [$local_path $remote_path]
 
