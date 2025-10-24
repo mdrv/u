@@ -2,7 +2,7 @@ const DATA = {
 	atuin: {
 		items: [ config.toml ]
 	}
-	dunstrc: {
+	dunst: {
 		items: [ dunstrc ]
 	}
 	fastfetch: {
