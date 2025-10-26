@@ -49,6 +49,7 @@ alias h = hirari
 alias ac = aichat
 alias dp = dprint
 alias zj = zellij
+alias pb = pocketbase
 alias H = Hyprland
 alias gdl = gallery-dl
 
