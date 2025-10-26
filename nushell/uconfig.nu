@@ -77,8 +77,10 @@ def rgfzf [
 }
 alias rf = rgfzf
 
-def sftpd [host: string] {
-    ^sftp $"($host):(pwd)"
+def sftpd [
+	host: string
+] {
+	^sftp $"($host):(pwd)"
 }
 
 def cataas_size_list [] { [xsmall small medium square] }
