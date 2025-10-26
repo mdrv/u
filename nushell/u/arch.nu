@@ -14,12 +14,12 @@ export def essential [] {
 }
 
 export def cli [] {
-	run-external ...$PACMAN rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
+	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin"
 }
 
 export def dev [] {
-	run-external ...$PACMAN svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver
+	run-external ...$PACMAN base-devel stylua svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver
 	print $"AUR: carapace-bin bun-bin"
 }
 
@@ -34,7 +34,7 @@ export def graphics [] {
 }
 
 export def hyprland [] {
-	run-external ...$PACMAN hyprland hyprpaper hyprpicker slurp wl-clipboard kitty foot noto-fonts noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd grim tesseract-data-eng
+	run-external ...$PACMAN hyprland hyprpaper hyprpicker slurp wl-clipboard nwg-displays kitty foot noto-fonts noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd grim tesseract-data-eng
 	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc gthumb
 	run-external ...$PACMAN imagemagick libvips libopenslide poppler-glib chafa libheif
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
