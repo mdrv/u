@@ -27,6 +27,7 @@ const DATA = {
 	hypr: {
 		items: [
 			hyprland.conf
+			monitor.nu
 		]
 	}
 	kitty: {
