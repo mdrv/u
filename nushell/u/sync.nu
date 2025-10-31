@@ -33,6 +33,7 @@ ignore = Name .vitepress/cache
 ignore = Name src-tauri/target
 ignore = Name src-tauri/gen
 ignore = Name node_modules
+ignore = Name .svelte-kit
 ignore = Regex ^.*/_big/.*
 ignore = Name bun.lock*
 ignore = Name vite.config.[jt]s.timestamp-*
@@ -64,6 +65,7 @@ export def main [
     args: list<string> = []
     --confirm (-c)
     --generate (-g)
+	--user (-u)
     --dir (-d): string@"nu-complete files"
 ] {
 	let $dir = ($dir | default (open ($nu.default-config-dir)/.u.nuon | get SYNC.DEFAULT_DIR) | path expand)
@@ -72,6 +74,7 @@ export def main [
 
     if $generate {
         $u0prf | sudo tee /root/.unison/ua.prf out> /dev/null
+        $u0prf | save -f $"($nu.home-path)/.unison/ua.prf"
         return
     }
 
@@ -88,6 +91,11 @@ export def main [
     cif $confirm [$hosts]
 
     let cmds = ["unison" "ua" ...$hosts $"-clientHostName=($env.HOSTNAME)" "-batch=false" "-auto=false" ...$args]
-    print [sudo ...$cmds]
-    ^sudo ...$cmds
+	if ($user) {
+		print ...$cmds
+		run-external ...$cmds
+	} else {
+		print [sudo ...$cmds]
+		^sudo ...$cmds
+	}
 }
