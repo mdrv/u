@@ -35,7 +35,7 @@ export def graphics [] {
 
 export def hyprland [] {
 	run-external ...$PACMAN hyprland hyprpaper hyprpicker slurp wl-clipboard nwg-displays kitty foot noto-fonts noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd grim tesseract-data-eng xdg-desktop-portal-hyprland
-	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc gthumb
+	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc gthumb sqlitebrowser
 	run-external ...$PACMAN imagemagick libvips libopenslide poppler-glib chafa libheif
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
 	run-external ...$PACMAN mkvtoolnix-cli mkvtoolnix-gui

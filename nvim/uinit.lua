@@ -275,6 +275,7 @@ for _, path in ipairs(vim.api.nvim_get_runtime_file("**/ulsp/*.lua", true)) do
 end
 
 vim.lsp.enable("svelte")
+vim.lsp.enable("tsls")
 
 vim.keymap.set({ "n" }, "<leader>ls", function()
 	local ft = vim.bo.filetype
