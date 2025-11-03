@@ -37,8 +37,12 @@ ignore = Name .svelte-kit
 ignore = Regex ^.*/_big/.*
 ignore = Name bun.lock*
 ignore = Name vite.config.[jt]s.timestamp-*
+
 ignore = Path c/*
+ignorenot = Path c/??
+
 ignore = Path d/*/{archive,*.log,LOG*,LOCK}
+
 ignore = Path g/*/{*,.*}
 ignorenot = Path g/*/.git
 ignorenot = Path g/*/.git/config
