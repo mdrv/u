@@ -10,6 +10,7 @@ export def main [
     let blacklist = [
         [surrealist-bin "Much slower than web-app version!"]
         [ttyper "Already available on official PACMAN!"]
+        [quickshell "Already available on official PACMAN!"]
     ]
     let caught = ($blacklist | where $it.0 in $pkgnames)
     if ($caught | is-not-empty) {
