@@ -70,6 +70,8 @@ vim.filetype.add({
 	extension = {
 		nuon = "nu",
 		caddy = "caddy",
+		Caddyfile = "caddy",
+		svx = "markdown",
 	},
 	filename = {
 		["Caddyfile"] = "caddy",
