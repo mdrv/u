@@ -43,6 +43,7 @@ alias l = ls
 alias b = bun
 alias g = git
 alias n = nvim
+alias no = do { SHOW_NEOTREE=1 nvim -c $"cd ($env.NOTE_PATH)" }
 alias m = micro
 alias s = serai
 alias h = hirari

@@ -11,6 +11,12 @@ return {
 	opts = {
 		-- fill any relevant options here
 	},
+	config = function(_, opts)
+		-- require("neo-tree").setup(opts)
+		if vim.env.SHOW_NEOTREE == "1" then
+			vim.cmd("Neotree show")
+		end
+	end,
 	keys = {
 		{
 			"<Leader>bo",
