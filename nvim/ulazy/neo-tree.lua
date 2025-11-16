@@ -1,11 +1,12 @@
+--- @type LazyPluginSpec
 return {
-	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
+	'nvim-neo-tree/neo-tree.nvim',
+	branch = 'v3.x',
 	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons",
-		"MunifTanjim/nui.nvim",
-		"s1n7ax/nvim-window-picker",
+		'nvim-lua/plenary.nvim',
+		'nvim-tree/nvim-web-devicons',
+		'MunifTanjim/nui.nvim',
+		's1n7ax/nvim-window-picker',
 	},
 	lazy = false, -- neo-tree will lazily load itself
 	opts = {
@@ -13,17 +14,17 @@ return {
 	},
 	config = function(_, opts)
 		-- require("neo-tree").setup(opts)
-		if vim.env.SHOW_NEOTREE == "1" then
-			vim.cmd("Neotree show")
+		if vim.env.SHOW_NEOTREE == '1' then
+			vim.cmd('Neotree show')
 		end
 	end,
 	keys = {
 		{
-			"<Leader>bo",
+			'<Leader>bo',
 			function()
-				require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+				require('neo-tree.command').execute({ toggle = true, dir = vim.uv.cwd() })
 			end,
-			desc = "Toggle NeoTree (cwd)",
+			desc = 'Toggle NeoTree (cwd)',
 		},
 	},
 }

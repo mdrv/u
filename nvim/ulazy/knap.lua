@@ -1,28 +1,29 @@
 --https://github.com/frabjous/knap
+--- @type LazyPluginSpec
 return {
 	enabled = false,
-	"frabjous/knap",
+	'frabjous/knap',
 	keys = {
 		{
-			"<Leader>kp",
+			'<Leader>kp',
 			function()
-				require("knap").process_once()
+				require('knap').process_once()
 			end,
-			desc = "knap: process_once()",
+			desc = 'knap: process_once()',
 		},
 		{
-			"<Leader>kq",
+			'<Leader>kq',
 			function()
-				require("knap").close_viewer()
+				require('knap').close_viewer()
 			end,
-			desc = "knap: close_viewer()",
+			desc = 'knap: close_viewer()',
 		},
 		{
-			"<Leader>ka",
+			'<Leader>ka',
 			function()
-				require("knap").toggle_autopreviewing()
+				require('knap').toggle_autopreviewing()
 			end,
-			desc = "knap: toggle_autopreviewing()",
+			desc = 'knap: toggle_autopreviewing()',
 		},
 	},
 }

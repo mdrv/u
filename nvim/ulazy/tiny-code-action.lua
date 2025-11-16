@@ -1,13 +1,14 @@
+--- @type LazyPluginSpec
 return {
-	"rachartier/tiny-code-action.nvim",
+	'rachartier/tiny-code-action.nvim',
 	dependencies = {
-		"nvim-lua/plenary.nvim",
+		'nvim-lua/plenary.nvim',
 	},
-	event = "LspAttach",
+	event = 'LspAttach',
 	opts = {
-		backend = "delta",
+		backend = 'delta',
 		picker = {
-			"buffer",
+			'buffer',
 			opts = {
 				hotkeys = true,
 			},
@@ -15,9 +16,9 @@ return {
 	},
 	keys = {
 		{
-			"<Leader>ca",
+			'<Leader>ca',
 			function()
-				require("tiny-code-action").code_action()
+				require('tiny-code-action').code_action()
 			end,
 			{ noremap = true, silent = true },
 		},

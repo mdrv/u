@@ -1,15 +1,16 @@
+--- @type LazyPluginSpec
 return {
-	"catgoose/nvim-colorizer.lua",
+	'catgoose/nvim-colorizer.lua',
 	enabled = true,
-	event = "BufReadPre",
+	event = 'BufReadPre',
 	opts = {
 		filetypes = {
-			"toml",
-			"*",
+			'toml',
+			'*',
 		},
 		user_default_options = {
 			tailwind = false,
 		},
 	},
-	cmd = "ColorizerToggle",
+	cmd = 'ColorizerToggle',
 }

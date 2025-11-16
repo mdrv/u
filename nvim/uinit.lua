@@ -1,4 +1,4 @@
-ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath("config"), ".u.lua"))
+ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath('config'), '.u.lua'))
 if not ok then
 	U = {
 		LV = 0,
@@ -6,33 +6,40 @@ if not ok then
 end
 ok = nil
 
-local IIF = require("utils").IIF
+local IIF = require('utils').IIF
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "none" })
+vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
 
 local uname = vim.uv.os_uname()
 local g = vim.g
 local o = vim.o
 
-o.winborder = "rounded"
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = { 'jsonc' },
+	callback = function()
+		vim.bo.commentstring = '// %s'
+	end,
+})
+
+o.winborder = 'rounded'
 -- vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border = "rounded"}) end, { desc = "" })
 
 -- Disable Python 3 support for faster startup
 g.loaded_python3_provider = 0
 
 -- :h g:vimsyn_embed
-g.vimsyn_embed = "lP"
+g.vimsyn_embed = 'lP'
 
 -- navigation
-o.mouse = IIF(uname.machine == "x86_64", "a", "")
+o.mouse = IIF(uname.machine == 'x86_64', 'a', '')
 
 -- backup copy
 -- to prevent watch-enabled Bun instance from crashing
-o.backupcopy = "yes"
+o.backupcopy = 'yes'
 
 -- :h 'modeline'
 o.modeline = true
@@ -41,10 +48,10 @@ o.modeline = true
 o.showmode = false
 
 -- id=clipboard
-o.clipboard = "unnamedplus"
+o.clipboard = 'unnamedplus'
 
 -- BUG?: `<Space>` cannot be used.
-g.mapleader = " "
+g.mapleader = ' '
 
 -- tab
 o.tabstop = 4
@@ -53,31 +60,33 @@ o.shiftwidth = 4
 o.expandtab = false -- tabs vs. spaces
 
 -- content
-o.ffs = "unix,dos"
+o.ffs = 'unix,dos'
 o.fixeol = false -- o.fixendofline
 
 -- search
 o.ignorecase = true
+
+-- o.completeopt = "menu,popup" -- already default
 
 -- styling
 o.number = true
 o.relativenumber = true
 o.termguicolors = true
 o.laststatus = 3
-o.shada = "!,'1000,<50,s10,h" -- default: !,'100,<50,s10,h
+o.shada = '!,\'1000,<50,s10,h' -- default: !,'100,<50,s10,h
 
 vim.filetype.add({
 	extension = {
-		nuon = "nu",
-		caddy = "caddy",
-		Caddyfile = "caddy",
-		svx = "markdown",
+		nuon = 'nu',
+		caddy = 'caddy',
+		Caddyfile = 'caddy',
+		svx = 'markdown',
 	},
 	filename = {
-		["Caddyfile"] = "caddy",
+		['Caddyfile'] = 'caddy',
 	},
 	pattern = {
-		["${HOME}/.config/hypr/.*.conf"] = "hyprlang",
+		['${HOME}/.config/hypr/.*.conf'] = 'hyprlang',
 	},
 })
 
@@ -91,29 +100,29 @@ for i = 0, 9 do
 	table.insert(alphanumeric, tostring(i))
 end
 for _, char in ipairs(alphanumeric) do
-	vim.keymap.set({ "n", "v" }, "q" .. char, "", { desc = "noop", remap = false, silent = true })
+	vim.keymap.set({ 'n', 'v' }, 'q' .. char, '', { desc = 'noop', remap = false, silent = true })
 end
 
 -- id=keymaps
-vim.keymap.set({ "n", "v" }, ";", ":", { desc = "No-Shift Ex mode" })
-vim.keymap.set("n", "qw", ":w<CR>", { desc = "Quick/easy save", silent = true })
-vim.keymap.set("n", "qq", ":q<CR>", { desc = "Quick/easy quit", silent = true })
-vim.keymap.set("n", "qa", ":qa<CR>", { desc = "Quick/easy quit all", silent = true })
-vim.keymap.set("n", "qfa", ":qa!<CR>", { desc = "Quick/easy quit all (force)", silent = true })
-vim.keymap.set("n", "qe", ":e<CR>", { desc = "Quick/easy reload", silent = true })
-vim.keymap.set("n", "qs", ":mksession! ", { desc = "Quick/easy save session" })
-vim.keymap.set("n", "<Leader>xll", ":.lua<CR>", { desc = "Execute Lua on current line", silent = true })
-vim.keymap.set("v", "<Leader>xll", ":'<,'>lua<CR>", { desc = "Execute Lua on selection", silent = true })
-vim.keymap.set("n", "<Leader>tcd", ":tcd %:h<CR>", { desc = "Navigate tab (go) to current file directory" })
+vim.keymap.set({ 'n', 'v' }, ';', ':', { desc = 'No-Shift Ex mode' })
+vim.keymap.set('n', 'qw', ':w<CR>', { desc = 'Quick/easy save', silent = true })
+vim.keymap.set('n', 'qq', ':q<CR>', { desc = 'Quick/easy quit', silent = true })
+vim.keymap.set('n', 'qa', ':qa<CR>', { desc = 'Quick/easy quit all', silent = true })
+vim.keymap.set('n', 'qfa', ':qa!<CR>', { desc = 'Quick/easy quit all (force)', silent = true })
+vim.keymap.set('n', 'qe', ':e<CR>', { desc = 'Quick/easy reload', silent = true })
+vim.keymap.set('n', 'qs', ':mksession! ', { desc = 'Quick/easy save session' })
+vim.keymap.set('n', '<Leader>xll', ':.lua<CR>', { desc = 'Execute Lua on current line', silent = true })
+vim.keymap.set('v', '<Leader>xll', ':\'<,\'>lua<CR>', { desc = 'Execute Lua on selection', silent = true })
+vim.keymap.set('n', '<Leader>tcd', ':tcd %:h<CR>', { desc = 'Navigate tab (go) to current file directory' })
 
 function _G._statusline_lsp()
 	local tmp = vim.lsp.get_clients({ bufnr = 0 })
-	return "<" .. table.concat(
+	return '<' .. table.concat(
 		vim.tbl_map(function(t)
 			return t.name
 		end, tmp),
-		" "
-	) .. ">"
+		' '
+	) .. '>'
 end
 
 -- https://www.reddit.com/r/neovim/comments/1itvmme/comment/mdshwq0/
@@ -125,35 +134,35 @@ function _G._statusline_diag(level)
 		vim.diagnostic.severity.ERROR,
 	}
 	if (vim.diagnostic.count(0)[levels[level]] or 0) > 0 then
-		return "●"
+		return '●'
 	else
 		-- return "◌"
-		return "○"
+		return '○'
 	end
 end
 
 local function statusline()
-	local set_color_0 = "%#ModeBg#"
-	local set_color_1 = "%#CursorLineNr#"
-	local set_color_2 = "%#LineNr#"
-	local diag_error = "%#DiagnosticError#%{%v:lua._G._statusline_diag(4)%}"
-	local diag_warn = "%#DiagnosticWarn#%{%v:lua._G._statusline_diag(3)%}"
-	local diag_info = "%#DiagnosticInfo#%{%v:lua._G._statusline_diag(2)%}"
-	local diag_hint = "%#DiagnosticHint#%{%v:lua._G._statusline_diag(1)%}"
-	local current_mode = "%{mode()}"
-	local file_name = "%f"
-	local modified = "%m"
-	local align_right = "%=%<" -- + truncate line
+	local set_color_0 = '%#ModeBg#'
+	local set_color_1 = '%#CursorLineNr#'
+	local set_color_2 = '%#LineNr#'
+	local diag_error = '%#DiagnosticError#%{%v:lua._G._statusline_diag(4)%}'
+	local diag_warn = '%#DiagnosticWarn#%{%v:lua._G._statusline_diag(3)%}'
+	local diag_info = '%#DiagnosticInfo#%{%v:lua._G._statusline_diag(2)%}'
+	local diag_hint = '%#DiagnosticHint#%{%v:lua._G._statusline_diag(1)%}'
+	local current_mode = '%{mode()}'
+	local file_name = '%f'
+	local modified = '%m'
+	local align_right = '%=%<' -- + truncate line
 	-- local completion = "%{%v:lua._G._statusline_completion()%}"
-	local lsp = "%{%v:lua._G._statusline_lsp()%}"
-	local filetype = " %y"
-	local fileencoding = " %{&fileencoding?&fileencoding:&encoding}"
-	local fileformat = " [%{&fileformat}]"
-	local percentage = " %p%%"
-	local linecol = " %l:%c"
+	local lsp = '%{%v:lua._G._statusline_lsp()%}'
+	local filetype = ' %y'
+	local fileencoding = ' %{&fileencoding?&fileencoding:&encoding}'
+	local fileformat = ' [%{&fileformat}]'
+	local percentage = ' %p%%'
+	local linecol = ' %l:%c'
 
 	return string.format(
-		"%s %s%s%s%s [ %s %s %s %s %s] %s %s%s%s%s%s%s",
+		'%s %s%s%s%s [ %s %s %s %s %s] %s %s%s%s%s%s%s',
 		set_color_0,
 		-- current_mode,
 		set_color_1,
@@ -180,10 +189,10 @@ vim.o.statusline = statusline()
 -- id=util-set_theme_with_fallback
 -- can be used anywhere
 local function set_theme_with_fallback(themes)
-	local available_themes = vim.fn.getcompletion("", "color")
+	local available_themes = vim.fn.getcompletion('', 'color')
 	for _, x in pairs(themes) do
 		if vim.tbl_contains(available_themes, x) then
-			vim.cmd(string.format("colorscheme %s", x))
+			vim.cmd(string.format('colorscheme %s', x))
 			break
 		end
 	end
@@ -196,18 +205,18 @@ end
 -- stylua: ignore
 local themes = {
     dark = {
-        "cyberdream", "tokyonight-storm", "tokyonight", "kanagawa", "juliana", "minimal", "sonokai", -- external
-        "default", "slate", "habamax", "desert", "industry", "lunaperche", "darkblue", -- built-in
+        'cyberdream', 'tokyonight-storm', 'tokyonight', 'kanagawa', 'juliana', 'minimal', 'sonokai', -- external
+        'default', 'slate', 'habamax', 'desert', 'industry', 'lunaperche', 'darkblue', -- built-in
     },
     light = {
-        -- "cyberdream-light", -- H: Has issue with transparency
-	"kanso-pearl", "classic-monokai", "catppuccin-latte", "tokyonight-day", "rose-pine-dawn", -- external
-        "shine", "peachpuff", "quiet", "morning", -- built-in
+        -- 'cyberdream-light', -- H: Has issue with transparency
+		'kanso-pearl', 'classic-monokai', 'catppuccin-latte', 'tokyonight-day', 'rose-pine-dawn', -- external
+        'shine', 'peachpuff', 'quiet', 'morning', -- built-in
     },
 }
 
 -- id=theme-autocmd
-vim.api.nvim_create_autocmd("UiEnter", {
+vim.api.nvim_create_autocmd('UiEnter', {
 	callback = function()
 		set_theme_with_fallback(themes[o.background])
 	end,
@@ -220,10 +229,10 @@ vim.diagnostic.config({
 	},
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = "⏺", -- ⏺⦁︎
-			[vim.diagnostic.severity.WARN] = "⏺",
-			[vim.diagnostic.severity.INFO] = "⏺",
-			[vim.diagnostic.severity.HINT] = "⏺",
+			[vim.diagnostic.severity.ERROR] = '⏺', -- ⏺⦁︎
+			[vim.diagnostic.severity.WARN] = '⏺',
+			[vim.diagnostic.severity.INFO] = '⏺',
+			[vim.diagnostic.severity.HINT] = '⏺',
 		},
 	},
 	severity_sort = true,
@@ -238,21 +247,21 @@ end
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.mapleader = ' '
+vim.g.maplocalleader = '\\'
 
 -- id=lazy.nvim-setup1
 -- l: https://lazy.folke.io/installation
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+	local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
+			{ 'Failed to clone lazy.nvim:\n', 'ErrorMsg' },
+			{ out, 'WarningMsg' },
+			{ '\nPress any key to exit...' },
 		}, true, {})
 		vim.fn.getchar()
 		os.exit(1)
@@ -260,35 +269,35 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_autocmd('VimEnter', {
 	callback = function()
-		require("lazy").setup({ import = "ulazy" })
+		require('lazy').setup({ import = 'ulazy' })
 	end,
 })
-vim.keymap.set("n", "<Leader>lz", "<Cmd>Lazy<CR>", { desc = "Open lazy.nvim panel" })
+vim.keymap.set('n', '<Leader>lz', '<Cmd>Lazy<CR>', { desc = 'Open lazy.nvim panel' })
 
-vim.keymap.set({ "n" }, "<leader>li", "<Cmd>checkhealth vim.lsp<CR>", { desc = "Check LSP" })
+vim.keymap.set({ 'n' }, '<leader>li', '<Cmd>checkhealth vim.lsp<CR>', { desc = 'Check LSP' })
 
 -- load lsp files (by default; lsp must be configured and enabled to trigger load)
-for _, path in ipairs(vim.api.nvim_get_runtime_file("**/ulsp/*.lua", true)) do
+for _, path in ipairs(vim.api.nvim_get_runtime_file('**/ulsp/*.lua', true)) do
 	local id = vim.fs.basename(path):sub(1, -5)
 	local config = dofile(path)
-	vim.lsp.config._configs[id] = vim.tbl_deep_extend("force", vim.lsp.config._configs[id] or {}, config)
+	vim.lsp.config._configs[id] = vim.tbl_deep_extend('force', vim.lsp.config._configs[id] or {}, config)
 end
 
-vim.lsp.enable("svelte")
-vim.lsp.enable("tsls")
+vim.lsp.enable('svelte')
+vim.lsp.enable('tsls')
 
-vim.keymap.set({ "n" }, "<leader>ls", function()
+vim.keymap.set({ 'n' }, '<leader>ls', function()
 	local ft = vim.bo.filetype
 	-- https://github.com/ibhagwan/fzf-lua/wiki/Advanced
-	require("fzf-lua").fzf_exec(function(fzf_cb)
+	require('fzf-lua').fzf_exec(function(fzf_cb)
 		local nonstars = {}
 		for id, config in pairs(vim.lsp.config._configs) do
 			-- VNI({id, ft})
-			if id == "*" then
+			if id == '*' then
 			elseif config.filetypes ~= nil and vim.tbl_contains(config.filetypes, ft) then
-				fzf_cb(id .. " ⭐")
+				fzf_cb(id .. ' ⭐')
 			else
 				table.insert(nonstars, id)
 			end
@@ -300,17 +309,17 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
 	end, {
 		actions = {
 			tab = function(selected, opts)
-				local key = selected[1]:match("^([%w_]+)%s?") -- don’t forget underscore
+				local key = selected[1]:match('^([%w_]+)%s?') -- don’t forget underscore
 				vim.lsp.enable(key)
 			end,
-			["default"] = function(selected, opts)
+			['default'] = function(selected, opts)
 				if selected == nil then
 					return
 				end
-				local key = selected[1]:match("^([%w_]+)%s?") -- don’t forget underscore
+				local key = selected[1]:match('^([%w_]+)%s?') -- don’t forget underscore
 				local root_markers = vim.lsp.config._configs[key].root_markers or nil
 				local config = vim.tbl_deep_extend(
-					"error",
+					'error',
 					vim.lsp.config._configs[key],
 					{ root_dir = root_markers and vim.fs.root(0, root_markers) or nil }
 				)
@@ -333,29 +342,29 @@ vim.keymap.set({ "n" }, "<leader>ls", function()
 			end,
 		},
 	})
-end, { desc = "Start LSP (with fzf-lua)" })
+end, { desc = 'Start LSP (with fzf-lua)' })
 
-vim.keymap.set({ "n" }, "<leader>lxa", function()
-	vim.notify("Stopping all LSP clients...")
+vim.keymap.set({ 'n' }, '<leader>lxa', function()
+	vim.notify('Stopping all LSP clients...')
 	vim.lsp.stop_client(vim.lsp.get_clients())
-end, { desc = "Stop all LSP clients" })
+end, { desc = 'Stop all LSP clients' })
 
-vim.keymap.set({ "n" }, "<leader>lxi", function()
-	require("fzf-lua").fzf_exec(function(fzf_cb)
+vim.keymap.set({ 'n' }, '<leader>lxi', function()
+	require('fzf-lua').fzf_exec(function(fzf_cb)
 		local clients = vim.lsp.get_clients()
 		for _, client in ipairs(clients) do
-			if client.name ~= "null-ls" then
-				local str = string.format("%s %s %s", client.id, client.name, client.root_dir)
+			if client.name ~= 'null-ls' then
+				local str = string.format('%s %s %s', client.id, client.name, client.root_dir)
 				fzf_cb(str)
 			end
 		end
 		fzf_cb()
 	end, {
 		actions = {
-			["default"] = function(selected)
-				local id = selected[1]:match("^(%d+)%s?")
+			['default'] = function(selected)
+				local id = selected[1]:match('^(%d+)%s?')
 				vim.lsp.stop_client(tonumber(id))
 			end,
 		},
 	})
-end, { desc = "Stop LSP (with fzf-lua)" })
+end, { desc = 'Stop LSP (with fzf-lua)' })

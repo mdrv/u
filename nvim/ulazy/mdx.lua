@@ -1,5 +1,6 @@
+--- @type LazyPluginSpec
 return {
-	"davidmh/mdx.nvim",
+	'davidmh/mdx.nvim',
 	config = true,
-	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	dependencies = { 'nvim-treesitter/nvim-treesitter' },
 }
