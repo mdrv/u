@@ -53,6 +53,7 @@ alias zj = zellij
 alias pb = pocketbase
 alias H = Hyprland
 alias gdl = gallery-dl
+alias cop = copilot --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 
 alias umod = nu ~/.config/nushell/u/mod_.nu
 alias um = u mount
