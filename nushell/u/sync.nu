@@ -90,8 +90,10 @@ export def main [
         return
     }
 
+	let $username = if not $user {"root"} else {(whoami)}
+
     let $local_path = $dir
-    let $remote_path = ([$"ssh://root@($remote.ip):($remote.port)/" $dir] | str join)
+    let $remote_path = ([$"ssh://($username)@($remote.ip):($remote.port)/" $dir] | str join)
 
     let hosts = [$local_path $remote_path]
 
