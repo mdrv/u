@@ -1,0 +1,13 @@
+// https://opencode.ai/docs/config/
+{
+	"$schema": "https://opencode.ai/config.json",
+	"formatter": {
+		"dprint": {
+			"command": ["dprint", "fmt", "$FILE"],
+			"extensions": [".svelte", ".ts", ".js", ".tsx", ".jsx", ".html", ".css", ".json", ".yaml", ".md"]
+		},
+		"prettier": {
+			"disabled": true
+		}
+	}
+}

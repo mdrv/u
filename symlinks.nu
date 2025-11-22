@@ -1,4 +1,7 @@
 const DATA = {
+	aichat: {
+		items: [ config.yaml ]
+	}
 	atuin: {
 		items: [ config.toml ]
 	}
@@ -49,6 +52,9 @@ const DATA = {
 			utils.lua
 		]
 		message: r#'Enable plugins by adding `.u.lua`: `return {LV = 1}`'#
+	}
+	opencode: {
+		items: [ opencode.jsonc ]
 	}
 	quickshell: {
 		items: [
