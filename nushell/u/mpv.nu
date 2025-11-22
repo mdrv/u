@@ -63,8 +63,8 @@ export def main [
     let $glob = ([($args | last)] | flatten)
 
     if "q15" in $args {$mods ++= ["--audio-exclusive" '--audio-device=alsa/iec958:CARD=Q15,DEV=0']}
-    if "dc03pro" in $args {$mods ++= ["--audio-exclusive" '--audio-device=alsa/iec958:CARD=iBassoDC03Pro,DEV=0']}
     if "ja11" in $args {$mods ++= ["--audio-exclusive" '--audio-device=alsa/iec958:CARD=JA11,DEV=0']}
+    if "dc03pro" in $args {$mods ++= ["--audio-exclusive" '--audio-device=alsa/iec958:CARD=iBassoDC03Pro,DEV=0']}
 
     if "ft5" in $args {$mods ++= [([
         '-af=format=double,volume=-8.3dB    '
@@ -140,6 +140,12 @@ export def main [
         '-af=format=double,volume=0dB    '
         'lowshelf=f=500  :t=q:w=0.8 :g=-7'
         'equalizer=f=300 :t=q:w=0.5 :g=-1'
+    ] | str replace -a ' ' '' | str join ',')]}
+
+    if "active2" in $args {$mods ++= [([
+        '-af=format=double,volume=0dB      '
+        'lowshelf=f=450  :t=q:w=0.5 :g=-4.0'
+        'highshelf=f=10000  :t=q:w=0.8 :g=-1.0 '
     ] | str replace -a ' ' '' | str join ',')]}
 
     if $verbose {

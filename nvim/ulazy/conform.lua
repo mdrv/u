@@ -4,6 +4,7 @@ return {
 	--- @type conform.setupOpts
 	opts = {
 		formatters_by_ft = {
+			cpp = { 'astyle' },
 			lua = { 'dprint', 'stylua' },
 			javascript = { 'dprint' },
 			javascriptreact = { 'dprint' },

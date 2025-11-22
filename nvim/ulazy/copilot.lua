@@ -7,6 +7,16 @@ return {
 	cmd = 'Copilot',
 	event = 'InsertEnter',
 	config = function()
-		require('copilot').setup({})
+		require('copilot').setup({
+			suggestion = {
+				enabled = true,
+				auto_trigger = true,
+				keymap = {
+					accept = '<C-j>',
+					dismiss = '<C-h>',
+				},
+			},
+		})
+		-- require("copilot.suggestion").toggle_auto_trigger()
 	end,
 }
