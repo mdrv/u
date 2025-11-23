@@ -10,9 +10,13 @@ export def main [
         let $str = (ulid | str trim)
         $str | wl-copy
         ^dunstify -u low -t 1000 $"Copied: ($str)"
-    } else if ($type == 'time') {
+    } else if ($type == 'iso') {
         let $str = (date now | date to-timezone '+0000' | format date '%Y-%m-%dT%H:%M:%SZ')
         $str | wl-copy
         ^dunstify -u low -t 1000 $"Copied: ($str)"
-    }
+    } else if ($type == 'time') {
+        let $str = (date now | date to-timezone local | format date '%Y%m%d-%H%M%S')
+        $str | wl-copy
+        ^dunstify -u low -t 1000 $"Copied: ($str)"
+	}
 }
