@@ -50,10 +50,12 @@ alias h = hirari
 alias ac = aichat
 alias dp = dprint
 alias zj = zellij
+alias oc = opencode
 alias pb = pocketbase
 alias H = Hyprland
 alias gdl = gallery-dl
 alias cop = copilot --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
+alias coph = copilot --model claude-haiku-4.5 --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 
 alias umod = nu ~/.config/nushell/u/mod_.nu
 alias um = u mount
