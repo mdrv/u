@@ -32,6 +32,7 @@ return {
 					'~/.local/share/nvim/lazy/lazy.nvim',
 					'~/.local/share/nvim/lazy/blink.cmp',
 					'~/.local/share/nvim/lazy/conform.nvim',
+					'~/.local/share/nvim/lazy/which-key.nvim',
 					-- "~/.local/share/nvim/lazy/snacks.nvim",
 					-- "~/.local/share/nvim/lazy/nvim-notify",
 					-- "~/.local/share/nvim/lazy/yazi.nvim",

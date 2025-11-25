@@ -274,6 +274,9 @@ vim.api.nvim_create_autocmd('VimEnter', {
 		require('lazy').setup({ import = 'ulazy' })
 	end,
 })
+
+vim.keymap.del('n', 'gc') -- prevent warning from which-key.nvim
+
 vim.keymap.set('n', '<Leader>lz', '<Cmd>Lazy<CR>', { desc = 'Open lazy.nvim panel' })
 
 vim.keymap.set({ 'n' }, '<leader>li', '<Cmd>checkhealth vim.lsp<CR>', { desc = 'Check LSP' })
