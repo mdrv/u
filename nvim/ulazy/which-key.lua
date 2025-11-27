@@ -19,13 +19,13 @@ return {
 				separator = "→", -- symbol used between a key and it's label
 				group = "+", -- symbol prepended to a group
 			},
-			win = {
-				border = "rounded", -- none, single, double, shadow, rounded
-				position = "bottom", -- bottom, top
-				margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-				padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
+		win = {
+			border = "rounded", -- none, single, double, shadow, rounded
+			padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+			wo = {
 				winblend = 0, -- value between 0-100 for transparency
 			},
+		},
 			layout = {
 				height = { min = 4, max = 25 }, -- min and max height of the columns
 				width = { min = 20, max = 50 }, -- min and max width of the columns
@@ -35,7 +35,6 @@ return {
 		})
 
 		-- Register key groups for better organization
-		--- @type wk.Spec
 		wk.add({
 			{ "<leader>l", group = "LSP" },
 			{ "<leader>z", group = "OpenCode" },

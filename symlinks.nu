@@ -50,6 +50,8 @@ const DATA = {
 			ulsp
 			uinit.lua
 			utils.lua
+			# plugins
+			unavigate
 		]
 		message: r#'Enable plugins by adding `.u.lua`: `return {LV = 1}`'#
 	}
