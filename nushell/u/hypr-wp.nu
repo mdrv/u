@@ -60,10 +60,14 @@ export def main [
 
     if $persist {
         [
-            "splash = false"
-            "ipc = on"
-            $"preload = ($p)"
-            $"wallpaper = , ($p)"
+			"splash = false"
+			"ipc = true"
+			""
+			"wallpaper {"
+			"	monitor ="
+            $"    path = ($p)"
+            $"    fit_mode = cover"
+            "}"
         ] | save -f ~/.config/hypr/hyprpaper.conf
         print $"(ansi bb)hyprpaper.conf(ansi gb) updated(ansi reset)"
     }
