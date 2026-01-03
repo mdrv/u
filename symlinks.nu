@@ -59,6 +59,13 @@ const DATA = {
 	opencode: {
 		items: [ opencode.jsonc ]
 	}
+	otd: {
+		target: ($nu.home-path)/.config/OpenTabletDriver/Presets
+		items: [
+			"Deco 640 Artist Mode.json"
+			"Deco 640 Absolute Mode.json"
+		]
+	}
 	quickshell: {
 		items: [
 			shell.qml
