@@ -46,6 +46,8 @@ ignore = Path d/*/{archive,*.log,LOG*,LOCK}
 ignore = Path g/*/{*,.*}
 ignorenot = Path g/*/.git
 ignorenot = Path g/*/.git/config
+ignorenot = Path g/vdev/*/.git
+ignorenot = Path g/vdev/*/.git/config
 
 times = true
 diff = delta OLDER NEWER
