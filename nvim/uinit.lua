@@ -81,6 +81,7 @@ vim.filetype.add({
 		caddy = 'caddy',
 		Caddyfile = 'caddy',
 		svx = 'markdown',
+		mdx = 'mdx',
 	},
 	filename = {
 		['Caddyfile'] = 'caddy',

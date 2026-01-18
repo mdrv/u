@@ -23,5 +23,7 @@ return {
 			'TSInstall bash c cpp csv glsl go hyprlang ini kdl python query regex rust scheme toml tsv yaml zig',
 			{}
 		)
+
+		vim.treesitter.language.register('markdown', { 'mdx' })
 	end,
 }
