@@ -1,4 +1,5 @@
 <script lang='ts'>
+	import { goto } from '$app/navigation'
 	import FileTree from '$lib/components/FileTree.svelte'
 
 	let { data } = $props()
@@ -85,7 +86,7 @@
 					showOnlyAnnotated={showOnlyAnnotated}
 					onSelect={(e) => {
 						const path = e.detail.path
-						window.location.href = `/file/${encodeURIComponent(path)}`
+						goto(`/file/${encodeURIComponent(path)}`)
 					}}
 				/>
 			</div>

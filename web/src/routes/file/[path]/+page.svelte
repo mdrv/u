@@ -1,4 +1,5 @@
 <script lang='ts'>
+	import { goto } from '$app/navigation'
 	import CodeViewerComponent from '$lib/components/CodeViewer.svelte'
 	import FileTree from '$lib/components/FileTree.svelte'
 
@@ -41,7 +42,7 @@
 				onSelect={(e) => {
 					const path = e.detail.path
 					if (path !== data.file.path) {
-						window.location.href = `/file/${encodeURIComponent(path)}`
+						goto(`/file/${encodeURIComponent(path)}`)
 					}
 				}}
 			/>
