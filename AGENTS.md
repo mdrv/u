@@ -25,8 +25,9 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 - Must not build the project nor commit to Git without developer consent.
 - Always prefer accuracy over speed.
 - Always add modern tests (when applicable) to ensure code integrity.
-- Follow latest Svelte 5 syntax (especially $state and onMount), read https://svelte.dev/llms.txt
-  - AVOID `export let`, `on:click`, etc. from outdated Svelte 3 syntaxes
+- Always follow https://svelte.dev/llms.txt for latest Svelte 5 syntax
+  - EMBRACE $state/$derived/$proos, onMount, mount(), @attach, snippets
+  - AVOID `export let`, `on:click`, slots, new App(), svelte/store, etc. (from outdated Svelte)
 - Must use latest Panda CSS for complex styling. (guide: https://panda-css.com/docs/docs/installation/svelte)
 - Else, must prefer inline styling (right on HTML tags) in Svelte components.
 - Must utilize Bun and TypeScript on every possible area of code.

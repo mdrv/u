@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 	const parentData = await parent()
 	const filePath = decodeURIComponent(params.path)
 
-	const repoData = parentData.data.repoData
+	const repoData = parentData.repoData
 	const file = getFileByPath(filePath, repoData)
 
 	if (!file) {

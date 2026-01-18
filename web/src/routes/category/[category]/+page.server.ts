@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 	const parentData = await parent()
 	const category = params.category
 
-	const repoData = parentData.data.repoData
+	const repoData = parentData.repoData
 	const files = getCategoryFiles(category, repoData)
 
 	if (files.length === 0) {
