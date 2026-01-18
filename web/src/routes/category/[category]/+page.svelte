@@ -1,4 +1,6 @@
 <script lang='ts'>
+	import { resolve } from '$app/paths'
+
 	let { data }: { data: any } = $props()
 
 	let showOnlyAnnotated = $state(false)
@@ -7,7 +9,7 @@
 
 	let filteredFiles = $derived.by(() =>
 		data.files
-			.filter((f) => {
+			.filter((f: any) => {
 				if (showOnlyAnnotated && !f.isAnnotated) return false
 				if (
 					searchTerm && !f.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -17,7 +19,7 @@
 				}
 				return true
 			})
-			.sort((a, b) => {
+			.sort((a: any, b: any) => {
 				if (sortBy === 'name') return a.name.localeCompare(b.name)
 				if (sortBy === 'path') return a.path.localeCompare(b.path)
 				if (sortBy === 'annotations') {
@@ -49,7 +51,7 @@
 		style='border-color: {getCategoryColor(data.category)}'
 	>
 		<div class='header-content'>
-			<a href='/' class='back-link'>← Back to all files</a>
+			<a href={resolve('/')} class='back-link'>← Back to all files</a>
 			<h1 class='category-title'>{data.category}</h1>
 			<p class='category-description'>
 				{filteredFiles.length} {filteredFiles.length === 1 ? 'file' : 'files'}
@@ -108,7 +110,7 @@
 			<div class='file-list'>
 				{#each filteredFiles as file}
 					<a
-						href='/file/{encodeURIComponent(file.path)}'
+						href={resolve('/file/[path]', { path: file.path })}
 						class='file-card'
 						style='border-color: {getCategoryColor(data.category)}'
 					>

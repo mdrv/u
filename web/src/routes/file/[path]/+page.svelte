@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import { goto } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import CodeViewerComponent from '$lib/components/CodeViewer.svelte'
 	import FileTree from '$lib/components/FileTree.svelte'
 
@@ -13,9 +14,11 @@
 	<header class='page-header'>
 		<h1>{data.file.name}</h1>
 		<div class='breadcrumb'>
-			<a href='/'>Dotfiles</a>
+			<a href={resolve('/')}>Dotfiles</a>
 			<span class='separator'>/</span>
-			<a href='/category/{data.file.category}'>{data.file.category}</a>
+			<a
+				href={resolve('/category/[category]', { category: data.file.category })}
+			>{data.file.category}</a>
 			<span class='separator'>/</span>
 			<span>{data.file.name}</span>
 		</div>
@@ -42,7 +45,7 @@
 				onSelect={(e) => {
 					const path = e.detail.path
 					if (path !== data.file.path) {
-						goto(`/file/${encodeURIComponent(path)}`)
+						goto(resolve('/file/[path]', { path }))
 					}
 				}}
 			/>

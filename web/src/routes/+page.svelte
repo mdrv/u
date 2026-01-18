@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import { goto } from '$app/navigation'
+	import { resolve } from '$app/paths'
 	import FileTree from '$lib/components/FileTree.svelte'
 
 	let { data } = $props()
@@ -86,7 +87,7 @@
 					showOnlyAnnotated={showOnlyAnnotated}
 					onSelect={(e) => {
 						const path = e.detail.path
-						goto(`/file/${encodeURIComponent(path)}`)
+						goto(resolve('/file', { path }))
 					}}
 				/>
 			</div>
@@ -129,7 +130,7 @@
 					<div class='category-grid'>
 						{#each data.repoData.categories as category}
 							<a
-								href='/category/{category.category}'
+								href={resolve('/category/[category]', { category: category.category })}
 								class='category-card'
 								style='border-color: {getCategoryColor(category.category)}'
 							>
