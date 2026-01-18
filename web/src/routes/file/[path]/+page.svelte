@@ -35,7 +35,7 @@
 			<div class='sidebar-header'>
 				<h3>File Tree</h3>
 			</div>
-		<FileTree
+			<FileTree
 				tree={data.repoData.fileTree}
 				showOnlyAnnotated={showOnlyAnnotated}
 				onSelect={(e) => {
@@ -44,7 +44,7 @@
 						window.location.href = `/file/${encodeURIComponent(path)}`
 					}
 				}}
-		/>
+			/>
 		</aside>
 
 		<div class='content'>

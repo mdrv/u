@@ -136,7 +136,7 @@
 						<span class='node-name'>{node.name}</span>
 						{#if node.isAnnotated}
 							<span class='annotation-indicator' style='background: {color}'
-								>①</span>
+							>①</span>
 						{/if}
 					</div>
 				{/if}
