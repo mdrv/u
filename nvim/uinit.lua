@@ -1,4 +1,5 @@
 ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath('config'), '.u.lua'))
+-- ANNOTATION: Load device-specific user configuration from .u.lua file
 if not ok then
 	U = {
 		LV = 0,
@@ -13,6 +14,7 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
+-- ANNOTATION: Set transparent background for transparent terminal support
 
 local uname = vim.uv.os_uname()
 local g = vim.g
@@ -24,18 +26,23 @@ vim.api.nvim_create_autocmd('FileType', {
 		vim.bo.commentstring = '// %s'
 	end,
 })
+-- ANNOTATION: Set comment string for JSONC files to use double-slash
 
 o.winborder = 'rounded'
+-- ANNOTATION: Use rounded borders for floating windows
 -- vim.keymap.set("n", "K", function() vim.lsp.buf.hover({border = "rounded"}) end, { desc = "" })
 
 -- Disable Python 3 support for faster startup
 g.loaded_python3_provider = 0
+-- ANNOTATION: Disabling Python provider speeds up Neovim startup significantly
 
 -- :h g:vimsyn_embed
 g.vimsyn_embed = 'lP'
+-- ANNOTATION: Enable Lua and Perl syntax embedded in Vim scripts
 
 -- navigation
 o.mouse = IIF(uname.machine == 'x86_64', 'a', '')
+-- ANNOTATION: Enable mouse support on x86_64 only (RISC-V hardware doesn't have GUI)
 
 -- backup copy
 -- to prevent watch-enabled Bun instance from crashing
