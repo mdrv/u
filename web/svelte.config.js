@@ -17,7 +17,7 @@ const config = {
 			strict: true,
 		}),
 		paths: {
-			base: '/dotfiles',
+			base: '/u',
 		},
 	},
 }
