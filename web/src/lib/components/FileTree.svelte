@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import type { TreeNode } from '$lib/types.js'
+	import FileTree from './FileTree.svelte'
 
 	let { tree, activePath = null, showOnlyAnnotated = false, onSelect }: {
 		tree: TreeNode[]
@@ -116,10 +117,11 @@
 					{#if node.expanded && node.children}
 						<ul class='tree-sublist'>
 							{#each node.children as childNode (childNode.path)}
-								<svelte:self
+								<FileTree
 									tree={[childNode]}
 									{activePath}
 									{showOnlyAnnotated}
+									{onSelect}
 								/>
 							{/each}
 						</ul>
@@ -209,10 +211,6 @@
 	  background: #21262d;
 	}
 
-	.tree-node.active {
-	  background: #1f6feb;
-	}
-
 	.toggle-button {
 	  width: 20px;
 	  height: 20px;
@@ -246,10 +244,6 @@
 
 	.tree-node.directory .node-name {
 	  font-weight: 500;
-	}
-
-	.tree-node.active .node-name {
-	  color: white;
 	}
 
 	.annotation-indicator {

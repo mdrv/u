@@ -145,27 +145,6 @@
 	  line-height: 1.6;
 	}
 
-	.annotation-marker {
-	  display: inline-flex;
-	  align-items: center;
-	  justify-content: center;
-	  width: 18px;
-	  height: 18px;
-	  margin-left: 8px;
-	  background: #1f6feb;
-	  color: white;
-	  border-radius: 9999px;
-	  font-size: 10px;
-	  font-weight: 600;
-	  cursor: help;
-	  transition: all 0.2s ease;
-	}
-
-	.annotation-marker:hover {
-	  transform: scale(1.2);
-	  box-shadow: 0 0 8px rgba(31, 111, 235, 0.5);
-	}
-
 	.tooltip {
 	  position: fixed;
 	  z-index: 1000;

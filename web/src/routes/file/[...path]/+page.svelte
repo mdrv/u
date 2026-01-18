@@ -14,7 +14,7 @@
 	<header class='page-header'>
 		<h1>{data.file.name}</h1>
 		<div class='breadcrumb'>
-			<a href={resolve('/')}>Dotfiles</a>
+			<a href='../..' class='back-link'>Dotfiles</a>
 			<span class='separator'>/</span>
 			<a
 				href={resolve('/category/[category]', { category: data.file.category })}
@@ -45,7 +45,7 @@
 				onSelect={(e) => {
 					const path = e.detail.path
 					if (path !== data.file.path) {
-						goto(resolve('/file/[path]', { path }))
+						goto(resolve('/file/[...path]', { path }))
 					}
 				}}
 			/>

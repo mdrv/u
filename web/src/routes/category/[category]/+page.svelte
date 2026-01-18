@@ -51,7 +51,7 @@
 		style='border-color: {getCategoryColor(data.category)}'
 	>
 		<div class='header-content'>
-			<a href={resolve('/')} class='back-link'>← Back to all files</a>
+			<a href='..' class='back-link'>← Back to all files</a>
 			<h1 class='category-title'>{data.category}</h1>
 			<p class='category-description'>
 				{filteredFiles.length} {filteredFiles.length === 1 ? 'file' : 'files'}
@@ -98,7 +98,7 @@
 					</div>
 					<div class='stat-item'>
 						<span class='stat-value'>{
-							data.files.filter((f) => f.isAnnotated).length
+							data.files.filter((f: any) => f.isAnnotated).length
 						}</span>
 						<span class='stat-label'>Annotated</span>
 					</div>
@@ -110,7 +110,7 @@
 			<div class='file-list'>
 				{#each filteredFiles as file}
 					<a
-						href={resolve('/file/[path]', { path: file.path })}
+						href={resolve('/file/[...path]', { path: file.path })}
 						class='file-card'
 						style='border-color: {getCategoryColor(data.category)}'
 					>

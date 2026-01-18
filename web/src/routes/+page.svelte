@@ -87,7 +87,7 @@
 					showOnlyAnnotated={showOnlyAnnotated}
 					onSelect={(e) => {
 						const path = e.detail.path
-						goto(resolve('/file', { path }))
+						goto(resolve('/file/[...path]', { path }))
 					}}
 				/>
 			</div>
@@ -107,7 +107,7 @@
 						<div class='file-grid'>
 							{#each data.repoData.annotatedFiles.slice(0, 6) as file}
 								<a
-									href='/file/{encodeURIComponent(file.path)}'
+									href={resolve('/file/[...path]', { path: file.path })}
 									class='file-card'
 									style='border-color: {getCategoryColor(file.category)}'
 								>
