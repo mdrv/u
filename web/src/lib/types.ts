@@ -41,4 +41,5 @@ export interface TreeNode {
   type: 'file' | 'directory'
   children?: TreeNode[]
   isAnnotated?: boolean
+  expanded?: boolean
 }
