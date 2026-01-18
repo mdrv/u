@@ -29,18 +29,21 @@ bun run preview
 Add annotations to your config files using the following syntax:
 
 For Lua:
+
 ```lua
 -- ANNOTATION: This disables Python 3 provider
 g.loaded_python3_provider = 0
 ```
 
 For Nushell/Shell:
+
 ```nu
 # ANNOTATION: Custom prompt with git info
 def prompt [] { ... }
 ```
 
 For config files:
+
 ```conf
 # ANNOTATION: Set font size
 font_size 12

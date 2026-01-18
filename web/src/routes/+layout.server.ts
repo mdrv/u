@@ -4,9 +4,9 @@ import { resolve } from 'path'
 const repoRoot = resolve('..')
 
 export function load() {
-  const repoData = scanRepo(repoRoot)
+	const repoData = scanRepo(repoRoot)
 
-  return {
-    repoData
-  }
+	return {
+		repoData,
+	}
 }

@@ -22,6 +22,10 @@
 	},
 	"excludes": [
 		"**/*-lock.json",
+		"dist",
+		"_docs",
+		"*.min.js",
+		"coverage",
 		"**/node_modules"
 	],
 	"plugins": [
