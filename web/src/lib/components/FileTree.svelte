@@ -1,5 +1,6 @@
 <script lang='ts'>
 	import type { TreeNode } from '$lib/types.js'
+	import FileTree from './FileTree.svelte'
 
 	let { tree, activePath = null, showOnlyAnnotated = false, onSelect }: {
 		tree: TreeNode[]
@@ -116,7 +117,8 @@
 					{#if node.expanded && node.children}
 						<ul class='tree-sublist'>
 							{#each node.children as childNode (childNode.path)}
-								<svelte:self
+								<svelte:component
+									this={FileTree}
 									tree={[childNode]}
 									{activePath}
 									{showOnlyAnnotated}

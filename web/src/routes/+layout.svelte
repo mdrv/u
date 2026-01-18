@@ -1,8 +1,9 @@
 <script lang='ts'>
 	import type { RepoData } from '$lib/utils/scanRepo.js'
-	import { setContext } from 'svelte'
+	import { setContext, type Snippet } from 'svelte'
 
-	let { data }: { data: { repoData: RepoData } } = $props()
+	let { data, children }: { data: { repoData: RepoData }; children: Snippet } =
+		$props()
 
 	setContext('repoData', data.repoData)
 </script>
@@ -17,7 +18,7 @@
 </svelte:head>
 
 <div class='app'>
-	<slot />
+	{@render children()}
 </div>
 
 <style>

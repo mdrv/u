@@ -56,7 +56,7 @@
 				<button
 					class='category-btn'
 					class:active={selectedCategory === null}
-					on:click={() => (selectedCategory = null)}
+					onclick={() => (selectedCategory = null)}
 				>
 					All Files
 				</button>
@@ -64,7 +64,7 @@
 					<button
 						class='category-btn'
 						class:active={selectedCategory === category.category}
-						on:click={() => (selectedCategory = category.category)}
+						onclick={() => (selectedCategory = category.category)}
 					>
 						<span class='category-name'>{category.category}</span>
 						<span class='category-count'>{category.files.length}</span>

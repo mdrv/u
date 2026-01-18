@@ -9,9 +9,9 @@
 	} = $props()
 
 	let container: HTMLDivElement
-	let activeAnnotation: string | null = null
-	let tooltipPosition = { x: 0, y: 0 }
-	let tooltipAnnotation: Annotation | null = null
+	let activeAnnotation = $state<string | null>(null)
+	let tooltipPosition = $state({ x: 0, y: 0 })
+	let tooltipAnnotation = $state<Annotation | null>(null)
 
 	let annotationsMap = $derived.by(() => {
 		const map = new Map<string, Annotation>()
