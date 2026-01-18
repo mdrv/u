@@ -2,7 +2,7 @@
 	import CodeViewerComponent from '$lib/components/CodeViewer.svelte'
 	import FileTree from '$lib/components/FileTree.svelte'
 
-	export let data
+	let { data }: { data: any } = $props()
 
 	let showOnlyAnnotated = $state(false)
 	let selectedCategory = $state<string | null>(null)
@@ -35,16 +35,16 @@
 			<div class='sidebar-header'>
 				<h3>File Tree</h3>
 			</div>
-			<FileTree
+		<FileTree
 				tree={data.repoData.fileTree}
 				showOnlyAnnotated={showOnlyAnnotated}
-				on:select={(e) => {
+				onSelect={(e) => {
 					const path = e.detail.path
 					if (path !== data.file.path) {
 						window.location.href = `/file/${encodeURIComponent(path)}`
 					}
 				}}
-			/>
+		/>
 		</aside>
 
 		<div class='content'>

@@ -26,6 +26,7 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 - Always prefer accuracy over speed.
 - Always add modern tests (when applicable) to ensure code integrity.
 - Follow latest Svelte 5 syntax (especially $state and onMount), read https://svelte.dev/llms.txt
+  - AVOID `export let`, `on:click`, etc. from outdated Svelte 3 syntaxes
 - Must use latest Panda CSS for complex styling. (guide: https://panda-css.com/docs/docs/installation/svelte)
 - Else, must prefer inline styling (right on HTML tags) in Svelte components.
 - Must utilize Bun and TypeScript on every possible area of code.
@@ -37,3 +38,8 @@ Keep this managed block so 'openspec update' can refresh the instructions.
   - `d` → `dev`
   - `s` → `start`
   - `p` → `preview`
+  - `pr` → `prepare`
+- My convention for git remote names:
+  - `gh` → `github` (most frequent)
+  - `gl` → `gitlab`
+  - `cb` → `codeberg`

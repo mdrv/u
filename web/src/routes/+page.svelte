@@ -1,8 +1,7 @@
 <script lang='ts'>
-	import { page } from '$app/stores'
 	import FileTree from '$lib/components/FileTree.svelte'
 
-	export let data
+	let { data } = $props()
 
 	let showOnlyAnnotated = $state(false)
 	let selectedCategory = $state<string | null>(null)
@@ -84,7 +83,7 @@
 				<FileTree
 					tree={data.repoData.fileTree}
 					showOnlyAnnotated={showOnlyAnnotated}
-					on:select={(e) => {
+					onSelect={(e) => {
 						const path = e.detail.path
 						window.location.href = `/file/${encodeURIComponent(path)}`
 					}}

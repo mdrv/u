@@ -1,15 +1,16 @@
 <script lang='ts'>
 	import type { TreeNode } from '$lib/types.js'
 
-	export let tree: TreeNode[]
-	export let activePath: string | null = null
-	export let showOnlyAnnotated: boolean = false
-
-	const dispatch = createEventDispatcher()
+	let { tree, activePath = null, showOnlyAnnotated = false, onSelect }: {
+		tree: TreeNode[]
+		activePath?: string | null
+		showOnlyAnnotated?: boolean
+		onSelect?: (e: { detail: { path: string } }) => void
+	} = $props()
 
 	function handleNodeClick(node: TreeNode) {
 		if (node.type === 'file') {
-			dispatch('select', { path: node.path })
+			onSelect?.({ detail: { path: node.path } })
 		}
 	}
 
@@ -17,7 +18,7 @@
 		node.expanded = !node.expanded
 	}
 
-	$: filteredTree = filterTree(tree, showOnlyAnnotated)
+	let filteredTree = $derived(filterTree(tree, showOnlyAnnotated))
 
 	function filterTree(nodes: TreeNode[], onlyAnnotated: boolean): TreeNode[] {
 		if (!onlyAnnotated) return nodes
@@ -99,7 +100,10 @@
 						<button
 							class='toggle-button'
 							aria-label='Toggle {node.name}'
-							on:click|stopPropagation={() => handleToggle(node)}
+							onclick={(e) => {
+								e.stopPropagation()
+								handleToggle(node)
+							}}
 						>
 							{#if node.expanded}
 								▼
@@ -123,16 +127,16 @@
 				{:else}
 					<div
 						class='tree-node file'
-						on:click={() => handleNodeClick(node)}
+						onclick={() => handleNodeClick(node)}
 						role='button'
 						tabindex='0'
-						on:keydown={(e) => e.key === 'Enter' && handleNodeClick(node)}
+						onkeydown={(e) => e.key === 'Enter' && handleNodeClick(node)}
 					>
 						<span class='file-icon'>📄</span>
 						<span class='node-name'>{node.name}</span>
 						{#if node.isAnnotated}
 							<span class='annotation-indicator' style='background: {color}'
-							>①</span>
+								>①</span>
 						{/if}
 					</div>
 				{/if}

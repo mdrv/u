@@ -18,12 +18,6 @@ export def essential [] {
 }
 # ANNOTATION: Install essential Arch Linux packages for a basic working system
 
-export def essential [] {
-	run-external ...$PACMAN base base-devel linux networkmanager usbutils udisks2
-	print $"Might be needed: linux-firmware-realtek linux-firmware-nvidia"
-	print $"Might be needed: intel-ucode nvidia"
-}
-
 export def cli [] {
 	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin"

@@ -1,29 +1,31 @@
 <script lang='ts'>
-	export let data
+	let { data }: { data: any } = $props()
 
 	let showOnlyAnnotated = $state(false)
 	let searchTerm = $state('')
 	let sortBy = $state<'name' | 'path' | 'annotations'>('name')
 
-	$: filteredFiles = data.files
-		.filter((f) => {
-			if (showOnlyAnnotated && !f.isAnnotated) return false
-			if (
-				searchTerm && !f.name.toLowerCase().includes(searchTerm.toLowerCase())
-				&& !f.path.toLowerCase().includes(searchTerm.toLowerCase())
-			) {
-				return false
-			}
-			return true
-		})
-		.sort((a, b) => {
-			if (sortBy === 'name') return a.name.localeCompare(b.name)
-			if (sortBy === 'path') return a.path.localeCompare(b.path)
-			if (sortBy === 'annotations') {
-				return b.annotations.length - a.annotations.length
-			}
-			return 0
-		})
+	let filteredFiles = $derived.by(() =>
+		data.files
+			.filter((f) => {
+				if (showOnlyAnnotated && !f.isAnnotated) return false
+				if (
+					searchTerm && !f.name.toLowerCase().includes(searchTerm.toLowerCase())
+					&& !f.path.toLowerCase().includes(searchTerm.toLowerCase())
+				) {
+					return false
+				}
+				return true
+			})
+			.sort((a, b) => {
+				if (sortBy === 'name') return a.name.localeCompare(b.name)
+				if (sortBy === 'path') return a.path.localeCompare(b.path)
+				if (sortBy === 'annotations') {
+					return b.annotations.length - a.annotations.length
+				}
+				return 0
+			})
+	)
 
 	function getCategoryColor(category: string): string {
 		const colors: Record<string, string> = {

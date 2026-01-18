@@ -2,7 +2,7 @@
 	import type { RepoData } from '$lib/utils/scanRepo.js'
 	import { setContext } from 'svelte'
 
-	export let data
+	let { data }: { data: { repoData: RepoData } } = $props()
 
 	setContext('repoData', data.repoData)
 </script>

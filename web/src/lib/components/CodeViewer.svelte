@@ -1,19 +1,23 @@
 <script lang='ts'>
 	import type { Annotation, CodeLine, ConfigFile } from '$lib/types.js'
 	import { highlighter } from '$lib/utils/syntaxHighlighter.js'
-	import { createEventDispatcher, onMount } from 'svelte'
+	import { onMount } from 'svelte'
 
-	export let file: ConfigFile
-	export let showAnnotations = true
+	let { file, showAnnotations = true }: {
+		file: ConfigFile
+		showAnnotations?: boolean
+	} = $props()
 
-	const dispatch = createEventDispatcher()
 	let container: HTMLDivElement
 	let activeAnnotation: string | null = null
 	let tooltipPosition = { x: 0, y: 0 }
 	let tooltipAnnotation: Annotation | null = null
 
-	$: annotationsMap = new Map<string, Annotation>()
-	$: file.annotations.forEach((a) => annotationsMap.set(a.id, a))
+	let annotationsMap = $derived.by(() => {
+		const map = new Map<string, Annotation>()
+		file.annotations.forEach((a) => map.set(a.id, a))
+		return map
+	})
 
 	onMount(async () => {
 		await highlighter.loadLanguage(file.language)
