@@ -6,7 +6,10 @@
 	let { data } = $props()
 
 	let showOnlyAnnotated = $state(false)
-	let selectedCategory = $state<string | null>(null)
+
+	function navigateToCategory(categoryName: string) {
+		goto(resolve('/category/[category]', { categoryName }))
+	}
 
 	function getCategoryColor(category: string): string {
 		const colors: Record<string, string> = {
@@ -55,18 +58,10 @@
 				<h3>Categories</h3>
 			</div>
 			<div class='category-list'>
-				<button
-					class='category-btn'
-					class:active={selectedCategory === null}
-					onclick={() => (selectedCategory = null)}
-				>
-					All Files
-				</button>
 				{#each data.repoData.categories as category}
 					<button
 						class='category-btn'
-						class:active={selectedCategory === category.category}
-						onclick={() => (selectedCategory = category.category)}
+						onclick={() => navigateToCategory(category.category)}
 					>
 						<span class='category-name'>{category.category}</span>
 						<span class='category-count'>{category.files.length}</span>
@@ -278,22 +273,12 @@
 	  background: #21262d;
 	}
 
-	.category-btn.active {
-	  background: #1f6feb;
-	  border-color: #1f6feb;
-	  color: white;
-	}
-
 	.category-count {
 	  padding: 2px 8px;
 	  background: #21262d;
 	  border-radius: 9999px;
 	  font-size: 11px;
 	  font-weight: 600;
-	}
-
-	.category-btn.active .category-count {
-	  background: rgba(255, 255, 255, 0.2);
 	}
 
 	.file-tree-container {
