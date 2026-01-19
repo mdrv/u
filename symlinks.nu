@@ -45,7 +45,7 @@ const DATA = {
 		]
 	}
 	nvim: {
-		target: ($nu.home-path)/.config/nvim/lua
+		target: ($nu.home-dir)/.config/nvim/lua
 		items: [
 			ulazy
 			ulsp
@@ -57,10 +57,13 @@ const DATA = {
 		message: r#'Enable plugins by adding `.u.lua`: `return {LV = 1}`'#
 	}
 	opencode: {
-		items: [ opencode.jsonc ]
+		items: [
+			opencode.jsonc
+			prompts
+		]
 	}
 	otd: {
-		target: ($nu.home-path)/.config/OpenTabletDriver/Presets
+		target: ($nu.home-dir)/.config/OpenTabletDriver/Presets
 		items: [
 			"Deco 640 Artist Mode.json"
 			"Deco 640 Absolute Mode.json"
@@ -92,10 +95,10 @@ const DATA = {
 			themes/cyberdream-light.kdl
 		]
 		message: r#'Execute this:
-http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm | save -f ($nu.home-path)/.config/zellij/zjstatus.wasm'#
+http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm | save -f ($nu.home-dir)/.config/zellij/zjstatus.wasm'#
 	}
 	nushell: {
-		target: $nu.default-config-dir # = ($nu.home-path)/.config/($app_name)
+		target: $nu.default-config-dir # = ($nu.home-dir)/.config/($app_name)
 		items: [
 			u
 			uinit.nu
@@ -122,7 +125,7 @@ export def main [
 ] {
 	let app_data = ($DATA | get $app_name)
 	$app_data |	into-list | par-each {|$app|
-		let app_target_dir = ($app.target? | default $"($nu.home-path)/.config/($app_name)" )
+		let app_target_dir = ($app.target? | default $"($nu.home-dir)/.config/($app_name)" )
 		if ($app_target_dir | path type) != "dir" {
 			error make { msg: $"Target is not a directory: ($app_target_dir)" }
 		}
