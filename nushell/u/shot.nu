@@ -1,6 +1,6 @@
-const ROOT_DIR = $"($nu.home-path)/n/img/ushot"
-const NUON_FILE = $"($nu.temp-path)/ushot.nuon"
-const LOG_FILE = $"($nu.temp-path)/ushot.md"
+const ROOT_DIR = $"($nu.home-dir)/n/img/ushot"
+const NUON_FILE = $"($nu.temp-dir)/ushot.nuon"
+const LOG_FILE = $"($nu.temp-dir)/ushot.md"
 
 # TODO: Set up via .u.shot.nuon .u.nuon
 

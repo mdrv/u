@@ -1,57 +1,40 @@
 <script lang='ts'>
 	import type { Annotation, CodeLine, ConfigFile } from '$lib/types.js'
 	import { highlighter } from '$lib/utils/syntaxHighlighter.js'
-	import { onMount } from 'svelte'
 
 	let { file, showAnnotations = true }: {
 		file: ConfigFile
 		showAnnotations?: boolean
 	} = $props()
 
-	let container: HTMLDivElement
 	let activeAnnotation = $state<string | null>(null)
 	let tooltipPosition = $state({ x: 0, y: 0 })
 	let tooltipAnnotation = $state<Annotation | null>(null)
 
 	let annotationsMap = $derived.by(() => {
 		const map = new Map<string, Annotation>()
-		file.annotations.forEach((a) => map.set(a.id, a))
+		file?.annotations?.forEach((a) => map.set(a.id, a))
 		return map
 	})
 
-	onMount(async () => {
-		await highlighter.loadLanguage(file.language)
-		await renderCode()
-	})
+	async function getHighlightedCode(): Promise<string> {
+		if (!file?.content) return ''
 
-	async function renderCode() {
-		if (!container) return
-
-		const html = await highlighter.codeToHtml(file.content, {
-			lang: file.language,
-			theme: 'github-dark',
-		})
-
-		container.innerHTML = html
-
-		const lines = container.querySelectorAll('pre code > span')
-		lines.forEach((lineElement, index) => {
-			if (index < file.lines.length) {
-				const line = file.lines[index]
-				if (line.annotations.length > 0 && showAnnotations) {
-					const marker = document.createElement('span')
-					marker.className = 'annotation-marker'
-					marker.textContent = `①${line.annotations.length > 1 ? '...' : ''}`
-					marker.setAttribute('data-annotation', line.annotations[0])
-					marker.addEventListener(
-						'mouseenter',
-						(e) => showTooltip(e, line.annotations[0]),
-					)
-					marker.addEventListener('mouseleave', hideTooltip)
-					lineElement.appendChild(marker)
-				}
-			}
-		})
+		try {
+			console.log('[CodeViewer] Loading language:', file.language)
+			await highlighter.loadLanguage(file.language)
+			console.log('[CodeViewer] Language loaded, generating HTML...')
+			const html = await highlighter.codeToHtml(file.content, {
+				lang: file.language,
+				theme: 'github-dark',
+			})
+			console.log('[CodeViewer] HTML generated, length:', html.length)
+			console.log('[CodeViewer] HTML preview:', html.substring(0, 500))
+			return html
+		} catch (error) {
+			console.error('[CodeViewer] Error generating code:', error)
+			return `<pre style="color: #ff6b6b; padding: 16px;">Error: ${error}</pre>`
+		}
 	}
 
 	function showTooltip(event: MouseEvent, annotationId: string) {
@@ -78,7 +61,11 @@
 			<span class='annotated-badge'>Annotated</span>
 		{/if}
 	</div>
-	<div bind:this={container} class='code-container'></div>
+	<div class='code-container'>
+		{#await getHighlightedCode() then html}
+			{@html html}
+		{/await}
+	</div>
 
 	{#if tooltipAnnotation}
 		<div

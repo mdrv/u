@@ -6,7 +6,7 @@ export class AnnotationParser {
 	private annotationPatterns = {
 		lua: /--\s*#?ANNOTATION:\s*(.*)$/i,
 		nu: /#\s*ANNOTATION:\s*(.*)$/i,
-		conf: /#\s*ANNOTATION:\s*(.*)$/i,
+		txt: /#\s*ANNOTATION:\s*(.*)$/i,
 		sh: /#\s*ANNOTATION:\s*(.*)$/i,
 		default: /#?ANNOTATION:\s*(.*)$/i,
 	}
@@ -17,12 +17,12 @@ export class AnnotationParser {
 
 		if (ext === '.lua') return 'lua'
 		if (ext === '.nu') return 'nu'
-		if (ext === '.conf') return 'conf'
+		if (ext === '.conf') return 'txt'
 		if (ext === '.sh') return 'sh'
 		if (ext === '.js') return 'javascript'
 		if (ext === '.ts') return 'typescript'
-		if (name === 'makepkg.conf') return 'conf'
-		if (name.includes('kitty') || name.includes('hypr')) return 'conf'
+		if (name === 'makepkg.conf') return 'txt'
+		if (name.includes('kitty') || name.includes('hypr')) return 'txt'
 
 		return ext.slice(1) || 'text'
 	}

@@ -1,4 +1,4 @@
-const $MPV_SOCK = $"($nu.home-path)/.config/mpv/mpvx"
+const $MPV_SOCK = $"($nu.home-dir)/.config/mpv/mpvx"
 use ($nu.default-config-dir + /u/assert-missing.nu)
 
 # bind = SUPER, COMMA, exec, nu -n $u/ua-mpvx.nu --toggle-pause
@@ -58,7 +58,7 @@ export def main [
 		return
 	}
 
-    mut $mods = ["--no-audio-display" "--pause" $"--input-ipc-server=($nu.home-path)/.config/mpv/mpvx"]
+    mut $mods = ["--no-audio-display" "--pause" $"--input-ipc-server=($MPV_SOCK)"]
 
     let $glob = ([($args | last)] | flatten)
 

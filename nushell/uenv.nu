@@ -15,7 +15,7 @@ $env.PATH = ($env.PATH ++ [
 	"/home/linuxbrew/.linuxbrew/sbin"
 ] | uniq | where {path exists})
 
-$env.TMPDIR = $nu.temp-path
+$env.TMPDIR = if (^vercmp $env.NU_VERSION 0.110.0 | into int) >= 0 {$nu.temp-dir} else {$nu.temp-path}
 
 $env.EDITOR = "nvim"
 
