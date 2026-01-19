@@ -13,7 +13,7 @@
 				"bash": true
 			}
 		}
-	}
+	},
 	"formatter": {
 		"dprint": {
 			"command": ["dprint", "fmt", "$FILE"],
