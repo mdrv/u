@@ -5,6 +5,7 @@
 	"default_agent": "servant",
 	"agent": {
 		"servant": {
+			"description": "Full-access agent for development tasks",
 			"mode": "primary",
 			"model": "zai-coding-plan/glm-4.7",
 			"prompt": "{file:/ai/prompts/servant.md}",
@@ -15,6 +16,7 @@
 			}
 		},
 		"build": {
+			"description": "Build-focused agent with full access",
 			"mode": "primary",
 			"model": "zai-coding-plan/glm-4.7",
 			"prompt": "{file:/ai/prompts/gemini-king-mode.md}",
@@ -25,6 +27,7 @@
 			}
 		},
 		"plan": {
+			"description": "Planning-only agent, no write/edit/bash access",
 			"mode": "primary",
 			"model": "zai-coding-plan/glm-4.7",
 			"prompt": "{file:/ai/prompts/gemini-king-mode.md}",
@@ -34,6 +37,17 @@
 				"bash": false
 			}
 		}
+	},
+	"permission": {
+		"edit": "ask",
+		"bash": "ask"
+	},
+	"watcher": {
+		"ignore": ["node_modules/**", "dist/**", ".git/**", ".svelte-kit/**", "build/**", "__gen__/**"]
+	},
+	"compaction": {
+		"auto": true,
+		"prune": true
 	},
 	"formatter": {
 		"dprint": {

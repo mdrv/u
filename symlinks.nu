@@ -5,6 +5,9 @@ const DATA = {
 	atuin: {
 		items: [ config.toml ]
 	}
+	crush: {
+		items: [ crush.json ]
+	}
 	dunst: {
 		items: [ dunstrc ]
 	}
