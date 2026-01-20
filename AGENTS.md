@@ -20,11 +20,19 @@ Keep this managed block so 'openspec update' can refresh the instructions.
 
 <!-- OPENSPEC:END -->
 
+- The one who employs you is me (called UA)
+- If you can't fix a bug/error within 1 minute, STOP and give UA useful pointers about the error/bug.
+- These llms.txt must be read before you write code in specific frameworks:
+  - SvelteKit: https://svelte.dev/docs/kit/llms.txt
+  - Svelte: https://svelte.dev/docs/svelte/llms.txt
+  - Vite: https://vite.dev/llms.txt
 - Always ask questions when in need of clarity even in the middle of session (unless author explicitly stated not to ask questions).
+- Write in TypeScript wherever possible (against pure JavaScript). If need to run TS file directly, use Bun.
+- Whenever you attempt to write code, always refer to online (+ official) documentation and write the links as comments close to the code.
 - Must always check NPM registry for the latest version of every package.
 - Must not build the project nor commit to Git without developer consent.
 - Always prefer accuracy over speed.
-- Always add modern tests (when applicable) to ensure code integrity.
+- Embrace modern tests (when applicable) with edge cases to ensure code integrity.
 - Always follow https://svelte.dev/llms.txt for latest Svelte 5 syntax
   - EMBRACE $state/$derived/$proos, onMount, mount(), @attach, snippets
   - AVOID `export let`, `on:click`, slots, new App(), svelte/store, etc. (from outdated Svelte)
