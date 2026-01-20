@@ -59,7 +59,6 @@ const DATA = {
 	opencode: {
 		items: [
 			opencode.jsonc
-			prompts
 		]
 	}
 	otd: {
