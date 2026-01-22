@@ -1,20 +1,9 @@
 // https://opencode.ai/docs/config/
 {
 	"$schema": "https://opencode.ai/config.json",
-	"instructions": ["AGENTS.md", "packages/*/AGENTS.md"],
-	"default_agent": "servant",
+	"instructions": ["/ai/AGENTS_ALL.md", "AGENTS.md"],
+	"default_agent": "build",
 	"agent": {
-		"servant": {
-			"description": "Full-access agent for development tasks",
-			"mode": "primary",
-			"model": "zai-coding-plan/glm-4.7",
-			"prompt": "{file:/ai/prompts/servant.md}",
-			"tools": {
-				"write": true,
-				"edit": true,
-				"bash": true
-			}
-		},
 		"build": {
 			"description": "Build-focused agent with full access",
 			"mode": "primary",

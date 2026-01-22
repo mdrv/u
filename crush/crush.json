@@ -2,7 +2,7 @@
 	"$schema": "https://charm.land/crush.json",
 	"options": {
 		"context_paths": [
-			"/ai/prompts/servant.md"
+			"/ai/AGENTS_ALL.md"
 		],
 		"skills_paths": [
 			"/x/g/skills",
