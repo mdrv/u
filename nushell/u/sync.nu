@@ -33,6 +33,7 @@ ignore = Name .vitepress/cache
 ignore = Name src-tauri/target
 ignore = Name src-tauri/gen
 ignore = Name node_modules
+ignore = Name .crush
 ignore = Name .svelte-kit
 ignore = Regex ^.*/_big/.*
 ignore = Name bun.lock*
@@ -84,8 +85,8 @@ export def main [
     if $generate {
 		sudo mkdir -p /root/.unison
         $u0prf | sudo tee /root/.unison/ua.prf out> /dev/null
-		mkdir $"($nu.home-path)/.unison"
-        $u0prf | save -f $"($nu.home-path)/.unison/ua.prf"
+		mkdir $"($nu.home-dir)/.unison"
+        $u0prf | save -f $"($nu.home-dir)/.unison/ua.prf"
         return
     }
 
