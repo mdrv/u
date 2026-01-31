@@ -3,7 +3,7 @@ export def main [
     --clear (-c) # clear cache/tmp
 ] {
     if ($clear) {
-        rm ($"($nu.temp-path)/nu-chafafzf-*.avif" | into glob)
+        rm ($"($nu.temp-dir)/nu-chafafzf-*.avif" | into glob)
         return
     }
     if ($s | is-empty) {
@@ -13,7 +13,7 @@ export def main [
     let $_p = ($s | path parse)
     let $s = match $_p.extension {
         _ => {
-            let $_s = $"($nu.temp-path)/nu-chafafzf-(open $s | hash md5).avif"
+            let $_s = $"($nu.temp-dir)/nu-chafafzf-(open $s | hash md5).avif"
             if not ($_s | path exists) or ((du -r $_s | get apparent.0 | into int) == 0) {
                 ^vipsthumbnail $s -s 720> -o $_s --vips-concurrency=4
             }

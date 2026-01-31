@@ -84,8 +84,8 @@ export def main [
     if $generate {
 		sudo mkdir -p /root/.unison
         $u0prf | sudo tee /root/.unison/ua.prf out> /dev/null
-		mkdir $"($nu.home-path)/.unison"
-        $u0prf | save -f $"($nu.home-path)/.unison/ua.prf"
+		mkdir $"($env.HOME)/.unison"
+        $u0prf | save -f $"($env.HOME)/.unison/ua.prf"
         return
     }
 

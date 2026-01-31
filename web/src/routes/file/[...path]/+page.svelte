@@ -53,7 +53,7 @@
 
 		<div class='content'>
 			{#if !data.file}
-				<p style="color: #ff6b6b; padding: 16px;">No file data available</p>
+				<p style='color: #ff6b6b; padding: 16px;'>No file data available</p>
 			{:else}
 				<CodeViewerComponent file={data.file} />
 			{/if}

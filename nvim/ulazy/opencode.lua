@@ -1,6 +1,41 @@
--- https://github.com/NickvanDyke/opencode.nvim
+-- https://github.com/sudo-tee/opencode.nvim
+-- Last updated: 2026-01-31
 
 --- @type LazyPluginSpec
+return {
+	'sudo-tee/opencode.nvim',
+	config = function()
+		require('opencode').setup({
+			default_global_keymaps = true, -- If false, disables all default global keymaps
+			default_mode = 'plan', -- 'build' or 'plan' or any custom configured. @see [OpenCode Agents](https://opencode.ai/docs/modes/)
+			keymap_prefix = '<leader>z', -- Default keymap prefix for global keymaps change to your preferred prefix and it will be applied to all keymaps starting with <leader>o
+		})
+	end,
+	dependencies = {
+		'nvim-lua/plenary.nvim',
+		{
+			'MeanderingProgrammer/render-markdown.nvim',
+			opts = {
+				anti_conceal = { enabled = false },
+				file_types = { 'markdown', 'opencode_output' },
+			},
+			ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
+		},
+		-- Optional, for file mentions and commands completion, pick only one
+		'saghen/blink.cmp',
+		-- 'hrsh7th/nvim-cmp',
+
+		-- Optional, for file mentions picker, pick only one
+		'folke/snacks.nvim',
+		-- 'nvim-telescope/telescope.nvim',
+		-- 'ibhagwan/fzf-lua',
+		-- 'nvim_mini/mini.nvim',
+	},
+}
+
+-- unused since 2026-02-01
+--- @type LazyPluginSpec
+--[[
 return {
 	'NickvanDyke/opencode.nvim',
 	dependencies = {
@@ -58,3 +93,4 @@ return {
 		-- vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
 	end,
 }
+]]

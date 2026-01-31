@@ -1,6 +1,6 @@
 import { getFileByPath } from '$lib/utils/scanRepo.js'
-import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
+import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ params, parent }) => {
 	console.log('Loading file, params.path:', params.path)

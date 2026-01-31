@@ -119,8 +119,45 @@ vim.keymap.set('n', 'qa', ':qa<CR>', { desc = 'Quick/easy quit all', silent = tr
 vim.keymap.set('n', 'qfa', ':qa!<CR>', { desc = 'Quick/easy quit all (force)', silent = true })
 vim.keymap.set('n', 'qe', ':e<CR>', { desc = 'Quick/easy reload', silent = true })
 vim.keymap.set('n', 'qs', ':mksession! ', { desc = 'Quick/easy save session' })
-vim.keymap.set('n', '<Leader>xll', ':.lua<CR>', { desc = 'Execute Lua on current line', silent = true })
-vim.keymap.set('v', '<Leader>xll', ':\'<,\'>lua<CR>', { desc = 'Execute Lua on selection', silent = true })
+
+-- AI: Helper function to execute Lua code and display result via nvim-notify
+local function execute_lua_and_notify(code)
+	local fn, err = loadstring(code)
+	if not fn then
+		error(err)
+	end
+	local success, result = pcall(fn)
+	if not success then
+		error(result)
+	end
+	local output = result
+	if output == nil then
+		output = 'nil (no return)'
+	elseif type(output) == 'table' then
+		output = vim.inspect(output)
+	else
+		output = tostring(output)
+	end
+	vim.notify(output, vim.log.levels.INFO)
+end
+
+-- UA: Previous code
+-- vim.keymap.set('n', '<Leader>xll', ':.lua<CR>', { desc = 'Execute Lua on current line', silent = true })
+-- vim.keymap.set('v', '<Leader>xll', ':\'<,\'>lua<CR>', { desc = 'Execute Lua on selection', silent = true })
+
+-- AI: Updated keymaps to use notification output
+vim.keymap.set('n', '<Leader>xll', function()
+	local line = vim.api.nvim_get_current_line()
+	execute_lua_and_notify(line)
+end, { desc = 'Execute Lua on current line', silent = true })
+
+vim.keymap.set('v', '<Leader>xll', function()
+	local start_line = vim.fn.line('\'<')
+	local end_line = vim.fn.line('\'>')
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+	execute_lua_and_notify(table.concat(lines, '\n'))
+end, { desc = 'Execute Lua on selection', silent = true })
+
 vim.keymap.set('n', '<Leader>tcd', ':tcd %:h<CR>', { desc = 'Navigate tab (go) to current file directory' })
 
 function _G._statusline_lsp()

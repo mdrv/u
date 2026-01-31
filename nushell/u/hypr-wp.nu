@@ -42,7 +42,7 @@ export def main [
     # l: https://github.com/hyprwm/hyprpaper/issues/53
     let $p = if ($_p | path parse | get extension) == 'avif' {
         let $monitor = ( hyprctl monitors -j | from json | select width height | get 0 )
-        let $dir = $"($nu.home-path)/n/img/jxl"
+        let $dir = $"($nu.home-dir)/n/img/jxl"
         if not ($dir | path exists) { mkdir $dir }
         let $jxl = ($_p | path parse | update parent $dir | update extension $"($monitor.width)x($monitor.height).jxl" | path join)
         if not ($jxl | path exists) {

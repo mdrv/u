@@ -1,4 +1,4 @@
-import { createHighlighter, type BundledLanguage, type BundledTheme } from 'shiki'
+import { type BundledLanguage, type BundledTheme, createHighlighter } from 'shiki'
 
 let highlighterInstance: Awaited<ReturnType<typeof createHighlighter>> | null = null
 
@@ -76,7 +76,9 @@ export const highlighter = {
 			return html
 		} catch (error) {
 			console.error(`Failed to highlight code with lang ${normalizedLang}:`, error)
-			return `<pre style="white-space: pre-wrap; background: #0d1117; color: #c9d1d9; padding: 16px;">${this.escapeHtml(code)}</pre>`
+			return `<pre style="white-space: pre-wrap; background: #0d1117; color: #c9d1d9; padding: 16px;">${
+				this.escapeHtml(code)
+			}</pre>`
 		}
 	},
 
