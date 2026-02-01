@@ -38,6 +38,10 @@ ignore = Regex ^.*/_big/.*
 ignore = Name bun.lock*
 ignore = Name vite.config.[jt]s.timestamp-*
 
+ignore = Name .opencode/*
+ignorenot = Name .opencode/command
+ignorenot = Name .opencode/skills
+
 ignore = Path c/*
 ignorenot = Path c/??
 
