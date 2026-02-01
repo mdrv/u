@@ -1,8 +1,14 @@
 --- @type LazyPluginSpec
 return {
 	'zbirenbaum/copilot.lua',
-	requires = {
-		'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
+	dependencies = {
+		{
+			'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
+			config = function()
+				vim.g.copilot_nes_debounce = 500
+				vim.lsp.enable("copilot_ls")
+			end,
+		}
 	},
 	cmd = 'Copilot',
 	event = 'InsertEnter',
@@ -14,6 +20,14 @@ return {
 				keymap = {
 					accept = '<C-j>',
 					dismiss = '<C-h>',
+				},
+			},
+			nes = {
+				enabled = true,
+				keymap = {
+					accept_and_goto = "<C-S-j>",
+					accept = false,
+					dismiss = "<Esc>",
 				},
 			},
 		})

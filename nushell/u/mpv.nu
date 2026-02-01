@@ -54,6 +54,24 @@ export def main [
 				let $data = ($data | lines | each {from json} | get data | str join " - ")
 				^notify-send $"⏭ mpv playlist-next\n($data)"
 			}
+
+			# TODO: Use same notify-send ID to avoid clutter.
+			volume-up => {
+				({command: ["add" "volume" "+1"]} | to json --raw) + (char nl) | socat - $MPV_SOCK | complete
+				sleep 200ms
+				let $vol = (({command: ["get_property" "volume"]} | to json --raw) + (char nl) | socat - $MPV_SOCK | from json | get data)
+				^notify-send $"🔊 mpv volume +1% ($vol)"
+				return
+			}
+
+			# TODO: Use same notify-send ID to avoid clutter.
+			volume-down => {
+				({command: ["add" "volume" "-2"]} | to json --raw) + (char nl) | socat - $MPV_SOCK | complete
+				sleep 200ms
+				let $vol = (({command: ["get_property" "volume"]} | to json --raw) + (char nl) | socat - $MPV_SOCK | from json | get data)
+				^notify-send $"🔉 mpv volume -2% ($vol)"
+				return
+			}
 		}
 		return
 	}
