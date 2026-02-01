@@ -33,6 +33,7 @@ const DATA = {
 	hypr: {
 		items: [
 			hyprland.conf
+			hyprlock.conf
 			hyprtoolkit.conf
 			monitor.nu
 		]

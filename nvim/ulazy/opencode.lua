@@ -18,8 +18,22 @@ return {
 			opts = {
 				anti_conceal = { enabled = false },
 				file_types = { 'markdown', 'opencode_output' },
+				html = {
+					comment = {
+						conceal = false,
+					},
+				},
 			},
 			ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
+			keys = {
+				{
+					'<Leader>mv',
+					function()
+						require('render-markdown').buf_toggle()
+					end,
+					desc = 'Toggle render-markdown.nvim (buffer)',
+				},
+			},
 		},
 		-- Optional, for file mentions and commands completion, pick only one
 		'saghen/blink.cmp',

@@ -17,6 +17,7 @@ vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
 -- ANNOTATION: Set transparent background for transparent terminal support
 
 local uname = vim.uv.os_uname()
+local hostname = vim.uv.os_getenv('HOSTNAME') or 'unknown'
 local g = vim.g
 local o = vim.o
 
@@ -41,7 +42,7 @@ g.vimsyn_embed = 'lP'
 -- ANNOTATION: Enable Lua and Perl syntax embedded in Vim scripts
 
 -- navigation
-o.mouse = IIF(uname.machine == 'x86_64', 'a', '')
+o.mouse = IIF(uname.machine == 'x86_64' or hostname == 'armpipa-alx', 'a', '')
 -- ANNOTATION: Enable mouse support on x86_64 only (RISC-V hardware doesn't have GUI)
 
 -- backup copy
@@ -237,7 +238,8 @@ local function set_theme_with_fallback(themes)
 	local available_themes = vim.fn.getcompletion('', 'color')
 	for _, x in pairs(themes) do
 		if vim.tbl_contains(available_themes, x) then
-			vim.cmd(string.format('colorscheme %s', x))
+			-- vim.cmd(string.format('colorscheme %s', x))
+			vim.cmd.colorscheme(x)
 			break
 		end
 	end
@@ -329,7 +331,8 @@ vim.keymap.set({ 'n' }, '<leader>li', '<Cmd>checkhealth vim.lsp<CR>', { desc = '
 -- load lsp files (by default; lsp must be configured and enabled to trigger load)
 for _, path in ipairs(vim.api.nvim_get_runtime_file('**/ulsp/*.lua', true)) do
 	local id = vim.fs.basename(path):sub(1, -5)
-	local config = dofile(path)
+	-- local config = dofile(path)
+	local config = require('ulsp.' .. id)
 	vim.lsp.config._configs[id] = vim.tbl_deep_extend('force', vim.lsp.config._configs[id] or {}, config)
 end
 
