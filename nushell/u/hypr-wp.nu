@@ -22,6 +22,7 @@ export def main [
             let $bind = ([
                 $"enter:execute-silent\(use ($u)/hypr-wp.nu; hypr-wp {})+change-preview-label\((ansi pb)CHANGED(ansi reset))"
                 $"tab:execute-silent\(use ($u)/hypr-wp.nu; hypr-wp -p {})+change-preview-label\((ansi gb)CHANGED + SAVED(ansi reset))"
+                $"shift-tab:execute-silent\(echo {} | wl-copy)+change-preview-label\((ansi cb)COPIED TO CLIPBOARD(ansi reset))"
             ] | str join ",")
             $fzfs | ^fzf ...[
                 --ansi

@@ -37,6 +37,17 @@ Scope {
 	property string workspace_num
 	property bool is_workspace_shown
 	property bool is_submap_shown: false
+	property bool is_squeekboard_visible: false
+
+	// AI: 2025-02-02 - Log when squeekboard state changes
+	onIs_squeekboard_visibleChanged: {
+		console.log(`🔄 is_squeekboard_visible changed to: ${is_squeekboard_visible}`)
+	}
+
+	// AI: 2025-02-02 - Logging for debugging squeekboard toggle
+	Component.onCompleted: {
+		console.log("🔧 QuickShell loaded. is_squeekboard_visible:", is_squeekboard_visible)
+	}
 
 	Socket {
 		// Create and connect a Socket to the hyprland event socket.
@@ -45,7 +56,7 @@ Scope {
 		connected: true
 
 		parser: SplitParser {
-			// Regex that will return the newly focused monitor when it changes.
+			// Regex that will return newly focused monitor when it changes.
 			property var regex: new RegExp("^(workspace|submap)>>(.*)");
 
 			// Sent for every line read from the socket
@@ -54,7 +65,7 @@ Scope {
 
 				if (match == null) {
 				} else if (match[1] == "workspace") {
-					// Filter out the right screen from the list and update the panel.
+					// Filter out right screen from list and update panel.
 					// match[1] will always be the monitor name captured by the regex.
 					// panel.screen = Quickshell.screens.filter(screen => screen.name == match[1])[0];
 					workspace_num = match[2]
@@ -69,7 +80,6 @@ Scope {
 						is_submap_shown = true
 					}
 				}
-
 			}
 		}
 	}
@@ -81,19 +91,134 @@ Scope {
 		onTriggered: is_workspace_shown = false
 	}
 
+	// AI: 2025-02-02 - Check if squeekboard script exists on startup
+	Process {
+		command: ["ls", "-la", `${Quickshell.env("HOME")}/.config/nushell/u/squeekboard.nu`]
+		running: true
+		stdout: StdioCollector {
+			onStreamFinished: {
+				console.log(`✅ squeekboard.nu exists: ${this.text}`)
+			}
+		}
+		stderr: StdioCollector {
+			onStreamFinished: {
+				console.log(`❌ Error checking squeekboard.nu: ${this.text}`)
+			}
+		}
+	}
+
+	Process {
+		id: squeekboardToggle
+		command: ["nu", "-n", `${Quickshell.env("HOME")}/.config/nushell/u/squeekboard.nu`]
+
+		// AI: 2025-02-02 - Logging for debugging
+		onRunningChanged: {
+			console.log(`🔄 squeekboardToggle.running changed to: ${this.running}`)
+		}
+
+		stdout: StdioCollector {
+			onStreamFinished: {
+				console.log(`📤 squeekboardToggle stdout: ${this.text}`)
+			}
+		}
+
+		stderr: StdioCollector {
+			onStreamFinished: {
+				console.log(`❌ squeekboardToggle stderr: ${this.text}`)
+			}
+		}
+
+		onExited: (exitCode, exitStatus) => {
+			console.log(`🏁 squeekboardToggle exited with code: ${exitCode}, status: ${exitStatus}`)
+		}
+	}
+
+	// AI: 2025-02-02 - Squeekboard toggle buttons on screen corners
 	Variants {
-		// Create the panel once on each monitor.
+		model: Quickshell.screens
+
+		// Top-right corner toggle button
+		PanelWindow {
+			id: topright_button
+
+			exclusionMode: ExclusionMode.Ignore
+
+			anchors {
+				top: true
+				right: true
+			}
+
+			margins {
+				top: 12
+				right: 12
+			}
+
+			implicitWidth: 24
+			implicitHeight: 24
+
+			WlrLayershell.layer: WlrLayer.Overlay
+
+			// AI: 2025-02-02 - Debugging logs
+			Component.onCompleted: {
+				console.log("✅ topright_button created on screen:", modelData.name)
+			}
+
+			color: "transparent"
+			Rectangle {
+				anchors.fill: parent
+				radius: 30
+				// color: is_squeekboard_visible ? "#44008800" : "#44000000"
+				color: "#88000000"
+				opacity: 0.2
+
+				// AI: 2025-02-02 - Log when color changes
+				// onColorChanged: {
+				// 	console.log(`🎨 Button color changed: ${color}, is_squeekboard_visible: ${is_squeekboard_visible}`)
+				// }
+
+				MouseArea {
+					anchors.fill: parent
+
+					// AI: 2025-02-02 - Log when button is clicked
+					onClicked: {
+						console.log(`🖱️ Button clicked! Current state: is_squeekboard_visible=${is_squeekboard_visible}`)
+						is_squeekboard_visible = !is_squeekboard_visible
+						console.log(`🔄 Toggled state to: is_squeekboard_visible=${is_squeekboard_visible}`)
+						console.log(`🚀 About to run squeekboardToggle... current running: ${squeekboardToggle.running}`)
+						squeekboardToggle.running = false
+						squeekboardToggle.running = true
+						console.log(`✅ Set squeekboardToggle.running=true`)
+					}
+
+					onPressed: {
+						console.log("👆 MouseArea pressed")
+					}
+
+					onReleased: {
+						console.log("👇 MouseArea released")
+					}
+				}
+
+				Text {
+					text: "⌨️"
+					anchors.centerIn: parent
+					font.pointSize: 10
+				}
+			}
+		}
+	}
+
+	Variants {
+		// Create a panel once on each monitor.
 		model: Quickshell.screens
 
 		LazyLoader {
 			id: submap_loader
 			active: is_submap_shown
-			property var modelData
 
 			PanelWindow {
 				id: toplevel
 
-				screen: modelData
                 exclusionMode: ExclusionMode.Ignore
 
 				anchors {
@@ -106,10 +231,10 @@ Scope {
 				implicitWidth: screen.width
 				implicitHeight: screen.height
 
-				// Give the window an empty click mask so all clicks pass through it.
+				// Give window an empty click mask so all clicks pass through it.
 				mask: Region {}
 
-				// Use the wlroots specific layer property to ensure it displays over
+				// Use wlroots specific layer property to ensure it displays over
 				// fullscreen windows.
 				WlrLayershell.layer: WlrLayer.Overlay
 
@@ -145,7 +270,7 @@ Scope {
 	}
 
 	Variants {
-		// Create the panel once on each monitor.
+		// Create a panel once on each monitor.
 		model: Quickshell.screens
 
 		LazyLoader {
@@ -155,8 +280,6 @@ Scope {
 			PanelWindow {
 				id: toplevel
 
-				property var modelData
-				screen: modelData
                 exclusionMode: ExclusionMode.Ignore
 
 				anchors {
@@ -200,10 +323,10 @@ Scope {
 				implicitWidth: popup.width
 				implicitHeight: popup.height
 
-				// Give the window an empty click mask so all clicks pass through it.
+				// Give window an empty click mask so all clicks pass through it.
 				mask: Region {}
 
-				// Use the wlroots specific layer property to ensure it displays over
+				// Use wlroots specific layer property to ensure it displays over
 				// fullscreen windows.
 				WlrLayershell.layer: WlrLayer.Overlay
 
@@ -212,4 +335,3 @@ Scope {
 
 	}
 }
-

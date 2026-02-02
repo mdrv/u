@@ -19,7 +19,7 @@ export def essential [] {
 # ANNOTATION: Install essential Arch Linux packages for a basic working system
 
 export def cli [] {
-	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty rtorrent evtest keyd iperf3 eza
+	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty rtorrent evtest keyd iperf3 eza acpi batsignal
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin"
 	print "aarch64 has gnu-netcat available in pacman"
 }
@@ -42,7 +42,7 @@ export def graphics [] {
 }
 
 export def hyprland [] {
-	run-external ...$PACMAN hyprland hyprpaper hyprpicker hyprshot slurp wl-clipboard nwg-displays kitty foot noto-fonts noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd grim tesseract-data-eng xdg-desktop-portal-hyprland quickshell libnotify wev
+	run-external ...$PACMAN hyprland hyprpaper hyprpicker hyprshot slurp wl-clipboard nwg-displays kitty foot noto-fonts noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd grim tesseract-data-eng xdg-desktop-portal-hyprland quickshell libnotify wev nwg-drawer wvkbd squeekboard fnott
 	run-external ...$PACMAN kid3 nsxiv waybar telegram-desktop dunst firefox firefox-ublock-origin firefox-tree-style-tab firefox-tridactyl mupdf keepassxc gthumb sqlitebrowser
 	run-external ...$PACMAN imagemagick libvips libopenslide poppler-glib chafa libheif
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
@@ -50,6 +50,8 @@ export def hyprland [] {
 	run-external ...$PACMAN neovide fcitx5 fcitx5-config-qt
 	print $"Might be needed: vulkan-intel"
 	print $"AUR: grimblast-git bibata-cursor-git noctalia-shell google-breakpad localsend-bin tofi ttf-twemoji bulky qpdfview"
+	print $"for armpipa-alx: sddm xorg-xrandr xorg-xinput qt6-virtualkeyboard"
+	print $"for armpipa-alx AUR: sddm-silent-theme"
 }
 
 

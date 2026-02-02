@@ -5,7 +5,7 @@
 	"instructions": ["/ai/AGENTS_ALL.md", "AGENTS.md"],
 	"default_agent": "tens",
 	"agent": {
-		"build": {
+		"build": { // ocb
 			"description": "Build-focused agent with full access and more steps",
 			"mode": "primary",
 			"model": "github-copilot/claude-sonnet-4.5",
@@ -16,7 +16,7 @@
 				"bash": true
 			}
 		},
-		"tens": {
+		"tens": { // oct
 			"description": "Small build-focused agent with full access",
 			"mode": "primary",
 			"model": "zai-coding-plan/glm-4.7",
@@ -28,11 +28,22 @@
 				"bash": true
 			}
 		},
-		"plan": {
+		"plan": { // ocp
 			"description": "Planning-only agent, no write/edit/bash access",
 			"mode": "primary",
 			"model": "zai-coding-plan/glm-4.7",
 			"prompt": "{file:/ai/prompts/medrivia.md}",
+			"tools": {
+				"write": false,
+				"edit": false,
+				"bash": true // yeah, it's okay
+			}
+		},
+		"flash": { // ocf
+			"description": "Quick stuff",
+			"mode": "primary",
+			"model": "opencode/kimi-k2.5-free", // alt: opencode/big-pickle opencode/gpt-5-nano
+			// "prompt": "{file:/ai/prompts/medrivia.md}",
 			"tools": {
 				"write": false,
 				"edit": false,

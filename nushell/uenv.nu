@@ -38,6 +38,8 @@ $env.HOMEBREW_PREFIX = "/home/linuxbrew/.linuxbrew"
 $env.HOMEBREW_CELLAR = "/home/linuxbrew/.linuxbrew/Cellar"
 $env.HOMEBREW_REPOSITORY = "/home/linuxbrew/.linuxbrew/Homebrew"
 
+$env.TESSERACT_OEM = "1"
+
 if ($"($nu.default-config-dir)/.u.nuon" | path exists) {
 	open ($nu.default-config-dir)/.u.nuon | get ENV? | default {} | load-env
 }

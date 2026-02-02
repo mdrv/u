@@ -70,6 +70,11 @@ alias mpvxxxj = u mpv ja11 [*.flac] -d (ls -s /n/audio | get name | str join "\n
 alias shizuku = ^adb shell /data/app/moe.shizuku.privileged.api-j5XlxmLhVhDNXXQgyrL4Nw==/lib/arm/libshizuku.so
 alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
+alias ocb = opencode run --agent build
+alias oct = opencode run --agent tens
+alias ocp = opencode run --agent plan
+alias ocf = opencode run --agent flash
+
 def mg --wrapped [
 	...cmd: string
 ] {
