@@ -31,6 +31,10 @@ export def dev [] {
 }
 # ANNOTATION: Install development tools including language servers for web development
 
+export def vps [] {
+	run-external ...$PACMAN miniserve caddy
+}
+
 export def audiodev [] {
 	run-external ...$PACMAN ardour surge-xt lsp-plugins lv2-plugins
 	print $"AUR: vital-synth"

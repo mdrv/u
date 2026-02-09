@@ -36,6 +36,7 @@ const DATA = {
 			hyprlock.conf
 			hyprtoolkit.conf
 			monitor.nu
+			shaders/grayscale.glsl
 		]
 	}
 	kitty: {

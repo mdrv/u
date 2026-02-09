@@ -1,77 +1,104 @@
-// https://opencode.ai/docs/config/
 {
-	"$schema": "https://opencode.ai/config.json",
-	"theme": "lucent-orng", // my favorites: gruvbox, osaka-jade
-	"instructions": ["/ai/AGENTS_ALL.md", "AGENTS.md"],
-	"default_agent": "tens",
-	"agent": {
-		"build": { // ocb
-			"description": "Build-focused agent with full access and more steps",
-			"mode": "primary",
-			"model": "github-copilot/claude-sonnet-4.5",
-			"prompt": "{file:/ai/prompts/medrivia.md}",
-			"tools": {
-				"write": true,
-				"edit": true,
-				"bash": true
-			}
-		},
-		"tens": { // oct
-			"description": "Small build-focused agent with full access",
-			"mode": "primary",
-			"model": "zai-coding-plan/glm-4.7",
-			"steps": 10,
-			"prompt": "{file:/ai/prompts/medrivia.md}",
-			"tools": {
-				"write": true,
-				"edit": true,
-				"bash": true
-			}
-		},
-		"plan": { // ocp
-			"description": "Planning-only agent, no write/edit/bash access",
-			"mode": "primary",
-			"model": "zai-coding-plan/glm-4.7",
-			"prompt": "{file:/ai/prompts/medrivia.md}",
-			"tools": {
-				"write": false,
-				"edit": false,
-				"bash": true // yeah, it's okay
-			}
-		},
-		"flash": { // ocf
-			"description": "Quick stuff",
-			"mode": "primary",
-			"model": "opencode/kimi-k2.5-free", // alt: opencode/big-pickle opencode/gpt-5-nano
-			// "prompt": "{file:/ai/prompts/medrivia.md}",
-			"tools": {
-				"write": false,
-				"edit": false,
-				"bash": false
-			}
-		}
-	},
-	"permission": {
-		"external_directory": {
-			"/tmp/**": "allow"
-		},
-		"edit": "ask",
-		"bash": "ask"
-	},
-	"watcher": {
-		"ignore": ["node_modules/**", "dist/**", ".git/**", ".svelte-kit/**", "build/**", "__gen__/**"]
-	},
-	"compaction": {
-		"auto": true,
-		"prune": true
-	},
-	"formatter": {
-		"dprint": {
-			"command": ["dprint", "fmt", "$FILE"],
-			"extensions": [".svelte", ".ts", ".js", ".tsx", ".jsx", ".html", ".css", ".json", ".yaml", ".md"]
-		},
-		"prettier": {
-			"disabled": true
-		}
-	}
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "lucent-orng",
+  "instructions": [
+    "/ai/AGENTS_ALL.md",
+    "AGENTS.md"
+  ],
+  "default_agent": "tens",
+  "agent": {
+    "build": {
+      "description": "Build-focused agent with full access and more steps",
+      "mode": "primary",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "prompt": "{file:/ai/prompts/medrivia.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      }
+    },
+    "tens": {
+      "description": "Small build-focused agent with full access",
+      "mode": "primary",
+      "model": "zai-coding-plan/glm-4.7",
+      "steps": 20,
+      "prompt": "{file:/ai/prompts/medrivia.md}",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      }
+    },
+    "plan": {
+      "description": "Planning-only agent, no write/edit/bash access",
+      "mode": "primary",
+      "model": "zai-coding-plan/glm-4.7",
+      "prompt": "{file:/ai/prompts/medrivia.md}",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": true
+      }
+    },
+    "flash": {
+      "description": "Quick stuff",
+      "mode": "primary",
+      "model": "opencode/kimi-k2.5-free",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    }
+  },
+  "permission": {
+    "external_directory": {
+      "/tmp/**": "allow",
+      "/x/m/**": "allow"
+    },
+    "edit": "ask",
+    "bash": "ask"
+  },
+  "watcher": {
+    "ignore": [
+      "node_modules/**",
+      "dist/**",
+      ".git/**",
+      ".svelte-kit/**",
+      "build/**",
+      "__gen__/**"
+    ]
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "formatter": {
+    "dprint": {
+      "command": [
+        "dprint",
+        "fmt",
+        "$FILE"
+      ],
+      "extensions": [
+        ".svelte",
+        ".ts",
+        ".js",
+        ".tsx",
+        ".jsx",
+        ".html",
+        ".css",
+        ".json",
+        ".yaml",
+        ".md"
+      ]
+    },
+    "prettier": {
+      "disabled": true
+    }
+  },
+  "plugin": [
+    "opencode-glm-quota"
+  ]
 }

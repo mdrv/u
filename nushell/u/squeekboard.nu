@@ -17,7 +17,22 @@ def set_visible [visible: bool] {
     busctl call --user $DBUS_SERVICE $DBUS_OBJECT $DBUS_INTERFACE SetVisible b $visible
 }
 
+def is_running_dbus []: nothing -> bool {
+    try {
+        busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible | ignore
+        true
+    } catch {
+        false
+    }
+}
+
 export def main [visible?: string] {
+
+	if (!is_running_dbus) {
+		print "Squeekboard DBus service not running, starting Squeekboard..."
+		job spawn {squeekboard}
+	}
+
     match $visible {
         "true" => {
             print "Showing Squeekboard"

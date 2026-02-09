@@ -7,12 +7,14 @@ $env.PATH = ($env.PATH ++ [
     # /usr/bin/vendor_perl # for fakeroot-tcp/po4a
     # /data/data/com.termux/files/usr/bin # Termux binary dir
     $"($env.HOME)/.bun/bin" # Bun (JS runtime)
+    $"($env.HOME)/.local/bin" # uv (python)
     # $"($env.HOME)/.local/share/bob/nvim-bin" # Bob (Neovim manager)
     # $"($env.HOME)/.local/bin" # for non-latest python
     # $env.PNPM_HOME
     # add more if needed...
 	"/home/linuxbrew/.linuxbrew/bin"
 	"/home/linuxbrew/.linuxbrew/sbin"
+	$"($env.HOME)/.npm-global/bin"
 ] | uniq | where {path exists})
 
 $env.TMPDIR = if (^vercmp $env.NU_VERSION 0.110.0 | into int) >= 0 {$nu.temp-dir} else {$nu.temp-path}

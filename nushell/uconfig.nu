@@ -67,6 +67,8 @@ alias mpvxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s ~/n/audio | get name | st
 alias mpvxxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)
 alias mpvxxj = u mpv ja11 [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
 alias mpvxxxj = u mpv ja11 [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)
+alias mpvxxt = u mpv t1lite [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
+alias mpvxxxt = u mpv t1lite [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)
 alias shizuku = ^adb shell /data/app/moe.shizuku.privileged.api-j5XlxmLhVhDNXXQgyrL4Nw==/lib/arm/libshizuku.so
 alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
@@ -74,6 +76,8 @@ alias ocb = opencode run --agent build
 alias oct = opencode run --agent tens
 alias ocp = opencode run --agent plan
 alias ocf = opencode run --agent flash
+
+alias time-update-google = sudo ntpdate -u time.google.com
 
 def mg --wrapped [
 	...cmd: string
