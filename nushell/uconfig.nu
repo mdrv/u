@@ -80,9 +80,10 @@ alias ocf = opencode run --agent flash
 alias time-update-google = sudo ntpdate -u time.google.com
 
 def mg --wrapped [
-	...paths: string
+	--paths (-p) = [/x/g/*/.git]
+	...cmd: string
 ] {
-	glob $paths | par-each {|path| run-external "git" "-C" $path "--work-tree" ($path | path parse | get parent) | complete | insert path $path | print } | ignore
+	$paths | par-each {glob $in} | flatten | par-each {|path| run-external "git" "-C" $path "--work-tree" ($path | path parse | get parent) ...$cmd | complete | insert path $path | print } | ignore
 }
 
 def rgfzf [

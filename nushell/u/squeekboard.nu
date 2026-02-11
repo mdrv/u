@@ -19,7 +19,7 @@ def set_visible [visible: bool] {
 
 def is_running_dbus []: nothing -> bool {
     try {
-        busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible | ignore
+        ^busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible
         true
     } catch {
         false
@@ -28,7 +28,8 @@ def is_running_dbus []: nothing -> bool {
 
 export def main [visible?: string] {
 
-	if (!is_running_dbus) {
+	print (is_running_dbus)
+	if not (is_running_dbus) {
 		print "Squeekboard DBus service not running, starting Squeekboard..."
 		job spawn {squeekboard}
 	}
@@ -49,6 +50,11 @@ export def main [visible?: string] {
         "hide" => {
             print "Hiding Squeekboard"
             set_visible false
+        }
+        "kill" => {
+			print "Killing Squeekboard"
+            set_visible false
+			^killall squeekboard
         }
         _ => {
             # Default: toggle
