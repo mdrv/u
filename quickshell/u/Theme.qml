@@ -9,6 +9,7 @@ Singleton {
 	readonly property color buttonBackground: "#88000000"
 	readonly property color buttonText: "#ffffff"
 
+	readonly property int spacingTiny: 6
 	readonly property int spacingSmall: 12
 	readonly property int spacingMedium: 20
 	readonly property int spacingLarge: 40

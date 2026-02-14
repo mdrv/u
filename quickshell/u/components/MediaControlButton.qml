@@ -6,13 +6,13 @@ Rectangle {
 	id: root
 	property bool isActive: false
 	signal clicked
-	implicitWidth: 24
-	implicitHeight: 24
+	implicitWidth: 32
+	implicitHeight: 32
 	radius: Theme.cornerMedium
 	color: Theme.buttonBackground
 	opacity: 0.2
 	Text {
-		text: "🔈"
+		text: "⚙️"
 		anchors.centerIn: parent
 		font.pointSize: 10
 		color: Theme.buttonText

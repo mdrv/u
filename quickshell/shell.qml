@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland // for workspace/submap tracking
 import Quickshell.Io
+import Quickshell.Wayland
 import Quickshell.Widgets
 import qs.u
 import qs.u.components
@@ -91,15 +92,6 @@ ShellRoot {
 		}
 	}
 
-
-		}
-		stderr: StdioCollector {
-			onStreamFinished: {
-				if (debugMode) console.log(`❌ Error checking squeekboard.nu: ${this.text}`)
-			}
-		}
-	}
-
 	Process {
 		id: squeekboardToggle
 		command: ["nu", "-n", `${Quickshell.env("HOME")}/.config/nushell/u/squeekboard.nu`]
@@ -133,6 +125,7 @@ ShellRoot {
 		// Top-right corner toggle button
 		PanelWindow {
 			id: topright_button
+			property var modelData:	null
 
 			exclusionMode: ExclusionMode.Ignore
 
@@ -142,12 +135,12 @@ ShellRoot {
 			}
 
 			margins {
-				top: Theme.spacingSmall
-				right: Theme.spacingSmall
+				top: Theme.spacingTiny
+				right: Theme.spacingTiny
 			}
 
-			implicitWidth: 24
-			implicitHeight: 24
+			implicitWidth: 32
+			implicitHeight: 32
 
 			WlrLayershell.layer: WlrLayer.Overlay
 
@@ -168,7 +161,7 @@ ShellRoot {
 		model: Quickshell.screens
 
 		PanelWindow {
-			screen: modelData
+			property var modelData:	null
 
 			exclusionMode: ExclusionMode.Ignore
 
@@ -178,12 +171,12 @@ ShellRoot {
 			}
 
 			margins {
-				top: Theme.spacingSmall
-				left: Theme.spacingSmall
+				top: Theme.spacingTiny
+				left: Theme.spacingTiny
 			}
 
-			implicitWidth: 24
-			implicitHeight: 24
+			implicitWidth: 32
+			implicitHeight: 32
 
 			WlrLayershell.layer: WlrLayer.Overlay
 
@@ -204,14 +197,13 @@ ShellRoot {
 
 		LazyLoader {
 			id: media_panel_loader
+			property var modelData:	null
 			active: is_media_panel_visible
 
 			MediaControlPanel {
-				screen: modelData
 				visible: is_media_panel_visible
 			}
 		}
-	}
 	}
 
 	Variants {
@@ -220,10 +212,10 @@ ShellRoot {
 
 		LazyLoader {
 			id: submap_loader
+			property var modelData:	null
 			active: is_submap_shown
 
 			SubmapPanel {
-				screen: modelData
 				submapMode: submap_mode
 				visible: is_submap_shown
 				helpText: help.submap[submap_mode] || "No help available for this submap."
@@ -237,10 +229,10 @@ ShellRoot {
 
 		LazyLoader {
 			id: workspace_loader
+			property var modelData:	null
 			active: is_workspace_shown
 
 			WorkspaceIndicator {
-				screen: modelData
 				workspaceNum: workspace_num
 				visible: is_workspace_shown
 			}

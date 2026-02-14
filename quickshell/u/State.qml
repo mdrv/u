@@ -7,34 +7,28 @@ Singleton {
 	id: root
 
 	// Workspace state
-	readonly property var workspace: {
-		id: 1,
-		visible: false
-	}
+	readonly property int workspaceId: 1
+	readonly property bool workspaceVisible: false
 
 	// Submap state
-	readonly property var submap: {
-		mode: "",
-		visible: false
-	}
+	readonly property string submapMode: ""
+	readonly property bool submapVisible: false
 
 	// UI state
-	readonly property var ui: {
-		squeekboardVisible: false
-	}
+	readonly property bool squeekboardVisible: false
 
 	// Methods to update state
 	function setWorkspace(id, visible) {
-		workspace.id = id
-		workspace.visible = visible
+		workspaceId = id
+		workspaceVisible = visible
 	}
 
 	function setSubmap(mode, visible) {
-		submap.mode = mode
-		submap.visible = visible
+		submapMode = mode
+		submapVisible = visible
 	}
 
 	function toggleSqueekboard() {
-		ui.squeekboardVisible = !ui.squeekboardVisible
+		squeekboardVisible = !squeekboardVisible
 	}
 }

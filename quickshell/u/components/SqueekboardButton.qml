@@ -5,11 +5,11 @@ import qs.u // For Theme
 Rectangle {
 	id: root
 	property string icon: "⌨️"
-	property int padding: 12
+	property int padding: 8
 	property bool isActive: false
 	signal clicked
-	implicitWidth: 24
-	implicitHeight: 24
+	implicitWidth: 32
+	implicitHeight: 32
 	radius: 30
 	color: Theme.buttonBackground
 	opacity: 0.2

@@ -8,39 +8,40 @@ PanelWindow {
   property string submapMode: ""
   property bool visible: false
   property var helpText: ""
-  
+  property var modelData: null
+
   exclusionMode: ExclusionMode.Ignore
-  
+
   anchors {
     top: true
   }
-  
+
   margins {
     top: Theme.spacingLarge
   }
-  
+
   implicitWidth: screen.width
   implicitHeight: screen.height
-  
+
   mask: Region {}
   WlrLayershell.layer: WlrLayer.Overlay
-  
+
   color: "transparent"
-  
+
   PopupWindow {
     id: popup
     anchor.window: root
     anchor.edges: Edges.Bottom | Edges.Left
     anchor.rect.x: root.width / 2 - width / 2
     anchor.rect.y: root.height
-    
+
     implicitWidth: Math.max(textitem.implicitWidth, 1)
     implicitHeight: Math.max(textitem.implicitHeight, 1)
-    
+
     mask: Region {}
     color: Theme.overlayBackground
     visible: root.visible
-    
+
     Text {
       id: textitem
       text: helpText
