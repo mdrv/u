@@ -62,6 +62,7 @@ alias umod = nu ~/.config/nushell/u/mod_.nu
 alias um = u mount
 alias up = u pacaur
 alias us = u sync
+alias mpvxx0 = u mpv [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
 alias mpvxx = u mpv q15 ft5-ladspa [*.flac]
 alias mpvxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s ~/n/audio | get name | str join "\n" | fzf)
 alias mpvxxxx = u mpv q15 ft5-ladspa [*.flac] -d (ls -s /n/audio | get name | str join "\n" | fzf)

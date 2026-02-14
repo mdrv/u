@@ -7,7 +7,7 @@ $env.PATH = ($env.PATH ++ [
     # /usr/bin/vendor_perl # for fakeroot-tcp/po4a
     # /data/data/com.termux/files/usr/bin # Termux binary dir
     $"($env.HOME)/.bun/bin" # Bun (JS runtime)
-    $"($env.HOME)/.local/bin" # uv (python)
+    $"($env.HOME)/.venv/bin" # uv (python)
     # $"($env.HOME)/.local/share/bob/nvim-bin" # Bob (Neovim manager)
     # $"($env.HOME)/.local/bin" # for non-latest python
     # $env.PNPM_HOME

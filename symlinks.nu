@@ -77,6 +77,7 @@ const DATA = {
 	quickshell: {
 		items: [
 			shell.qml
+			u
 		]
 	}
 	tofi: {

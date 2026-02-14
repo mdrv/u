@@ -1,10 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Wayland // needed for WlrLayershell, WlrLayer
 import Quickshell.Hyprland // for workspace/submap tracking
 import Quickshell.Io
 import Quickshell.Widgets
+import qs.u
 import qs.u.components
 
 ShellRoot {
@@ -84,16 +84,13 @@ ShellRoot {
 		interval: 250
 		running: false
 		onTriggered: is_workspace_shown = false
+
+		Component.onDestruction: {
+			running = false
+		}
 	}
 
-	// AI: 2025-02-02 - Check if squeekboard script exists on startup
-	Process {
-		command: ["ls", "-la", `${Quickshell.env("HOME")}/.config/nushell/u/squeekboard.nu`]
-		running: true
-		stdout: StdioCollector {
-			onStreamFinished: {
-				if (debugMode) console.log(`✅ squeekboard.nu exists: ${this.text}`)
-			}
+
 		}
 		stderr: StdioCollector {
 			onStreamFinished: {
@@ -153,10 +150,7 @@ ShellRoot {
 
 			WlrLayershell.layer: WlrLayer.Overlay
 
-			// AI: 2025-02-02 - Debugging logs
-			Component.onCompleted: {
-				if (debugMode) console.log("✅ topright_button created on screen:", modelData.name)
-			}
+
 
 			color: "transparent"
 			SqueekboardButton {
@@ -167,6 +161,7 @@ ShellRoot {
 					is_squeekboard_visible = !is_squeekboard_visible
 					squeekboardToggle.running = true
 				}
+			}
 			}
 		}
 	}
