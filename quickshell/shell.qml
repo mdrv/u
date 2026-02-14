@@ -40,6 +40,7 @@ ShellRoot {
 	property bool is_workspace_shown
 	property bool is_submap_shown: false
 	property bool is_squeekboard_visible: false
+	property bool is_media_panel_visible: false
 
 	// AI: 2025-02-02 - Log when squeekboard state changes
 	onIs_squeekboard_visibleChanged: {
@@ -150,8 +151,6 @@ ShellRoot {
 
 			WlrLayershell.layer: WlrLayer.Overlay
 
-
-
 			color: "transparent"
 			SqueekboardButton {
 				anchors.centerIn: parent
@@ -162,8 +161,57 @@ ShellRoot {
 					squeekboardToggle.running = true
 				}
 			}
+		}
+	}
+
+	Variants {
+		model: Quickshell.screens
+
+		PanelWindow {
+			screen: modelData
+
+			exclusionMode: ExclusionMode.Ignore
+
+			anchors {
+				top: true
+				left: true
+			}
+
+			margins {
+				top: Theme.spacingSmall
+				left: Theme.spacingSmall
+			}
+
+			implicitWidth: 24
+			implicitHeight: 24
+
+			WlrLayershell.layer: WlrLayer.Overlay
+
+			color: "transparent"
+
+			MediaControlButton {
+				anchors.centerIn: parent
+				isActive: is_media_panel_visible
+				onClicked: {
+					is_media_panel_visible = !is_media_panel_visible
+				}
 			}
 		}
+	}
+
+	Variants {
+		model: Quickshell.screens
+
+		LazyLoader {
+			id: media_panel_loader
+			active: is_media_panel_visible
+
+			MediaControlPanel {
+				screen: modelData
+				visible: is_media_panel_visible
+			}
+		}
+	}
 	}
 
 	Variants {
