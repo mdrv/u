@@ -1,19 +1,14 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Wayland
+import Quickshell.Wayland // needed for WlrLayershell, WlrLayer
+import Quickshell.Hyprland // for workspace/submap tracking
 import Quickshell.Io
 import Quickshell.Widgets
+import qs.u.components
 
-Scope {
-	Process {
-		command: ["nu", "-n", "-c", "hyprctl activeworkspace -j | from json | get id"]
-		running: true
-		stdout: StdioCollector {
-			onStreamFinished: workspace_num = this.text
-		}
-	}
-
+ShellRoot {
+	readonly property bool debugMode: Quickshell.env("DEBUG") === "1"
 	Process {
 		id: generateHelp
 		command: ["nu", "-n", `${Quickshell.env("HOME")}/.config/nushell/u/hypr-utils.nu`, "generatehelp"]
@@ -31,7 +26,14 @@ Scope {
 		watchChanges: true
 		onFileChanged: this.reload()
 	}
-	readonly property var help: JSON.parse(jsonFile.text())
+	readonly property var help: {
+		try {
+			return jsonFile.text() ? JSON.parse(jsonFile.text()) : {}
+		} catch (e) {
+			console.log("JSON parse error:", e)
+			return {}
+		}
+	}
 
 	property string submap_mode: ""
 	property string workspace_num
@@ -41,45 +43,38 @@ Scope {
 
 	// AI: 2025-02-02 - Log when squeekboard state changes
 	onIs_squeekboard_visibleChanged: {
-		console.log(`🔄 is_squeekboard_visible changed to: ${is_squeekboard_visible}`)
+		if (debugMode) console.log(`🔄 is_squeekboard_visible changed to: ${is_squeekboard_visible}`)
 	}
 
 	// AI: 2025-02-02 - Logging for debugging squeekboard toggle
 	Component.onCompleted: {
-		console.log("🔧 QuickShell loaded. is_squeekboard_visible:", is_squeekboard_visible)
+		if (debugMode) console.log("🔧 QuickShell loaded. is_squeekboard_visible:", is_squeekboard_visible)
 	}
 
-	Socket {
-		// Create and connect a Socket to the hyprland event socket.
-		// https://wiki.hyprland.org/IPC/
-		path: `${Quickshell.env("XDG_RUNTIME_DIR")}/hypr/${Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE")}/.socket2.sock`
-		connected: true
+	// Track workspace changes
+	Connections {
+		target: Hyprland
+		function onFocusedWorkspaceChanged() {
+			workspace_num = Hyprland.focusedWorkspace?.id?.toString() || ""
+			is_workspace_shown = true
+			workspace_timer.running = true
+			if (debugMode) console.log("Workspace changed to:", Hyprland.focusedWorkspace?.name)
+		}
+	}
 
-		parser: SplitParser {
-			// Regex that will return newly focused monitor when it changes.
-			property var regex: new RegExp("^(workspace|submap)>>(.*)");
-
-			// Sent for every line read from the socket
-			onRead: msg => {
-				const match = regex.exec(msg);
-
-				if (match == null) {
-				} else if (match[1] == "workspace") {
-					// Filter out right screen from list and update panel.
-					// match[1] will always be the monitor name captured by the regex.
-					// panel.screen = Quickshell.screens.filter(screen => screen.name == match[1])[0];
-					workspace_num = match[2]
-					is_workspace_shown = true
-					workspace_timer.running = true
-				} else if (match[1] == "submap") {
-					if (match[2].length == 0) {
-						is_submap_shown = false
-						submap_mode = ""
-					} else {
-						submap_mode = match[2]
-						is_submap_shown = true
-					}
+	// Track submap changes via raw event (submap not built-in)
+	Connections {
+		target: Hyprland
+		function onRawEvent(event) {
+			if (event.name === "submap") {
+				if (event.data.length === 0) {
+					is_submap_shown = false
+					submap_mode = ""
+				} else {
+					submap_mode = event.data
+					is_submap_shown = true
 				}
+				if (debugMode) console.log("Submap changed to:", submap_mode)
 			}
 		}
 	}
@@ -97,12 +92,12 @@ Scope {
 		running: true
 		stdout: StdioCollector {
 			onStreamFinished: {
-				console.log(`✅ squeekboard.nu exists: ${this.text}`)
+				if (debugMode) console.log(`✅ squeekboard.nu exists: ${this.text}`)
 			}
 		}
 		stderr: StdioCollector {
 			onStreamFinished: {
-				console.log(`❌ Error checking squeekboard.nu: ${this.text}`)
+				if (debugMode) console.log(`❌ Error checking squeekboard.nu: ${this.text}`)
 			}
 		}
 	}
@@ -113,23 +108,23 @@ Scope {
 
 		// AI: 2025-02-02 - Logging for debugging
 		onRunningChanged: {
-			console.log(`🔄 squeekboardToggle.running changed to: ${this.running}`)
+			if (debugMode) console.log(`🔄 squeekboardToggle.running changed to: ${this.running}`)
 		}
 
 		stdout: StdioCollector {
 			onStreamFinished: {
-				console.log(`📤 squeekboardToggle stdout: ${this.text}`)
+				if (debugMode) console.log(`📤 squeekboardToggle stdout: ${this.text}`)
 			}
 		}
 
 		stderr: StdioCollector {
 			onStreamFinished: {
-				console.log(`❌ squeekboardToggle stderr: ${this.text}`)
+				if (debugMode) console.log(`❌ squeekboardToggle stderr: ${this.text}`)
 			}
 		}
 
 		onExited: (exitCode, exitStatus) => {
-			console.log(`🏁 squeekboardToggle exited with code: ${exitCode}, status: ${exitStatus}`)
+			if (debugMode) console.log(`🏁 squeekboardToggle exited with code: ${exitCode}, status: ${exitStatus}`)
 		}
 	}
 
@@ -149,8 +144,8 @@ Scope {
 			}
 
 			margins {
-				top: 12
-				right: 12
+				top: Theme.spacingSmall
+				right: Theme.spacingSmall
 			}
 
 			implicitWidth: 24
@@ -160,49 +155,17 @@ Scope {
 
 			// AI: 2025-02-02 - Debugging logs
 			Component.onCompleted: {
-				console.log("✅ topright_button created on screen:", modelData.name)
+				if (debugMode) console.log("✅ topright_button created on screen:", modelData.name)
 			}
 
 			color: "transparent"
-			Rectangle {
-				anchors.fill: parent
-				radius: 30
-				// color: is_squeekboard_visible ? "#44008800" : "#44000000"
-				color: "#88000000"
-				opacity: 0.2
-
-				// AI: 2025-02-02 - Log when color changes
-				// onColorChanged: {
-				// 	console.log(`🎨 Button color changed: ${color}, is_squeekboard_visible: ${is_squeekboard_visible}`)
-				// }
-
-				MouseArea {
-					anchors.fill: parent
-
-					// AI: 2025-02-02 - Log when button is clicked
-					onClicked: {
-						console.log(`🖱️ Button clicked! Current state: is_squeekboard_visible=${is_squeekboard_visible}`)
-						is_squeekboard_visible = !is_squeekboard_visible
-						console.log(`🔄 Toggled state to: is_squeekboard_visible=${is_squeekboard_visible}`)
-						console.log(`🚀 About to run squeekboardToggle... current running: ${squeekboardToggle.running}`)
-						squeekboardToggle.running = false
-						squeekboardToggle.running = true
-						console.log(`✅ Set squeekboardToggle.running=true`)
-					}
-
-					onPressed: {
-						console.log("👆 MouseArea pressed")
-					}
-
-					onReleased: {
-						console.log("👇 MouseArea released")
-					}
-				}
-
-				Text {
-					text: "⌨️"
-					anchors.centerIn: parent
-					font.pointSize: 10
+			SqueekboardButton {
+				anchors.centerIn: parent
+				isActive: is_squeekboard_visible
+				onClicked: {
+					if (debugMode) console.log("🔘 Squeekboard toggle button clicked. Current state:", is_squeekboard_visible)
+					is_squeekboard_visible = !is_squeekboard_visible
+					squeekboardToggle.running = true
 				}
 			}
 		}
@@ -216,55 +179,11 @@ Scope {
 			id: submap_loader
 			active: is_submap_shown
 
-			PanelWindow {
-				id: toplevel
-
-                exclusionMode: ExclusionMode.Ignore
-
-				anchors {
-					top: true
-				}
-				margins {
-					top: 40
-				}
-
-				implicitWidth: screen.width
-				implicitHeight: screen.height
-
-				// Give window an empty click mask so all clicks pass through it.
-				mask: Region {}
-
-				// Use wlroots specific layer property to ensure it displays over
-				// fullscreen windows.
-				WlrLayershell.layer: WlrLayer.Overlay
-
-				color: "transparent"
-				PopupWindow {
-					id: popup
-					anchor.window: toplevel
-					anchor.rect.x: parentWindow.width / 2 - width / 2
-					anchor.rect.y: parentWindow.height
-					implicitWidth: Math.max(textitem.implicitWidth, 1)
-					implicitHeight: Math.max(textitem.implicitHeight, 1)
-					mask: Region {}
-
-					color: "#aa000000"
-					visible: is_submap_shown
-
-					Text {
-						id: textitem
-						text: help.submap?.[submap_mode] ?? ""
-						padding: 20
-						textFormat: Text.MarkdownText
-						anchors.fill: parent
-						horizontalAlignment: Text.AlignHCenter
-
-						color: "#ffffff"
-						font.pointSize: 12
-						font.weight: 500
-						renderType: Text.CurveRendering
-					}
-				}
+			SubmapPanel {
+				screen: modelData
+				submapMode: submap_mode
+				visible: is_submap_shown
+				helpText: help.submap[submap_mode] || "No help available for this submap."
 			}
 		}
 	}
@@ -277,59 +196,10 @@ Scope {
 			id: workspace_loader
 			active: is_workspace_shown
 
-			PanelWindow {
-				id: toplevel
-
-                exclusionMode: ExclusionMode.Ignore
-
-				anchors {
-					// right: true
-					bottom: true
-				}
-
-				margins {
-					// right: 20
-					bottom: 20
-				}
-
-				color: "transparent"
-				PopupWindow {
-					id: popup
-					anchor.window: toplevel
-					// anchor.rect.x: parentWindow.width / 2 - width / 2
-					// anchor.rect.y: parentWindow.height
-					implicitWidth: 40
-					implicitHeight: 40
-
-					color: "transparent"
-					visible: is_workspace_shown
-
-					Rectangle {
-						anchors.fill: parent
-						radius: 20
-						color: "#aa000000"
-						opacity: 0.8
-						Text {
-							text: workspace_num
-
-							anchors.centerIn: parent
-							color: "#aaffffff"
-							font.pointSize: 18
-							font.weight: 700
-						}
-					}
-				}
-
-				implicitWidth: popup.width
-				implicitHeight: popup.height
-
-				// Give window an empty click mask so all clicks pass through it.
-				mask: Region {}
-
-				// Use wlroots specific layer property to ensure it displays over
-				// fullscreen windows.
-				WlrLayershell.layer: WlrLayer.Overlay
-
+			WorkspaceIndicator {
+				screen: modelData
+				workspaceNum: workspace_num
+				visible: is_workspace_shown
 			}
 		}
 
