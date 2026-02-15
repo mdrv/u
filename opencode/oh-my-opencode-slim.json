@@ -1,0 +1,170 @@
+{
+	"preset": "zen-glm",
+	"presets": {
+		"zen-glm": {
+			"orchestrator": {
+				"model": "zai-coding-plan/glm-4.7",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch"
+				]
+			},
+			"oracle": {
+				"model": "github-copilot/gpt-5.3-codex",
+				"variant": "high",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"librarian": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch",
+					"context7",
+					"grep_app"
+				]
+			},
+			"explorer": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"designer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "medium",
+				"skills": [
+					"*"
+				]
+			},
+			"fixer": {
+				"model": "github-copilot/gpt-5.1-codex-mini",
+				"variant": "low",
+				"skills": [
+					"*"
+				]
+			}
+		},
+		"zen-copilot1": {
+			"orchestrator": {
+				"model": "github-copilot/gpt-5.2-codex",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch"
+				]
+			},
+			"oracle": {
+				"model": "github-copilot/gpt-5.2-codex",
+				"variant": "high",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"librarian": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch",
+					"context7",
+					"grep_app"
+				]
+			},
+			"explorer": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"designer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "medium",
+				"skills": [
+					"*"
+				]
+			},
+			"fixer": {
+				"model": "github-copilot/gpt-5.1-codex-mini",
+				"variant": "low",
+				"skills": [
+					"*"
+				]
+			}
+		},
+		"zen-copilot2": {
+			"orchestrator": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch"
+				]
+			},
+			"oracle": {
+				"model": "github-copilot/gpt-5.2-codex",
+				"variant": "high",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"librarian": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch",
+					"context7",
+					"grep_app"
+				]
+			},
+			"explorer": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"designer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "medium",
+				"skills": [
+					"*"
+				]
+			},
+			"fixer": {
+				"model": "github-copilot/gpt-5.1-codex-mini",
+				"variant": "low",
+				"skills": [
+					"*"
+				]
+			}
+		}
+	}
+}

@@ -63,6 +63,7 @@ const DATA = {
 	}
 	opencode: {
 		items: [
+			oh-my-opencode-slim.json
 			opencode.jsonc
 		]
 		message: r#'Don't forget to symlink /g/ai/skills to ($nu.home-dir)/.agents/skills'#
