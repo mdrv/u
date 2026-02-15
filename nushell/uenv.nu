@@ -9,7 +9,7 @@ $env.PATH = ($env.PATH ++ [
     $"($env.HOME)/.bun/bin" # Bun (JS runtime)
     $"($env.HOME)/.venv/bin" # uv (python)
     # $"($env.HOME)/.local/share/bob/nvim-bin" # Bob (Neovim manager)
-    # $"($env.HOME)/.local/bin" # for non-latest python
+    $"($env.HOME)/.local/bin" # for non-latest python
     # $env.PNPM_HOME
     # add more if needed...
 	"/home/linuxbrew/.linuxbrew/bin"

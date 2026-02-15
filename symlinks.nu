@@ -65,7 +65,7 @@ const DATA = {
 		items: [
 			opencode.jsonc
 		]
-		message: r#'Don't forget to symlink /ai/skills to ($nu.home-dir)/.config/opencode/skills'#
+		message: r#'Don't forget to symlink /g/ai/skills to ($nu.home-dir)/.agents/skills'#
 	}
 	otd: {
 		target: ($nu.home-dir)/.config/OpenTabletDriver/Presets
