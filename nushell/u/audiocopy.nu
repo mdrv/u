@@ -17,5 +17,5 @@ export def main [
     }
     cd ~/n/audio
     mkdir ...$list
-    $list | par-each {|| cp -r $"/n/audio/($in)/($type)" $"($nu.home-path)/n/audio/($in)/"}
+    $list | par-each {|in| cp -r $"/n/audio/($in)/($type)" $"($nu.home-dir)/n/audio/($in)/"}
 }

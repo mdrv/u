@@ -5,8 +5,23 @@
 
 ## Architecture
 
+### Chezmoi Dotfile Management
+
+This repository uses [**chezmoi**](https://chezmoi.io/) for secure dotfile management across multiple machines.
+
+**Setup:**
+
+1. Install chezmoi: `curl -fsSL https://chezmoi.io/get | sh`
+2. Initialize chezmoi: `chezmoi init --apply` (in this repo)
+3. Apply configurations: `nu install.nu`
+
+**Note:** Migration from symlinks.nu to chezmoi was completed on **Feb 15, 2026**. The old `symlinks.nu` script is preserved as `symlinks.nu.archive` for reference.
+
+### Device-Specific Configurations
+
 - To set up device-specific tweaks, add `.u` / `.u.*` files in the same directory.
-- Execute `u.nu` to create symlinks/copies to relevant config directories.
+- chezmoi templates can use `{{ .chezmoi.hostname }}`, `{{ .chezmoi.os }}`, etc. for dynamic configurations
+- Execute `nu install.nu` to apply configurations to relevant config directories.
 
 ## Requirements
 

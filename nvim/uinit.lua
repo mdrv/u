@@ -86,6 +86,7 @@ o.shada = '!,\'1000,<50,s10,h' -- default: !,'100,<50,s10,h
 vim.filetype.add({
 	extension = {
 		nuon = 'nu',
+		tmpl = 'gotmpl',
 		caddy = 'caddy',
 		Caddyfile = 'caddy',
 		svx = 'markdown',

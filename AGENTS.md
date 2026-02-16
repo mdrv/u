@@ -82,15 +82,27 @@ openspec archive <change-id> --skip-specs --yes  # Archive without spec updates
 rg -n "Requirement:|Scenario:" openspec/specs
 ```
 
-### Symlink Management
+### Chezmoi Management
 
 ```bash
-# Symlink configs for a specific app (from repo root)
-nu symlinks.nu <app_name>
+# Install all or specific configurations
+nu install.nu [app_name]
+
+# Add new configs to chezmoi
+nu add.nu <path>
+
+# Show managed configs and their status
+nu status.nu
+
+# Core chezmoi wrapper commands
+nu chezmoi.nu [command]
+
+# Run full migration from symlinks
+nu migrate-to-chezmoi.nu
 
 # Available apps:
 #   nvim, nushell, kitty, foot, hypr, waybar, dunst, tofi, yazi,
-#   zellij, atuin, aichat, fastfetch, home, neovide, opencode, quickshell, otd
+#   zellij, atuin, aichat, fastfetch, home, neovide, opencode, quickshell, otd, keyd
 ```
 
 ### Formatting
@@ -363,9 +375,10 @@ After deployment, create a separate PR to:
 
 ### File System
 
-- **Symlinks**: Always use `symlinks.nu <app_name>` to link configs, don't manually symlink
+- **Chezmoi**: Use `nu install.nu <app_name>` to install configs, `nu add.nu <path>` to add new ones
 - **Generated files**: Ignore `__gen/`, `.svelte-kit/`, `node_modules/`
-- **Config locations**: Check `symlinks.nu` DATA constant for target locations
+- **Config locations**: See `nu status.nu` to show managed configs and their targets
+- **Old symlinks**: `symlinks.nu` is preserved for reference during migration
 
 ## OpenCode Integration
 
@@ -433,9 +446,10 @@ The web application is deployed to GitHub Pages via the `.github/workflows/deplo
 
 1. Create directory in repo root with tool name
 2. Add config files to the directory
-3. Update `symlinks.nu` DATA constant with the new tool
-4. Test: `nu symlinks.nu <tool-name>`
+3. Add to chezmoi: `nu add.nu <tool-name>/<path>`
+4. Test: `nu install.nu <tool-name>`
 5. (Optional) Add annotation comments for documentation
+6. If tool has special requirements (e.g., zjstatus.wasm download), add hook to `.chezmoi.post-apply.nu`
 
 ### Adding a feature to the web app
 
@@ -486,10 +500,40 @@ cd web && bun run test
 openspec list
 ```
 
-**Symlink a tool's configs:**
+**Install all or specific configs:**
 
 ```bash
-nu symlinks.nu <tool-name>
+nu install.nu [app_name]
+```
+
+**Add new configs:**
+
+```bash
+nu add.nu <path>
+```
+
+**Check status:**
+
+```bash
+nu status.nu
+```
+
+**Run migration:**
+
+```bash
+nu migrate-to-chezmoi.nu
+```
+
+**Chezmoi commands:**
+
+```bash
+nu chezmoi.nu [command]
+```
+
+**Check type errors:**
+
+```bash
+cd web && bun run check
 ```
 
 **Format all files:**

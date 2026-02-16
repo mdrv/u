@@ -1,0 +1,4 @@
+# chezmoi source state root
+# Empty value means use the repository root as source state
+# This preserves the flat directory structure (nvim/, nushell/, kitty/, etc.)
+

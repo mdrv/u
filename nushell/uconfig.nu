@@ -35,9 +35,36 @@ if not ($p | path exists) {print $_E}
 use (if ($p | path exists) {$p} else {$_})
 
 const f = 'u/'; const p = $"($d)/($f)"
-const _E = $"(ansi bb)🚨 ($f) (ansi r) can’t be used!(ansi reset)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r) can't be used!(ansi reset)"
 if not ($p | path exists) {print $_E}
 use (if ($p | path exists) {$p} else {$_})
+
+# Load chezmoi management scripts
+const f = 'u/chezmoi.nu'; const p = $"($d)/($f)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r)can't be sourced!(ansi reset)"
+if not ($p | path exists) {print $_E}
+use (if ($p | path exists) {$p} else {$_})
+
+const f = 'u/install.nu'; const p = $"($d)/($f)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r)can't be sourced!(ansi reset)"
+if not ($p | path exists) {print $_E}
+use (if ($p | path exists) {$p} else {$_})
+
+const f = 'u/add.nu'; const p = $"($d)/($f)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r)can't be sourced!(ansi reset)"
+if not ($p | path exists) {print $_E}
+use (if ($p | path exists) {$p} else {$_})
+
+const f = 'u/status.nu'; const p = $"($d)/($f)"
+const _E = $"(ansi bb)🚨 ($f) (ansi r)can't be sourced!(ansi reset)"
+if not ($p | path exists) {print $_E}
+use (if ($p | path exists) {$p} else {$_})
+
+# Aliases for chezmoi management
+alias cm = chezmoi
+alias cminstall = install
+alias cmadd = add
+alias cmstatus = status
 
 alias l = ls
 alias b = bun

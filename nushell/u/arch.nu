@@ -26,7 +26,7 @@ export def cli [] {
 # ANNOTATION: Install comprehensive CLI tools for development and daily use
 
 export def dev [] {
-	run-external ...$PACMAN stylua lua-language-server svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver astyle pacman-contrib
+	run-external ...$PACMAN stylua lua-language-server svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver astyle pacman-contrib taplo-cli
 	print $"AUR: carapace-bin bun-bin lefthook-bin opencode-bin crush-bin openspec surrealdb-bin"
 }
 # ANNOTATION: Install development tools including language servers for web development

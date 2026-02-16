@@ -1,5 +1,5 @@
 export def main [...bins] {
-    let $missing = ($bins | where { which $in | is-empty })
+    let $missing = ($bins | where {|x| which $x | is-empty })
     if ($missing | is-not-empty) {
         let $msg = $"($missing | str join ' ') is not installed!"
         if (which notify-send | is-not-empty) {

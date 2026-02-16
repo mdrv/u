@@ -1,4 +1,10 @@
-if not ("PATH" in $env) {$env.PATH = []}
+# Convert PATH to list if it's a string (from system environment)
+if "PATH" in $env and ($env.PATH | describe) == "string" {
+    $env.PATH = ($env.PATH | split row ":")
+} else if not ("PATH" in $env) {
+    $env.PATH = []
+}
+
 $env.PATH = ($env.PATH ++ [
     /usr/local/sbin
     /usr/local/bin

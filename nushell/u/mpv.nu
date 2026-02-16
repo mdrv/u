@@ -171,11 +171,11 @@ export def main [
     }
 
     if ($dir | is-not-empty) {
-        let $dir = ([$"~/n/audio/($dir)/flac/" $"/n/audio/($dir)/flac/"] | skip until {|x| path exists})
+        let $dir = ([$"~/n/audio/($dir)/flac/" $"/n/audio/($dir)/flac/"] | skip until {|| $in | path exists})
         if ($dir | is-empty) {
             error make {msg: "directory not found!"}
         }
         cd $dir.0
     }
-    run-external mpv ...$mods ...$add ...(ls ...($glob | par-each -k {|| into glob}) | get name)
+    run-external mpv ...$mods ...$add ...(ls ...($glob | par-each -k {|$in| into glob}) | get name)
 }

@@ -31,7 +31,7 @@ export def main [
 		print $"Unknown argument: ($args.0)"
 		return
 	}
-	let $TMP = [$nu.temp-path poweramp.nuon] | path join
+	let $TMP = [($nu.temp-dir) poweramp.nuon] | path join
 	sudo nu -c $'open /data/data/($pkg)/databases/folders.db | query db "SELECT _id as id,album FROM albums;" | save -f ($TMP)'
 	let albums = (open $TMP)
 	let fzf_str = ($albums | each {$"($in.id) ($in.album)"}) | str join "\n"

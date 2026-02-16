@@ -1,0 +1,34 @@
+# Chezmoi ignore patterns for μ dotfiles
+# These files/directories should not be managed by chezmoi
+
+# Version control
+.git/
+.gitignore
+.gitmodules
+
+# Documentation and metadata
+README.md
+LICENSE
+AGENTS.md
+.opencode/
+
+# OpenSpec workflow (not system configs)
+openspec/
+
+# Generated files
+__gen/
+node_modules/
+.svelte-kit/
+dist/
+build/
+
+# CI/CD (not personal configs)
+.github/
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Keep symlinks.nu for reference during migration
+# Will be archived after migration completes

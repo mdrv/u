@@ -1,0 +1,23 @@
+# Chezmoi configuration for μ dotfiles
+# This configuration preserves the flat directory structure while
+# mapping tools to their appropriate target locations
+
+# Configuration settings
+data:
+  color: true
+  encryption: false
+
+# Target directory is the home directory (default)
+# chezmoi will apply files to ~ by default
+
+# Configuration for handling special paths
+# Note: nvim/ is special - it goes to ~/.config/nvim/lua
+# We'll use templates to handle this
+
+# Post-apply hooks run after configuration files are applied
+hooks:
+  apply:
+    post:
+      # Run Nushell script for post-link setup
+      command: "nu"
+      args: [".chezmoi.post-apply.nu"]
