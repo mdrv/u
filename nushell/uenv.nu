@@ -42,8 +42,12 @@ $env.HOMEBREW_REPOSITORY = "/home/linuxbrew/.linuxbrew/Homebrew"
 
 $env.TESSERACT_OEM = "1"
 
-if ($"($nu.default-config-dir)/.u.nuon" | path exists) {
-	open ($nu.default-config-dir)/.u.nuon | get ENV? | default {} | load-env
+if ($"($nu.home-dir)/.u.nuon" | path exists) {
+	let tmp = (open ($nu.home-dir)/.u.nuon)
+	if not ($"($nu.home-dir)/.u.json" | path exists) or (open ($nu.home-dir)/.u.json) != $tmp {
+		$tmp | save -f ($nu.home-dir)/.u.json
+	}
+	$tmp | get ENV? | default {} | load-env
 }
 
 def createLeftPrompt [--transient] {

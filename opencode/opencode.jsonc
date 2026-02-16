@@ -64,10 +64,6 @@
 		}
 	},
 	"permission": {
-		// "external_directory": {
-		//   "/tmp/**": "allow",
-		//   "/x/m/**": "allow"
-		// },
 		"external_directory": "allow",
 		"edit": "allow",
 		"bash": "allow"
@@ -120,10 +116,16 @@
 			"type": "remote",
 			"url": "https://mcp.onkernel.com/mcp",
 		},
+		"nushell": {
+			"type": "local",
+			"command": [
+				"nu", "--mcp"
+			]
+		},
 		"svelte": {
 			"type": "local",
 			"command": [
-				"@sveltejs/mcp"
+				"svelte-mcp"
 			]
 		},
 		// Docs lookup for libraries - https://context7.com
@@ -135,12 +137,37 @@
 		"fetch": {
 			"type": "local",
 			"command": ["uvx", "mcp-server-fetch"]
+		},
+		"searxng": {
+			"type": "local",
+			"command": ["mcp-searxng"],
+			"environment": {
+				"SEARXNG_URL": "https://searxng.cups.moe"
+			}
 		}
 	},
 	"lsp": {
 		"qmlls": {
 			"command": ["qmlls6", "-E"],
 			"extensions": [".qml"]
+		},
+		"nushell": {
+			"command": ["nu", "--lsp"],
+			"extensions": [".nu"]
+		}
+	},
+	"provider": {
+		"ollama": {
+			"npm": "@ai-sdk/openai-compatible",
+			"name": "Ollama",
+			"options": {
+				"baseURL": "http://localhost:11434/v1"
+			},
+			"models": {
+				"nomic-embed-text": {
+					"name": "nomic-embed-text"
+				}
+			}
 		}
 	}
 }

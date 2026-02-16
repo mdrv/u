@@ -1,13 +1,12 @@
-ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath('config'), '.u.lua'))
--- ANNOTATION: Load device-specific user configuration from .u.lua file
-if not ok then
+local IIF = require('utils').IIF
+local read_json_file = require('utils').read_json_file
+
+U = read_json_file(vim.fs.joinpath(vim.env.HOME, '.u.json'))["NVIM"]
+if U == nil then
 	U = {
 		LV = 0,
 	}
 end
-ok = nil
-
-local IIF = require('utils').IIF
 
 vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })

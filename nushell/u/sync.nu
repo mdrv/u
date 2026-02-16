@@ -81,8 +81,8 @@ export def main [
 	--user (-u)
     --dir (-d): string@"nu-complete files"
 ] {
-	let $dir = ($dir | default (open ($nu.default-config-dir)/.u.nuon | get SYNC.DEFAULT_DIR) | path expand)
-	let REMOTE_LIST = (open ($nu.default-config-dir)/.u.nuon | get SYNC.REMOTE_LIST)
+	let $dir = ($dir | default (open ($nu.home-dir)/.u.nuon | get SYNC.DEFAULT_DIR) | path expand)
+	let REMOTE_LIST = (open ($nu.home-dir)/.u.nuon | get SYNC.REMOTE_LIST)
 	# assert device-specific config
 
     if $generate {

@@ -4,7 +4,7 @@
 export def main [
 	--log: string
 ] {
-	let $C = (open ($nu.default-config-dir)/.u.nuon | get DB)
+	let $C = (open ($nu.home-dir)/.u.nuon | get DB)
 	let LOG = ($log | default $C.LOG? | default "info")
 	let $args = [
 		"--deny-all"
