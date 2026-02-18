@@ -142,7 +142,7 @@
 			"type": "local",
 			"command": ["mcp-searxng"],
 			"environment": {
-				"SEARXNG_URL": "https://searxng.cups.moe"
+				"SEARXNG_URL": "https://searx.oloke.xyz"
 			}
 		}
 	},
