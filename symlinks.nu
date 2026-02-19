@@ -38,7 +38,9 @@ const DATA = {
 	}
 	nvim: {
 		items: [uinit.lua, utils.lua, ulazy, ulsp, unavigate]
+		target: "~/.config/nvim/lua"
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
+		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`"
 	}
 	hypr: {
 		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, monitor.nu, shaders]
@@ -71,6 +73,7 @@ const DATA = {
 	zellij: {
 		items: [config.kdl, layouts, themes]
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
+		message: "Execute this: http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm | save -f ($nu.home-dir)/.config/zellij/zjstatus.wasm"
 	}
 	atuin: {
 		items: [config.toml]
@@ -95,6 +98,7 @@ const DATA = {
 	opencode: {
 		items: [opencode.jsonc, oh-my-opencode-slim.json]
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
+		message: "Don't forget to symlink /g/ai/skills to ($nu.home-dir)/.agents/skills"
 	}
 	otd: {
 		items: ["Deco 640 Absolute Mode.json", "Deco 640 Artist Mode.json"]
