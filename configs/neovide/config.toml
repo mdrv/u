@@ -1,0 +1,16 @@
+[font]
+size = 12
+hinting = "full"
+edging = "antialias"
+
+[[font.normal]]
+family = "JetBrainsMono Nerd Font"
+style = "W400"
+
+[[font.bold]]
+family = "JetBrainsMono Nerd Font"
+style = "W700"
+
+[[font.normal]]
+family = "Noto Sans Mono"
+style = "W400"

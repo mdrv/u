@@ -1,0 +1,21 @@
+{
+	"$schema": "https://charm.land/crush.json",
+	"options": {
+		"context_paths": [
+			"/ai/AGENTS_ALL.md"
+		],
+		"skills_paths": [
+			"/x/g/skills",
+			"/ai/skills"
+		],
+		"initialize_as": "AGENTS.md",
+		"disable_metrics": true,
+		"data_directory": ".crush"
+	},
+	"tools": {
+		"ls": {
+			"max_depth": 10,
+			"max_items": 1000
+		}
+	}
+}

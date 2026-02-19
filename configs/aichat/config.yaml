@@ -1,0 +1,44 @@
+model: groq:llama-3.3-70b-versatile
+clients:
+
+  # GROQ
+  # https://console.groq.com/docs/models
+  - type: openai-compatible
+    name: groq
+    api_base: https://api.groq.com/openai/v1
+    # api_key: GROQ_API_KEY
+    # model: groq:llama-3.3-70b-versatile
+    # model: groq:groq/compound
+    # model: groq:meta-llama/llama-4-maverick-17b-128e-instruct
+
+  # OPENROUTER
+  # https://openrouter.ai/models?max_price=0
+  - type: openai-compatible
+    name: openrouter
+    api_base: https://openrouter.ai/api/v1
+    # api_key: OPENROUTER_API_KEY
+    # model: openrouter:x-ai/grok-4.1-fast:free
+    # model: openrouter:kwaipilot/kat-coder-pro:free
+    # model: openrouter:qwen/qwen3-coder:free
+    # model: openrouter:openai/gpt-oss-20b:free
+
+  # GEMINI
+  # https://aistudio.google.com/apikey
+  # https://ai.google.dev/gemini-api/docs/models
+  - type: gemini
+    # api_key: GEMINI_API_KEY
+    # model: gemini:gemini-2.5-flash-lite
+    # model: gemini:gemini-2.5-flash
+
+  # GITHUB
+  # https://github.com/marketplace?type=models
+  # https://github.com/settings/personal-access-tokens
+  - type: openai-compatible
+    name: github
+    api_base: https://models.github.ai/inference
+    # api_key: GITHUB_API_KEY
+    # model: github:openai/gpt-5-mini
+    # model: github:openai/gpt-5
+    # model: github:deepseek/DeepSeek-V3-0324
+    # model: github:deepseek/DeepSeek-R1
+    # model: github:xai/grok-3

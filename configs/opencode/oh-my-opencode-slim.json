@@ -1,0 +1,115 @@
+{
+	"preset": "zen-glm",
+	"presets": {
+		"zen-glm": {
+			"orchestrator": {
+				"model": "zai-coding-plan/glm-4.7",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch"
+				]
+			},
+			"oracle": {
+				"model": "github-copilot/claude-sonnet-4.6",
+				"variant": "high",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"librarian": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch",
+					"context7",
+					"grep_app"
+				]
+			},
+			"explorer": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"designer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "medium",
+				"skills": [
+					"*"
+				]
+			},
+			"fixer": {
+				"model": "zai-coding-plan/glm-4.7",
+				"variant": "low",
+				"skills": [
+					"*"
+				]
+			}
+		},
+		"zen-noglm": {
+			"orchestrator": {
+				"model": "kimi-for-coding/k2p5",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch"
+				]
+			},
+			"oracle": {
+				"model": "github-copilot/claude-sonnet-4.6",
+				"variant": "high",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"librarian": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": [
+					"searxng",
+					"websearch",
+					"context7",
+					"grep_app"
+				]
+			},
+			"explorer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "low",
+				"skills": [
+					"*"
+				],
+				"mcps": []
+			},
+			"designer": {
+				"model": "github-copilot/gemini-3-flash-preview",
+				"variant": "medium",
+				"skills": [
+					"*"
+				]
+			},
+			"fixer": {
+				"model": "github-copilot/gpt-5.1-codex-mini",
+				"variant": "low",
+				"skills": [
+					"*"
+				]
+			}
+		}
+	}
+}

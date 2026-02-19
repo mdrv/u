@@ -1,0 +1,7 @@
+simplified_ui true
+layout {
+    pane split_direction="vertical" {
+        pane borderless=true
+        pane borderless=true
+    }
+}
