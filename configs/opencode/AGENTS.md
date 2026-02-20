@@ -41,6 +41,14 @@ megamemory:list_roots → megamemory:understand("development principles") → me
 
 **Concept kinds:** `feature` | `module` | `pattern` | `config` | `decision` | `component`
 
+### memory-mcp Ignore Requirements
+
+**CRITICAL:** Create `.gitignore` OR `.memoryignore` BEFORE indexing a project with memory-mcp to prevent unnecessary files (ex. node_modules).
+
+```
+memory-mcp:index_project /path/to/project
+```
+
 ## 📋 Task Ledger Workflow
 
 **Decision:** Drop OpenSpec entirely. Use MegaMemory as task ledger with zero ceremony.
