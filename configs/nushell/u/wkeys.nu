@@ -1,5 +1,5 @@
 #!/usr/bin/env -S nu
-# ANNOTATION: Toggle wkeys between bottom-left and bottom-right positions using CSS margins
+# Toggle wkeys between bottom-left and bottom-right positions using CSS margins
 
 const STYLE_LEFT = $"($nu.home-dir)/.config/wkeys/style-left.css"
 const STYLE_RIGHT = $"($nu.home-dir)/.config/wkeys/style-right.css"

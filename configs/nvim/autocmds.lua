@@ -1,4 +1,4 @@
--- ANNOTATION: User autocommands - event handlers for editor behavior
+-- User autocommands - event handlers for editor behavior
 local M = {}
 
 -- Setup all autocommands

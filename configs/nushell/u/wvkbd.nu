@@ -1,4 +1,4 @@
-# ANNOTATION: Toggle wvkbd between bottom-left and bottom-right positions
+# Toggle wvkbd between bottom-left and bottom-right positions
 
 const GEOMETRY_LEFT = "50%x60%+0%-60%"
 const GEOMETRY_RIGHT = "50%x60%+50%-60%"

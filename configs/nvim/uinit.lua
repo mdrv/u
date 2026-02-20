@@ -16,7 +16,7 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'StatusLine', { bg = 'none' })
--- ANNOTATION: Transparent bg for picom/wayland compositor compatibility
+-- Transparent bg for picom/wayland compositor compatibility
 
 local uname = vim.uv.os_uname()
 local hostname = vim.uv.os_getenv('HOSTNAME') or 'unknown'
@@ -25,20 +25,20 @@ local o = vim.o
 
 -- Window borders
 o.winborder = 'rounded'
--- ANNOTATION: Rounded borders match modern UI aesthetics
+-- Rounded borders match modern UI aesthetics
 
 -- Disable unused providers for faster startup
 g.loaded_python3_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0
--- ANNOTATION: Python/Ruby/Node providers slow startup; enable only if needed
+-- Python/Ruby/Node providers slow startup; enable only if needed
 
 -- Enable Lua/Perl syntax in Vim scripts
 g.vimsyn_embed = 'lP'
 
 -- Mouse support on GUI-capable machines only
 o.mouse = IIF(uname.machine == 'x86_64' or hostname == 'armpipa-alx', 'a', '')
--- ANNOTATION: RISC-V headless hardware doesn't need mouse
+-- RISC-V headless hardware doesn't need mouse
 
 -- Backup copy prevents file watcher crashes (Bun, etc.)
 o.backupcopy = 'yes'
@@ -61,7 +61,7 @@ o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4
 o.expandtab = false
--- ANNOTATION: Tabs over spaces; 4-wide for readability
+-- Tabs over spaces; 4-wide for readability
 
 -- Line endings: prefer Unix, don't auto-add final newline
 o.ffs = 'unix,dos'
@@ -78,11 +78,11 @@ o.laststatus = 3
 
 -- Shada: persistent history, registers, marks
 o.shada = "!,'1000,<50,s10,h"
--- ANNOTATION: 1000 files, 50 lines per register, 10KB per item
+-- 1000 files, 50 lines per register, 10KB per item
 
 
 -- Diagnostic display: minimal signs (⏺), virtual text on current line only
--- ANNOTATION: Reduces visual noise while keeping diagnostics accessible
+-- Reduces visual noise while keeping diagnostics accessible
 vim.diagnostic.config({
 	virtual_text = { current_line = true },
 	signs = {
@@ -137,7 +137,7 @@ vim.keymap.del('n', 'gc')
 -- Load all LSP configs
 local lsp_loader = require('lsp-loader')
 lsp_loader.load_configs()
--- ANNOTATION: Load configs into memory; LSPs start manually
+-- Load configs into memory; LSPs start manually
 
 -- Explicitly enable commonly-used LSPs (always active)
 vim.lsp.enable('svelte')

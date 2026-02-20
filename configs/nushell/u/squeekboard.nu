@@ -1,5 +1,5 @@
 #!/usr/bin/env -S nu
-# ANNOTATION: Toggle Squeekboard on-screen keyboard visibility via DBus
+# Toggle Squeekboard on-screen keyboard visibility via DBus
 
 const DBUS_SERVICE = "sm.puri.OSK0"
 const DBUS_OBJECT = "/sm/puri/OSK0"

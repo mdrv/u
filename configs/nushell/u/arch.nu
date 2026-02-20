@@ -1,35 +1,35 @@
 const SELF = (path self)
-# ANNOTATION: Get the current script's path for recursive calls
+# Get the current script's path for recursive calls
 
 const PACMAN = [sudo pacman -S --needed --noconfirm]
-# ANNOTATION: Base pacman command with flags to skip confirmation
+# Base pacman command with flags to skip confirmation
 
 export def pipewire [] {
 	run-external ...$PACMAN pipewire pipewire-pulse wireplumber pavucontrol ladspa dsp mpv
 	systemctl enable --user pipewire pipewire-pulse.socket
 	print $"Don't forget to populate (ansi bb)~/.config/ladspa/(ansi reset) with (ansi bb)config_[name](ansi reset)."
 }
-# ANNOTATION: Install and enable PipeWire audio stack for Linux sound system
+# Install and enable PipeWire audio stack for Linux sound system
 
 export def essential [] {
 	run-external ...$PACMAN base base-devel linux networkmanager usbutils udisks2
 	print $"Might be needed: linux-firmware-realtek linux-firmware-nvidia"
 	print $"Might be needed: intel-ucode nvidia"
 }
-# ANNOTATION: Install essential Arch Linux packages for a basic working system
+# Install essential Arch Linux packages for a basic working system
 
 export def cli [] {
 	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd android-tools rhash copyparty rtorrent evtest keyd iperf3 eza acpi batsignal chezmoi lazygit gitui tig ugrep typos
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin gitui-bin"
 	print "aarch64 has gnu-netcat available in pacman"
 }
-# ANNOTATION: Install comprehensive CLI tools for development and daily use
+# Install comprehensive CLI tools for development and daily use
 
 export def dev [] {
 	run-external ...$PACMAN stylua lua-language-server svelte-language-server typescript typescript-language-server typescript-svelte-plugin pnpm nodejs vscode-css-languageserver vscode-html-languageserver vscode-json-languageserver astyle pacman-contrib
 	print $"AUR: carapace-bin bun-bin lefthook-bin opencode-bin crush-bin openspec surrealdb-bin"
 }
-# ANNOTATION: Install development tools including language servers for web development
+# Install development tools including language servers for web development
 
 export def vps [] {
 	run-external ...$PACMAN miniserve caddy
