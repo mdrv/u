@@ -36,21 +36,6 @@ configs/          # All tool configs
 
 ## Patterns
 
-### Annotation Comments
-
-Config files can include annotation comments:
-
-**Format:**
-
-- Lua/Nu: `-- ANNOTATION: explanation` or `# ANNOTATION: explanation`
-
-**Example:**
-
-```lua
--- ANNOTATION: Load device-specific config
-ok, U = pcall(dofile, vim.fs.joinpath(vim.fn.stdpath('config'), '.u.lua'))
-```
-
 ### Device-Specific Configs
 
 **Neovim:** Create `.u.lua` in nvim config dir:
