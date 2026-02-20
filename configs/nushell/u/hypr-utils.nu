@@ -58,7 +58,12 @@ export def --wrapped main [
 		}
 
 		generatehelp => {
-			let lines = (open --raw ($HYPRLAND_CONFIG_DIR)/hyprland.conf | lines | where $it starts-with '## ' | str substring 3..)
+			let lines = (glob $"($HYPRLAND_CONFIG_DIR)/*.conf"
+				| where name not-in ["hyprland-generic.conf"]
+				| each { |f| open --raw $f | lines }
+				| flatten
+				| where $it starts-with '## '
+				| str substring 3..)
 			mut res = {}
 			mut modes = []
 

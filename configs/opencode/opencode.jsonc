@@ -2,111 +2,40 @@
 	"$schema": "https://opencode.ai/config.json",
 	"theme": "lucent-orng",
 	"instructions": [
-		"/ai/AGENTS_ALL.md",
 		"AGENTS.md"
 	],
 	"default_agent": "tens",
 	"agent": {
-		"orchestrator": {
-			"permission": {
-				"task": {
-					"*": "deny",
-					"plan": "allow",
-					"build": "allow",
-					"debug": "allow",
-					"devops": "allow",
-					"explore": "allow"
-				}
+		"tens": {
+			"description": "Build-focused agent with full access",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7",
+			"steps": 20,
+			"tools": {
+				"write": true,
+				"edit": true,
+				"bash": true
 			}
 		},
 		"plan": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
+			"description": "Planning-only agent, no write/edit access",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7",
+			"tools": {
+				"write": false,
+				"edit": false,
+				"bash": true
 			}
 		},
-		"build": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
+		"flash": {
+			"description": "Quick read-only agent",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7-flash",
+			"tools": {
+				"write": false,
+				"edit": false,
+				"bash": false
 			}
-		},
-		"debug": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
-			}
-		},
-		"devops": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
-			}
-		},
-		"explore": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
-			}
-		},
-		"review": {
-			"permission": {
-				"task": {
-					"*": "deny"
-				}
-			}
-		},
-		// "build": {
-		// 	"description": "Build-focused agent with full access and more steps",
-		// 	"mode": "primary",
-		// 	"model": "zai-coding-plan/glm-4.7",
-		// 	"tools": {
-		// 		"write": true,
-		// 		"edit": true,
-		// 		"bash": true
-		// 	}
-		// },
-		// "tens": {
-		// 	"description": "Small build-focused agent with full access",
-		// 	"mode": "primary",
-		// 	"model": "zai-coding-plan/glm-4.7",
-		// 	"steps": 20,
-		// 	"tools": {
-		// 		"write": true,
-		// 		"edit": true,
-		// 		"bash": true
-		// 	}
-		// },
-		// "plan": {
-		// 	"description": "Planning-only agent, no write/edit/bash access",
-		// 	"mode": "primary",
-		// 	"model": "zai-coding-plan/glm-4.7",
-		// 	"tools": {
-		// 		"write": false,
-		// 		"edit": false,
-		// 		"bash": true
-		// 	}
-		// },
-		// "flash": {
-		// 	"description": "Quick stuff",
-		// 	"mode": "primary",
-		// 	"model": "zai-coding-plan/glm-4.7-flash",
-		// 	"tools": {
-		// 		"write": false,
-		// 		"edit": false,
-		// 		"bash": false
-		// 	}
-		// },
-		"explore": {
-			"disable": true
-		},
-		"general": {
-			"disable": true
 		}
 	},
 	"permission": {
@@ -130,57 +59,29 @@
 	},
 	"formatter": {
 		"dprint": {
-			"command": [
-				"dprint",
-				"fmt",
-				"$FILE"
-			],
-			"extensions": [
-				".svelte",
-				".ts",
-				".js",
-				".tsx",
-				".jsx",
-				".html",
-				".css",
-				".json",
-				".yaml",
-				".md"
-			]
+			"command": ["dprint", "fmt", "$FILE"],
+			"extensions": [".svelte", ".ts", ".js", ".tsx", ".jsx", ".html", ".css", ".json", ".yaml", ".md"]
 		},
-		"prettier": {
-			"disabled": true
-		}
+		"prettier": { "disabled": true }
 	},
 	"plugin": [
 		"@sveltejs/opencode",
-		// "oh-my-opencode-slim",
-		"opencode-hashline",
-		"opencode-mem"
+		"oh-my-opencode-slim",
+		"opencode-hashline"
 	],
 	"mcp": {
-		"kernel": {
-			"type": "remote",
-			"url": "https://mcp.onkernel.com/mcp",
-		},
 		"nushell": {
 			"type": "local",
-			"command": [
-				"nu", "--mcp"
-			]
+			"command": ["nu", "--mcp"]
 		},
 		"svelte": {
 			"type": "local",
-			"command": [
-				"svelte-mcp"
-			]
+			"command": ["svelte-mcp"]
 		},
-		// Docs lookup for libraries - https://context7.com
 		"context7": {
 			"type": "remote",
 			"url": "https://mcp.context7.com/mcp"
 		},
-		// Web fetching - MCP official server (Python via uvx)
 		"fetch": {
 			"type": "local",
 			"command": ["uvx", "mcp-server-fetch"]
@@ -188,9 +89,7 @@
 		"searxng": {
 			"type": "local",
 			"command": ["mcp-searxng"],
-			"environment": {
-				"SEARXNG_URL": "https://searx.oloke.xyz"
-			}
+			"environment": { "SEARXNG_URL": "https://searx.oloke.xyz" }
 		},
 		"zellij": {
 			"type": "local",
@@ -199,19 +98,19 @@
 		},
 		"megamemory": {
 			"type": "local",
-			"command": [
-				"megamemory"
-			],
+			"command": ["megamemory"],
+			"environment": { "MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db" },
+			"enabled": true
+		},
+		"memory-mcp": {
+			"type": "local",
+			"command": ["memory-mcp"],
+			"environment": { "EMBEDDING_MODEL": "e5_multi" },
 			"enabled": true
 		},
 		"exa": {
 			"type": "local",
-			"command": [
-				"npx",
-				"-y",
-				"mcp-remote",
-				"https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"
-			],
+			"command": ["npx", "-y", "mcp-remote", "https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"],
 			"enabled": true
 		},
 		"grep_app": {
@@ -229,19 +128,5 @@
 			"command": ["nu", "--lsp"],
 			"extensions": [".nu"]
 		}
-	},
-	"provider": {
-		// "ollama": {
-		// 	"npm": "@ai-sdk/openai-compatible",
-		// 	"name": "Ollama",
-		// 	"options": {
-		// 		"baseURL": "http://localhost:11434/v1"
-		// 	},
-		// 	"models": {
-		// 		"nomic-embed-text": {
-		// 			"name": "nomic-embed-text"
-		// 		}
-		// 	}
-		// }
 	}
 }

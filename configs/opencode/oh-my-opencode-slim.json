@@ -4,56 +4,32 @@
 		"zen-glm": {
 			"orchestrator": {
 				"model": "zai-coding-plan/glm-4.7",
-				"skills": [
-					"*"
-				],
-				"mcps": [
-					"searxng",
-					"websearch"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"oracle": {
 				"model": "github-copilot/claude-sonnet-4.6",
 				"variant": "high",
-				"skills": [
-					"*"
-				],
-				"mcps": []
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"librarian": {
 				"model": "zai-coding-plan/glm-4.7",
 				"variant": "low",
-				"skills": [
-					"*"
-				],
-				"mcps": [
-					"searxng",
-					"websearch",
-					"context7",
-					"grep_app"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"explorer": {
 				"model": "zai-coding-plan/glm-4.7",
 				"variant": "low",
-				"skills": [
-					"*"
-				],
-				"mcps": []
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"designer": {
 				"model": "github-copilot/gemini-3-flash-preview",
 				"variant": "medium",
-				"skills": [
-					"*"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"fixer": {
 				"model": "zai-coding-plan/glm-4.7",
 				"variant": "low",
-				"skills": [
-					"*"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			}
 		},
 		"zen-noglm": {

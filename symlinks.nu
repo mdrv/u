@@ -43,9 +43,9 @@ const DATA = {
 		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`. Link .luarc.jsonc manually: ln -s configs/nvim/.luarc.jsonc ~/.config/nvim/.luarc.jsonc"
 	}
 	hypr: {
-		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, monitor.nu, shaders]
-		compatible_with: ["arch-x64", "arch-arm"]
-	}
+ 		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, toggle-monitor.nu, shaders]
+ 		compatible_with: ["arch-x64", "arch-arm"]
+ 	}
 	kitty: {
 		items: [kitty.conf, themes-cyberdream.conf]
 		compatible_with: ["arch-x64", "arch-arm"]
