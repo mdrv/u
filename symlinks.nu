@@ -115,7 +115,19 @@ const DATA = {
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
 		message: "Home dotfiles linked. Remember to create ~/.u.gitconfig for device-specific git settings."
 	}
-}
+	keyd: {
+		items: [rx-kl150.conf]
+		compatible_with: ["arch-x64", "arch-arm"]
+		message: "Link to /etc/keyd/ with: sudo ln -s /x/g/u/configs/keyd/rx-kl150.conf /etc/keyd/"
+	}
+	etc: {
+		items: [{ "fonts/local.conf": "fonts/local.conf" }, { "fonts/fonts-old.conf": "fonts-old.conf" }]
+		target: "/etc"
+		requires_root: true
+		compatible_with: ["arch-x64", "arch-arm"]
+		message: "Requires root. Run: sudo nu symlinks.nu --root etc"
+	}
+ }
 
 # Read device_type from ~/.u.json, defaulting to "arch-x64"
 def get_device_type []: nothing -> string {
@@ -226,6 +238,19 @@ def link_app [app_name: string]: nothing -> list<string> {
 
 	print $"(ansi rb)▸(ansi reset) (ansi attr_bold)($app_name)(ansi reset) → ($target_dir | str replace $nu.home-dir '~')"
 
+	# Check if requires root
+	let requires_root = ($config | get requires_root? | default false)
+	if $requires_root {
+		print $"  (ansi yb)⚠(ansi reset) Requires root access to create symlinks in ($target_dir)"
+		print $"  (ansi c)Run with sudo:(ansi reset) sudo nu symlinks.nu ($app_name)"
+		if $env.USER == "root" {
+			print $"  (ansi gr)✓(ansi reset) Running as root, proceeding..."
+		} else {
+			[]
+			return
+		}
+	}
+
 	mut errors: list<string> = []
 
 	for item in $items {
@@ -258,7 +283,7 @@ def link_app [app_name: string]: nothing -> list<string> {
 	}
 
 	$errors
-}
+ }
 
 # Get list of configs compatible with the given device type
 def get_compatible_configs [device_type: string]: nothing -> list<string> {
