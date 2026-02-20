@@ -209,8 +209,8 @@ The `uinit.lua` file loads this and uses `U.LV` to control plugin loading.
 
 Nushell extends the default configuration by appending a single line:
 
-- In `env.nu`: `source ~/.config/nushell/uenv.nu`
-- In `config.nu`: `source ~/.config/nushell/uconfig.nu`
+- In `env.nu`: `source configs/nushell/uenv.nu`
+- In `config.nu`: `source configs/nushell/uconfig.nu`
 
 This avoids heavily modifying default configs while adding customization.
 

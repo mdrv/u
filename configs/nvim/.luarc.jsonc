@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "Lua.workspace.library": [
+    "$VIMRUNTIME",
+    "${3rd}/luv/library"
+  ],
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.diagnostics.enable": true,
+  "Lua.diagnostics.globals": [
+    "vim"
+  ],
+  "Lua.diagnostics.disable": [
+    "lowercase-global",
+    "undefined-doc-name",
+    "duplicate-doc-alias",
+    "missing-fields"
+  ],
+  "Lua.diagnostics.unusedLocalExclude": [
+    "_.*"
+  ],
+  "Lua.type.robustIndex": true,
+  "Lua.completion.enable": true,
+  "Lua.completion.callSnippet": "Replace",
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.runtime.pathStrict": false,
+  "Lua.format.enable": false,
+  "Lua.hover.enable": true,
+  "Lua.hover.expandAlias": true,
+  "Lua.signatureHelp.enable": true,
+  "Lua.semantic.enable": true,
+  "Lua.semantic.variable": true,
+  "Lua.telemetry.enable": false
+}

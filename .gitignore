@@ -4,3 +4,8 @@
 
 *.log
 .sync.*
+
+# Auto-generated files
+__gen/
+
+.megamemory/

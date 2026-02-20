@@ -1,0 +1,132 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"theme": "lucent-orng",
+	"instructions": [
+		"AGENTS.md"
+	],
+	"default_agent": "tens",
+	"agent": {
+		"tens": {
+			"description": "Build-focused agent with full access",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7",
+			"steps": 20,
+			"tools": {
+				"write": true,
+				"edit": true,
+				"bash": true
+			}
+		},
+		"plan": {
+			"description": "Planning-only agent, no write/edit access",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7",
+			"tools": {
+				"write": false,
+				"edit": false,
+				"bash": true
+			}
+		},
+		"flash": {
+			"description": "Quick read-only agent",
+			"mode": "primary",
+			"model": "zai-coding-plan/glm-4.7-flash",
+			"tools": {
+				"write": false,
+				"edit": false,
+				"bash": false
+			}
+		}
+	},
+	"permission": {
+		"external_directory": "allow",
+		"edit": "allow",
+		"bash": "allow"
+	},
+	"watcher": {
+		"ignore": [
+			"node_modules/**",
+			"dist/**",
+			".git/**",
+			".svelte-kit/**",
+			"build/**",
+			"__gen__/**"
+		]
+	},
+	"compaction": {
+		"auto": true,
+		"prune": true
+	},
+	"formatter": {
+		"dprint": {
+			"command": ["dprint", "fmt", "$FILE"],
+			"extensions": [".svelte", ".ts", ".js", ".tsx", ".jsx", ".html", ".css", ".json", ".yaml", ".md"]
+		},
+		"prettier": { "disabled": true }
+	},
+	"plugin": [
+		"@sveltejs/opencode",
+		"oh-my-opencode-slim",
+		"opencode-hashline"
+	],
+	"mcp": {
+		"nushell": {
+			"type": "local",
+			"command": ["nu", "--mcp"]
+		},
+		"svelte": {
+			"type": "local",
+			"command": ["svelte-mcp"]
+		},
+		"context7": {
+			"type": "remote",
+			"url": "https://mcp.context7.com/mcp"
+		},
+		"fetch": {
+			"type": "local",
+			"command": ["uvx", "mcp-server-fetch"]
+		},
+		"searxng": {
+			"type": "local",
+			"command": ["mcp-searxng"],
+			"environment": { "SEARXNG_URL": "https://searx.oloke.xyz" }
+		},
+		"zellij": {
+			"type": "local",
+			"command": ["bun", "run", "/g/zellij-pane-tracker/mcp-server/index.ts"],
+			"enabled": true
+		},
+		"megamemory": {
+			"type": "local",
+			"command": ["megamemory"],
+			"environment": { "MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db" },
+			"enabled": true
+		},
+		"memory-mcp": {
+			"type": "local",
+			"command": ["memory-mcp"],
+			"environment": { "EMBEDDING_MODEL": "e5_multi" },
+			"enabled": true
+		},
+		"exa": {
+			"type": "local",
+			"command": ["npx", "-y", "mcp-remote", "https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"],
+			"enabled": true
+		},
+		"grep_app": {
+			"type": "remote",
+			"url": "https://mcp.grep.app",
+			"enabled": true
+		}
+	},
+	"lsp": {
+		"qmlls": {
+			"command": ["qmlls6", "-E"],
+			"extensions": [".qml"]
+		},
+		"nushell": {
+			"command": ["nu", "--lsp"],
+			"extensions": [".nu"]
+		}
+	}
+}
