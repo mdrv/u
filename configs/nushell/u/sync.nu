@@ -33,6 +33,7 @@ ignore = Name .vitepress/cache
 ignore = Name src-tauri/target
 ignore = Name src-tauri/gen
 ignore = Name node_modules
+ignore = Name .crush
 ignore = Name .svelte-kit
 ignore = Regex ^.*/_big/.*
 ignore = Name bun.lock*
