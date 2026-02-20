@@ -37,10 +37,10 @@ const DATA = {
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
 	}
 	nvim: {
-		items: [uinit.lua, utils.lua, ulazy, ulsp, unavigate]
+		items: [uinit.lua, utils.lua, autocmds.lua, filetype.lua, keymaps.lua, lsp-loader.lua, statusline.lua, theme.lua, ulazy, ulsp, unavigate]
 		target: "~/.config/nvim/lua"
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
-		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`"
+		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`. Link .luarc.jsonc manually: ln -s configs/nvim/.luarc.jsonc ~/.config/nvim/.luarc.jsonc"
 	}
 	hypr: {
 		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, monitor.nu, shaders]
@@ -96,9 +96,9 @@ const DATA = {
 		compatible_with: ["arch-x64"]
 	}
 	opencode: {
-		items: [opencode.jsonc, oh-my-opencode-slim.json]
+		items: [AGENTS.md opencode.jsonc, oh-my-opencode-slim.json oh-my-opencode-slim package.json]
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
-		message: "Don't forget to symlink /g/ai/skills to ($nu.home-dir)/.agents/skills"
+		message: "Don't forget to do bun install and add dprint.jsonc"
 	}
 	otd: {
 		items: ["Deco 640 Absolute Mode.json", "Deco 640 Artist Mode.json"]
@@ -125,15 +125,15 @@ def get_device_type []: nothing -> string {
 		return "arch-x64"
 	}
 	let ujson = (open $ujson_path)
-	let device_type = ($ujson | get device_type? | default "arch-x64")
+	let device_type = ($ujson | get DEVICE | get TYPE | default "arch-x64")
 	if $device_type not-in $VALID_DEVICE_TYPES {
-		print $"(ansi rd)✗ Invalid device_type '($device_type)' in ~/.u.json(ansi reset)"
+		print $"(ansi rd)✗ Invalid DEVICE.TYPE '($device_type)' in ~/.u.json(ansi reset)"
 		print $"  Valid types: ($VALID_DEVICE_TYPES | str join ', ')"
 		print $"(ansi yb)⚠ Defaulting to arch-x64(ansi reset)"
 		return "arch-x64"
 	}
-	if ($ujson | get device_type? | is-empty) {
-		print $"(ansi yb)⚠ No device_type in ~/.u.json, defaulting to arch-x64(ansi reset)"
+	if ($ujson | get DEVICE | get TYPE | is-empty) {
+		print $"(ansi yb)⚠ No DEVICE.TYPE in ~/.u.json, defaulting to arch-x64(ansi reset)"
 	}
 	$device_type
 }

@@ -35,4 +35,27 @@ M.read_json_file = function(path)
 	return result
 end
 
+---Execute Lua code string and display result via vim.notify
+---Handles nil returns and pretty-prints tables with vim.inspect
+---@param code string - Lua code to execute
+M.execute_lua_and_notify = function(code)
+	local fn, err = loadstring(code)
+	if not fn then
+		error(err)
+	end
+	local success, result = pcall(fn)
+	if not success then
+		error(result)
+	end
+	local output = result
+	if output == nil then
+		output = 'nil (no return)'
+	elseif type(output) == 'table' then
+		output = vim.inspect(output)
+	else
+		output = tostring(output)
+	end
+	vim.notify(output, vim.log.levels.INFO)
+end
+
 return M
