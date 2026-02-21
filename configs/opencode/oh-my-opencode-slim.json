@@ -35,56 +35,32 @@
 		"zen-noglm": {
 			"orchestrator": {
 				"model": "kimi-for-coding/k2p5",
-				"skills": [
-					"*"
-				],
-				"mcps": [
-					"searxng",
-					"websearch"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"oracle": {
 				"model": "github-copilot/claude-sonnet-4.6",
 				"variant": "high",
-				"skills": [
-					"*"
-				],
-				"mcps": []
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"librarian": {
 				"model": "github-copilot/gemini-3-flash-preview",
 				"variant": "low",
-				"skills": [
-					"*"
-				],
-				"mcps": [
-					"searxng",
-					"websearch",
-					"context7",
-					"grep_app"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"explorer": {
 				"model": "github-copilot/gemini-3-flash-preview",
 				"variant": "low",
-				"skills": [
-					"*"
-				],
-				"mcps": []
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"designer": {
 				"model": "github-copilot/gemini-3-flash-preview",
 				"variant": "medium",
-				"skills": [
-					"*"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			},
 			"fixer": {
 				"model": "github-copilot/gpt-5.1-codex-mini",
 				"variant": "low",
-				"skills": [
-					"*"
-				]
+				"skills": ["*"], "mcps": ["*"]
 			}
 		}
 	}

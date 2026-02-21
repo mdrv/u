@@ -20,7 +20,7 @@
 		// "network",
 		// "power-profiles-daemon",
 		// "cpu",
-		// "memory",
+		"memory",
 		// "temperature",
 		// "backlight",
 		// "keyboard-state",
@@ -115,7 +115,13 @@
 		"tooltip": false
 	},
 	"memory": {
-		"format": "{}% "
+		"format": "{}% ",
+		"format-warning": "{}% ",
+		"format-critical": "{}% ",
+		"interval": 5,
+		"warning": 90,
+		"critical": 95,
+		"tooltip": false
 	},
 	"temperature": {
 		// "thermal-zone": 2,

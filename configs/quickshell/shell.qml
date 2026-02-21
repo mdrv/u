@@ -239,4 +239,71 @@ ShellRoot {
 		}
 
 	}
+
+	// AI: 2025-02-21 - Memory usage widget in bottom-right corner
+	Variants {
+		model: Quickshell.screens
+
+		PanelWindow {
+			id: memory_widget
+			property var modelData: null
+
+			exclusionMode: ExclusionMode.Ignore
+
+			anchors {
+				bottom: true
+				right: true
+			}
+
+			margins {
+				bottom: Theme.spacingTiny
+				right: Theme.spacingTiny
+			}
+
+			implicitWidth: 70
+			implicitHeight: 25
+
+			WlrLayershell.layer: WlrLayer.Overlay
+
+			color: "transparent"
+
+			property real memUsedPercent: 0
+			property bool memWarning: memUsedPercent >= 90
+
+			Timer {
+				interval: 5000
+				running: true
+				repeat: true
+				onTriggered: memory_process.running = true
+			}
+
+			Process {
+				id: memory_process
+				command: ["nu", "-n", "-c", "open /proc/meminfo | lines | into record | {MemTotal: ($in | where name == 'MemTotal:' | get values.0 | into int), MemAvailable: ($in | where name == 'MemAvailable:' | get values.0 | into int)} | ($in.MemTotal - $in.MemAvailable) / $in.MemTotal * 100 | math round"]
+
+				running: true
+
+				onFinished: {
+					if (exitCode === 0) {
+						const result = parseFloat(stdoutCollected.text())
+						if (!isNaN(result)) {
+							memUsedPercent = result
+						}
+					}
+				}
+			}
+
+			StdioCollector {
+				id: stdoutCollected
+			}
+
+			Text {
+				anchors.centerIn: parent
+				text: `RAM ${memory_widget.memUsedPercent.toFixed(0)}%`
+				color: memory_widget.memWarning ? "#ff4444" : "#ffffff"
+				font.family: "monospace"
+				font.pixelSize: 12
+			}
+		}
+	}
 }

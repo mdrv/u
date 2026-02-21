@@ -172,9 +172,13 @@ label:focus {
 /*     color: #000000; */
 /* } */
 
-/* #memory { */
-/*     background-color: #9b59b6; */
-/* } */
+#memory.warning {
+	color: #f39c12;
+}
+
+#memory.critical {
+	color: #e74c3c;
+}
 
 /* #disk { */
 /*     background-color: #964B00; */
