@@ -6,36 +6,16 @@
   ],
   "default_agent": "tens",
   "agent": {
-    "tens": {
+    "build": {
       "description": "Build-focused agent with full access",
       "mode": "primary",
-      "model": "zai-coding-plan/glm-4.7",
-      "steps": 20,
-      "tools": {
-        "write": true,
-        "edit": true,
-        "bash": true
-      }
+      "model": "opencode/big-pickle",
+      "steps": 5
     },
     "plan": {
       "description": "Planning-only agent, no write/edit access",
       "mode": "primary",
-      "model": "zai-coding-plan/glm-4.7",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": true
-      }
-    },
-    "flash": {
-      "description": "Quick read-only agent",
-      "mode": "primary",
-      "model": "zai-coding-plan/glm-4.7-flash",
-      "tools": {
-        "write": false,
-        "edit": false,
-        "bash": false
-      }
+      "model": "opencode/big-pickle"
     }
   },
   "permission": {
