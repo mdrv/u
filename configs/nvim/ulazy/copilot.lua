@@ -1,7 +1,8 @@
 --- @type LazyPluginSpec
-return {
+	return {
 	'zbirenbaum/copilot.lua',
 	dependencies = {
+		'ibhagwan/fzf-lua', -- Required for copilot-menu
 		{
 			'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
 			config = function()
@@ -12,11 +13,21 @@ return {
 	},
 	cmd = 'Copilot',
 	event = 'InsertEnter',
+	keys = {
+		-- Register keymap immediately (before plugin loads)
+		{
+			'<Leader>zc',
+			function()
+				require('uu/copilot-menu').open_menu()
+			end,
+			desc = 'Copilot menu',
+		},
+	},
 	config = function()
 		require('copilot').setup({
 			suggestion = {
 				enabled = true,
-				auto_trigger = true,
+				auto_trigger = false, -- Disabled for manual control via menu
 				keymap = {
 					accept = '<C-j>',
 					dismiss = '<C-h>',
@@ -25,12 +36,11 @@ return {
 			nes = {
 				enabled = true,
 				keymap = {
-					accept_and_goto = "<C-c>",
+					accept_and_goto = "<C-j>",
 					accept = false,
-					dismiss = "<Esc>",
+					dismiss = "<C-h>",
 				},
 			},
 		})
-		-- require("copilot.suggestion").toggle_auto_trigger()
 	end,
 }

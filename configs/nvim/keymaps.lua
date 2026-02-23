@@ -53,6 +53,39 @@ function M.setup()
 	vim.keymap.set('n', '<Leader>lz', '<Cmd>Lazy<CR>', { desc = 'Open lazy.nvim' })
 	vim.keymap.set('n', '<Leader>li', '<Cmd>checkhealth vim.lsp<CR>', { desc = 'Check LSP health' })
 	vim.keymap.set('n', '<Leader>ls', '<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = 'LSP workspace symbols' })
+
+	-- Diagnostic navigation
+	vim.keymap.set('n', ']e', function()
+		vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+	end, { desc = 'Next error' })
+	vim.keymap.set('n', '[e', function()
+		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	end, { desc = 'Previous error' })
+	vim.keymap.set('n', ']E', function()
+		-- Go to first error in buffer
+		local diagnostics = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+		if #diagnostics > 0 then
+			vim.api.nvim_win_set_cursor(0, { diagnostics[1].lnum + 1, diagnostics[1].col })
+		end
+	end, { desc = 'First error' })
+	vim.keymap.set('n', '[E', function()
+		-- Go to last error in buffer
+		local diagnostics = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+		if #diagnostics > 0 then
+			local last = diagnostics[#diagnostics]
+			vim.api.nvim_win_set_cursor(0, { last.lnum + 1, last.col })
+		end
+	end, { desc = 'Last error' })
+
+	-- Diagnostic list (Telescope)
+	vim.keymap.set('n', '<Leader>ld', function()
+		require('telescope.builtin').diagnostics({ bufnr = 0 })
+	end, { desc = 'LSP: Diagnostics (current buffer)' })
+	vim.keymap.set('n', '<Leader>lD', function()
+		require('telescope.builtin').diagnostics()
+	end, { desc = 'LSP: Diagnostics (all buffers)' })
+
+	-- LSP control
 	vim.keymap.set('n', '<Leader>lxa', '<Cmd>LspStop<CR>', { desc = 'Stop all LSP clients' })
 	vim.keymap.set('n', '<Leader>lxi', function()
 		vim.ui.select(vim.lsp.get_clients(), {

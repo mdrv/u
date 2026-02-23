@@ -80,5 +80,12 @@ return {
 			end,
 			{ desc = 'Search keymaps (fzf-lua)' },
 		},
+		{
+			'<Leader>lm',
+			function()
+				require('uu.lsp-menu').open_menu()
+			end,
+			{ desc = 'LSP Menu (fzf-lua)' },
+		},
 	},
 }

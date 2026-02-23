@@ -9,8 +9,7 @@
     "build": {
       "description": "Build-focused agent with full access",
       "mode": "primary",
-      "model": "opencode/big-pickle",
-      "steps": 5
+      "model": "opencode/trinity-large-preview-free"
     },
     "plan": {
       "description": "Planning-only agent, no write/edit access",
@@ -65,34 +64,49 @@
     "@sveltejs/opencode@latest",
     "oh-my-opencode-slim@latest",
     "@tarquinen/opencode-dcp@latest",
-    "openslimedit@latest",
-    "opencode-quota-auto",
-    "opencode-glm-quota"
+    "openslimedit@latest"
+    // "opencode-hashline@latest"
   ],
   "mcp": {
+    "sumemory": {
+      "type": "local",
+      "command": ["sumemory", "mcp"],
+      "environment": {
+        "SURREALDB_URL": "ws://127.0.0.1:8000",
+        "SURREALDB_NS": "sumemory",
+        "SURREALDB_DB": "sumemory",
+        "SURREALDB_USER": "ua",
+        "SURREALDB_PASS": "japan8"
+      },
+      "enabled": false
+    },
     "nushell": {
       "type": "local",
       "command": [
         "nu",
         "--mcp"
-      ]
+      ],
+      "enabled": true
     },
     "svelte": {
       "type": "local",
       "command": [
         "svelte-mcp"
-      ]
+      ],
+      "enabled": true
     },
     "context7": {
       "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
     },
     "fetch": {
       "type": "local",
       "command": [
         "uvx",
         "mcp-server-fetch"
-      ]
+      ],
+      "enabled": true
     },
     "searxng": {
       "type": "local",
@@ -103,15 +117,17 @@
         "SEARXNG_URL": "{env:SEARXNG_URL}",
         "AUTH_USERNAME": "{env:SEARXNG_AUTH_USERNAME}",
         "AUTH_PASSWORD": "{env:SEARXNG_AUTH_PASSWORD}"
-      }
+      },
+      "enabled": true
     },
     "zellij": {
       "type": "local",
-      "command": [
-        "bun",
-        "run",
-        "/g/zellij-pane-tracker/mcp-server/index.ts"
-      ],
+      "command": ["bun", "run", "/g/zellij-pane-tracker/mcp-server/index.ts"],
+      "enabled": false
+    },
+    "tmux": {
+      "type": "local",
+      "command": ["bunx", "tmux-mcp", "--shell-type=nu"],
       "enabled": true
     },
     "megamemory": {
@@ -121,16 +137,6 @@
       ],
       "environment": {
         "MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db"
-      },
-      "enabled": true
-    },
-    "memory-mcp": {
-      "type": "local",
-      "command": [
-        "memory-mcp"
-      ],
-      "environment": {
-        "EMBEDDING_MODEL": "e5_multi"
       },
       "enabled": true
     },

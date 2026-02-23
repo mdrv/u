@@ -74,9 +74,7 @@ alias shizuku = ^adb shell /data/app/moe.shizuku.privileged.api-j5XlxmLhVhDNXXQg
 alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
 alias ocb = opencode run --agent build
-alias oct = opencode run --agent tens
 alias ocp = opencode run --agent plan
-alias ocf = opencode run --agent flash
 
 alias time-update-google = sudo ntpdate -u time.google.com
 
@@ -106,3 +104,17 @@ def cataas [size: string@cataas_size_list = "small"] {
     http get $'https://cataas.com/cat?type=($size)' | chafa --exact-size=on
 }
 alias meow = cataas
+
+def resolve-link [
+    glob_pattern: glob,
+    --dry-run (-d)
+]: nothing -> nothing {
+    ls -la $glob_pattern | where type == symlink | each { |it|
+        if $dry_run {
+            print $"[DRY RUN] Would replace ($it.name) with data from ($it.target)"
+        } else {
+			rm $it.name
+            cp -r ($it.target | path expand) $it.name
+        }
+    } | ignore
+}

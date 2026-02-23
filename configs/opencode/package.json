@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "@opencode-ai/plugin": "1.2.9",
-    "oh-my-opencode-slim": "^0.8.0",
-    "opencode-hashline": "file:/x/g/opencode-hashline",
-    "opencode-quota-auto": "file:/x/g/opencode-quota-auto"
-  },
-  "trustedDependencies": [
-    "@ast-grep/cli",
-    "esbuild",
-    "opencode-quota-auto"
-  ]
+    "@opencode-ai/plugin": "1.2.10"
+  }
 }

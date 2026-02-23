@@ -37,7 +37,7 @@ const DATA = {
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
 	}
 	nvim: {
-		items: [uinit.lua, utils.lua, autocmds.lua, filetype.lua, keymaps.lua, lsp-loader.lua, statusline.lua, theme.lua, ulazy, ulsp, unavigate]
+		items: [uinit.lua, utils.lua, autocmds.lua, filetype.lua, keymaps.lua, lsp-loader.lua, statusline.lua, theme.lua, ulazy, ulsp, uu, unavigate]
 		target: "~/.config/nvim/lua"
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
 		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`. Link .luarc.jsonc manually: ln -s configs/nvim/.luarc.jsonc ~/.config/nvim/.luarc.jsonc"
