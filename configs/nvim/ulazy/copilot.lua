@@ -27,7 +27,7 @@
 		require('copilot').setup({
 			suggestion = {
 				enabled = true,
-				auto_trigger = false, -- Disabled for manual control via menu
+				auto_trigger = true, -- Disabled for manual control via menu
 				keymap = {
 					accept = '<C-j>',
 					dismiss = '<C-h>',
@@ -35,10 +35,11 @@
 			},
 			nes = {
 				enabled = true,
+				auto_trigger = true,
 				keymap = {
-					accept_and_goto = "<C-j>",
+					accept_and_goto = "<C-m>",
 					accept = false,
-					dismiss = "<C-h>",
+					dismiss = "<C-n>",
 				},
 			},
 		})

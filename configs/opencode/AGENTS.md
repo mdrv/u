@@ -1,5 +1,9 @@
 # Agent Instructions
 
+## UA’s Git Default Remote Name
+
+Always `gh`, not `origin`.
+
 ## 🧠 Memory Protocol
 
 Two memory systems via MCP:
