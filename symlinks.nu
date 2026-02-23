@@ -43,9 +43,16 @@ const DATA = {
 		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`. Link .luarc.jsonc manually: ln -s configs/nvim/.luarc.jsonc ~/.config/nvim/.luarc.jsonc"
 	}
 	hypr: {
- 		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, toggle-monitor.nu, shaders]
- 		compatible_with: ["arch-x64", "arch-arm"]
- 	}
+		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, toggle-monitor.nu, shaders]
+		compatible_with: ["arch-x64", "arch-arm"]
+		postinstall: "
+			let mon_conf = $'($env.HOME)/.config/hypr/hypr-monitor.conf'
+			if not ($mon_conf | path exists) {
+				mkdir ($mon_conf | path dirname)
+				'' | save $mon_conf
+			}
+		"
+	}
 	kitty: {
 		items: [kitty.conf, themes-cyberdream.conf]
 		compatible_with: ["arch-x64", "arch-arm"]
@@ -280,6 +287,13 @@ def link_app [app_name: string]: nothing -> list<string> {
 	let message = ($config | get message? | default "")
 	if $message != "" {
 		print $"  (ansi c)ℹ(ansi reset) ($message)"
+	}
+
+	# Run postinstall code if any
+	let postinstall = ($config | get postinstall? | default "")
+	if $postinstall != "" {
+		print $"  (ansi c)ℹ(ansi reset) Running postinstall..."
+		do { ^nu -c $postinstall } | complete
 	}
 
 	$errors

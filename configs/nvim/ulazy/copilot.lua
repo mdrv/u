@@ -7,7 +7,7 @@
 			'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
 			config = function()
 				vim.g.copilot_nes_debounce = 500
-				vim.lsp.enable("copilot_ls")
+				-- copilot_ls is disabled by default - enable via copilot menu
 			end,
 		}
 	},
@@ -27,7 +27,7 @@
 		require('copilot').setup({
 			suggestion = {
 				enabled = true,
-				auto_trigger = true, -- Disabled for manual control via menu
+				auto_trigger = false,
 				keymap = {
 					accept = '<C-j>',
 					dismiss = '<C-h>',
@@ -35,7 +35,6 @@
 			},
 			nes = {
 				enabled = true,
-				auto_trigger = true,
 				keymap = {
 					accept_and_goto = "<C-m>",
 					accept = false,

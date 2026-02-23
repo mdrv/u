@@ -5,6 +5,19 @@ local M = {}
 -- Copilot command mappings
 local COPILOT_COMMANDS = {
 	{
+		label = 'Toggle Copilot',
+		action = function()
+			local client = require('copilot.client')
+			if client.is_disabled() then
+				require('copilot.command').enable()
+				vim.notify('Copilot: ENABLED', 'info')
+			else
+				require('copilot.command').disable()
+				vim.notify('Copilot: DISABLED', 'info')
+			end
+		end,
+	},
+	{
 		label = 'Toggle Suggestions',
 		action = function()
 			require('copilot')
@@ -56,6 +69,7 @@ local COPILOT_COMMANDS = {
 -- Get copilot status info
 local function get_copilot_status()
 	local enabled = false
+	local copilot_enabled = true
 
 	-- Ensure copilot module is loaded (triggers lazy.nvim to load it)
 	local ok, copilot = pcall(require, 'copilot')
@@ -68,6 +82,12 @@ local function get_copilot_status()
 		end
 	end
 
+	-- Check if Copilot is disabled
+	local client_ok, client = pcall(require, 'copilot.client')
+	if client_ok then
+		copilot_enabled = not client.is_disabled()
+	end
+
 	-- Check auth status (best effort - may require :Copilot status)
 	local auth_status = 'Not checked'
 	if vim.g.copilot_node_command then
@@ -78,6 +98,7 @@ local function get_copilot_status()
 
 	return {
 		suggestions_enabled = enabled,
+		copilot_enabled = copilot_enabled,
 		auth_status = auth_status,
 	}
 end
@@ -90,7 +111,9 @@ function M.open_menu()
 	local entries = {}
 	for _, item in ipairs(COPILOT_COMMANDS) do
 		local status_icon = ''
-		if item.label:match('Toggle Suggestions') then
+		if item.label:match('Toggle Copilot$') then
+			status_icon = status.copilot_enabled and '●' or '○'
+		elseif item.label:match('Toggle Suggestions') then
 			status_icon = status.suggestions_enabled and '●' or '○'
 		elseif item.label:match('Status') then
 			status_icon = '●'
@@ -112,7 +135,11 @@ function M.open_menu()
 
 	-- Header
 	local header_lines = {
-		string.format('Suggestions: %s | Enter: Execute action', status.suggestions_enabled and 'ON' or 'OFF'),
+		string.format(
+			'Copilot: %s | Suggestions: %s | Enter: Execute action',
+			status.copilot_enabled and 'ON' or 'OFF',
+			status.suggestions_enabled and 'ON' or 'OFF'
+		),
 		'',
 	}
 
