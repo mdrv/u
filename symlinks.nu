@@ -7,27 +7,71 @@
 
 const REPO_ROOT = (path self .)
 
-const VALID_DEVICE_TYPES = ["vps", "arch-x64", "arch-arm", "termux"]
+const VALID_DEVICE_TYPES = [arch-x64 arch-arm arch-chroot termux vps]
 
 const DEVICE_PROFILES = {
-	vps: {
-		description: "Server-only (no desktop apps)"
-		excludes: ["hypr", "waybar", "tofi", "dunst", "foot", "kitty", "otd", "quickshell", "neovide"]
-	}
 	arch-x64: {
 		description: "Full Arch Linux desktop (x86_64)"
 		excludes: []
 	}
 	arch-arm: {
 		description: "Arch Linux desktop (ARM)"
-		excludes: ["neovide"]
+		excludes: []
+	}
+	arch-chroot: {
+		description: "Arch via chroot (no desktop apps)"
+		excludes: [atuin dunst foot hypr keyd kitty neovide otd quickshell tofi waybar]
 	}
 	termux: {
 		description: "Termux (minimal)"
-		excludes: [
-			"hypr", "waybar", "tofi", "dunst", "foot", "kitty", "otd", "quickshell", "neovide",
-			"zellij", "yazi", "atuin", "aichat", "crush", "fastfetch", "opencode", "home"
-		]
+		excludes: [atuin crush dunst etc foot hypr keyd kitty neovide opencode otd quickshell tofi waybar]
+	}
+	vps: {
+		description: "VPS only (no desktop + heavy apps)"
+		excludes: [atuin dunst foot hypr keyd kitty neovide otd quickshell tofi waybar]
+	}
+}
+
+def postinstall [app_name: string]: nothing -> nothing {
+	match $app_name {
+		nvim => {
+			cd (resolve_target $app_name)
+			if (".u.lua" | path exists) {
+				print ".u.lua already exists"
+			} else {
+				print "Creating .u.lua..."
+				"return {LV=0}" | save .u.lua
+			}
+		}
+		hypr => {
+			cd (resolve_target $app_name)
+			match ($env.HOSTNAME | split row "-" | get 0) {
+				armpipa => {
+					print "armpipa uses pipa-dp monitor config"
+					ln -sf monitors/pipa-dp.conf hypr-monitor.conf
+				}
+				x86sp7 => {
+					print "x86sp7 uses sp7-half monitor config"
+					ln -sf monitors/sp7-half.conf hypr-monitor.conf
+				}
+			}
+		}
+		zellij => {
+			let wasm_file = ($nu.home-dir)/.config/zellij/zjstatus.wasm
+			if ($wasm_file | path exists) {
+				print "Wasm file already exists"
+			} else {
+				http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm | save -f ($nu.home-dir)/.config/zellij/zjstatus.wasm
+			}
+		}
+		home => {
+			if (input -n 1 "Set up ~/.u.config? (y/N) " | str downcase) == "y" {
+				run-external ($env.EDITOR | default "nvim") ~/.u.gitconfig
+			}
+		}
+		_ => {
+			print "No postinstall script."
+		}
 	}
 }
 
@@ -40,18 +84,10 @@ const DATA = {
 		items: [uinit.lua, utils.lua, autocmds.lua, filetype.lua, keymaps.lua, lsp-loader.lua, statusline.lua, theme.lua, ulazy, ulsp, uu, unavigate]
 		target: "~/.config/nvim/lua"
 		compatible_with: ["vps", "arch-x64", "arch-arm", "termux"]
-		message: "Enable plugins by adding `.u.lua`: `return {LV = 1}`. Link .luarc.jsonc manually: ln -s configs/nvim/.luarc.jsonc ~/.config/nvim/.luarc.jsonc"
 	}
 	hypr: {
-		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, toggle-monitor.nu, shaders]
+		items: [hyprland.conf, hyprlock.conf, hyprtoolkit.conf, monitors, shaders]
 		compatible_with: ["arch-x64", "arch-arm"]
-		postinstall: "
-			let mon_conf = $'($env.HOME)/.config/hypr/hypr-monitor.conf'
-			if not ($mon_conf | path exists) {
-				mkdir ($mon_conf | path dirname)
-				'' | save $mon_conf
-			}
-		"
 	}
 	kitty: {
 		items: [kitty.conf, themes-cyberdream.conf]
@@ -80,7 +116,6 @@ const DATA = {
 	zellij: {
 		items: [config.kdl, layouts, themes]
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
-		message: "Execute this: http get https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm | save -f ($nu.home-dir)/.config/zellij/zjstatus.wasm"
 	}
 	atuin: {
 		items: [config.toml]
@@ -120,39 +155,38 @@ const DATA = {
 		items: [{ ".gitconfig": ".gitconfig" }, { "makepkg.conf": "makepkg.conf" }]
 		target: "~"
 		compatible_with: ["vps", "arch-x64", "arch-arm"]
-		message: "Home dotfiles linked. Remember to create ~/.u.gitconfig for device-specific git settings."
 	}
 	keyd: {
 		items: [rx-kl150.conf]
+		target: "/etc/keyd"
+		requires_root: true
 		compatible_with: ["arch-x64", "arch-arm"]
-		message: "Link to /etc/keyd/ with: sudo ln -s /x/g/u/configs/keyd/rx-kl150.conf /etc/keyd/"
 	}
 	etc: {
-		items: [{ "fonts/local.conf": "fonts/local.conf" }, { "fonts/fonts-old.conf": "fonts-old.conf" }]
+		items: [ "fonts/local.conf" ]
 		target: "/etc"
 		requires_root: true
 		compatible_with: ["arch-x64", "arch-arm"]
-		message: "Requires root. Run: sudo nu symlinks.nu --root etc"
 	}
  }
 
-# Read device_type from ~/.u.json, defaulting to "arch-x64"
+# Read device_type from ~/.u.nuon, defaulting to "arch-x64"
 def get_device_type []: nothing -> string {
-	let ujson_path = $"($nu.home-dir)/.u.json"
-	if not ($ujson_path | path exists) {
-		print $"(ansi yb)⚠ ~/.u.json not found, defaulting to arch-x64(ansi reset)"
+	let unuon_path = $"($nu.home-dir)/.u.nuon"
+	if not ($unuon_path | path exists) {
+		print $"(ansi yb)⚠ ~/.u.nuon not found, defaulting to arch-x64(ansi reset)"
 		return "arch-x64"
 	}
-	let ujson = (open $ujson_path)
-	let device_type = ($ujson | get DEVICE | get TYPE | default "arch-x64")
+	let unuon = (open $unuon_path)
+	let device_type = ($unuon | get DEVICE | get TYPE | default "arch-x64")
 	if $device_type not-in $VALID_DEVICE_TYPES {
-		print $"(ansi rd)✗ Invalid DEVICE.TYPE '($device_type)' in ~/.u.json(ansi reset)"
+		print $"(ansi rd)✗ Invalid DEVICE.TYPE '($device_type)' in ~/.u.nuon(ansi reset)"
 		print $"  Valid types: ($VALID_DEVICE_TYPES | str join ', ')"
 		print $"(ansi yb)⚠ Defaulting to arch-x64(ansi reset)"
 		return "arch-x64"
 	}
-	if ($ujson | get DEVICE | get TYPE | is-empty) {
-		print $"(ansi yb)⚠ No DEVICE.TYPE in ~/.u.json, defaulting to arch-x64(ansi reset)"
+	if ($unuon | get DEVICE | get TYPE | is-empty) {
+		print $"(ansi yb)⚠ No DEVICE.TYPE in ~/.u.nuon, defaulting to arch-x64(ansi reset)"
 	}
 	$device_type
 }
@@ -161,7 +195,7 @@ def get_device_type []: nothing -> string {
 def resolve_target [app_name: string]: nothing -> string {
 	let config = ($DATA | get $app_name)
 	let raw_target = ($config | get target? | default $"~/.config/($app_name)")
-	$raw_target | str replace "~" $nu.home-dir
+	$raw_target | path expand
 }
 
 # Get the source path for a config item
@@ -253,7 +287,6 @@ def link_app [app_name: string]: nothing -> list<string> {
 		if $env.USER == "root" {
 			print $"  (ansi gr)✓(ansi reset) Running as root, proceeding..."
 		} else {
-			[]
 			return
 		}
 	}
@@ -283,17 +316,14 @@ def link_app [app_name: string]: nothing -> list<string> {
 		}
 	}
 
+	print ""
+	print "Executing postinstall:"
+	postinstall $app_name
+
 	# Show post-setup message if any
 	let message = ($config | get message? | default "")
 	if $message != "" {
 		print $"  (ansi c)ℹ(ansi reset) ($message)"
-	}
-
-	# Run postinstall code if any
-	let postinstall = ($config | get postinstall? | default "")
-	if $postinstall != "" {
-		print $"  (ansi c)ℹ(ansi reset) Running postinstall..."
-		do { ^nu -c $postinstall } | complete
 	}
 
 	$errors
@@ -364,12 +394,14 @@ def app_completion []: nothing -> list<string> {
 # Single-app mode: nu symlinks.nu <app_name>
 # Detailed info:   nu symlinks.nu --info
 #
-# Device type is read from ~/.u.json field "device_type".
+# Device type is read from ~/.u.nuon field "DEVICE.TYPE".
 # Defaults to "arch-x64" if not set.
 export def main [
 	app_name?: string@app_completion # App to link (omit for interactive menu)
 	--info (-i) # Show available apps and device profiles
 ]: nothing -> nothing {
+	let device_type = (get_device_type)
+
 	if $info {
 		print $"(ansi attr_bold)μ symlinks — Dotfiles symlink manager(ansi reset)"
 		print ""
@@ -380,11 +412,8 @@ export def main [
 		print $"  (ansi c)nu symlinks.nu --info(ansi reset)       Show apps and device profiles"
 		print ""
 		print $"(ansi attr_bold)Available apps:(ansi reset)"
-		let apps = ($DATA | columns)
-		$apps | each { |app|
-			let compat = ($DATA | get $app | get compatible_with | str join ", ")
-			print $"  (ansi gr)($app)(ansi reset) — ($compat)"
-		}
+		let apps = (get_compatible_configs $device_type | each {|app| $"(ansi gr)($app)(ansi reset)" })
+		print $"($apps | chunks 7 | each { str join (char sp)} | str join (char nl))"
 		print ""
 		print $"(ansi attr_bold)Device profiles:(ansi reset)"
 		$VALID_DEVICE_TYPES | each { |dt|
@@ -392,12 +421,10 @@ export def main [
 			print $"  (ansi rb)($dt)(ansi reset) — ($desc)"
 		}
 		print ""
-		print $"Device type is read from (ansi c)~/.u.json(ansi reset) field \"device_type\"."
+		print $"Device type is read from (ansi c)~/.u.nuon(ansi reset) field \"device_type\"."
 		print $"Defaults to (ansi yb)arch-x64(ansi reset) if not set."
 		return
 	}
-
-	let device_type = (get_device_type)
 
 	if $app_name != null {
 		# Single-app mode: bypass device filtering for backward compatibility
