@@ -54,6 +54,10 @@ def postinstall [app_name: string]: nothing -> nothing {
 					print "x86sp7 uses sp7-half monitor config"
 					ln -sf monitors/sp7-half.conf hypr-monitor.conf
 				}
+				_ => {
+					print "uses default monitor config"
+					ln -sf monitors/monitor.conf hypr-monitor.conf
+				}
 			}
 		}
 		zellij => {

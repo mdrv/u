@@ -86,14 +86,14 @@
         "nu",
         "--mcp"
       ],
-      "enabled": true
+      "enabled": false
     },
     "svelte": {
       "type": "local",
       "command": [
         "svelte-mcp"
       ],
-      "enabled": true
+      "enabled": false
     },
     "context7": {
       "type": "remote",
@@ -174,6 +174,30 @@
       "extensions": [
         ".nu"
       ]
+    }
+  },
+  "provider": {
+    "zai-anthropic": {
+      "npm": "@ai-sdk/anthropic",
+      "options": {
+        "baseURL": "https://api.z.ai/api/anthropic/v1"
+      },
+      "models": {
+        "glm-4.7": {
+          "name": "glm-4.7",
+          "limit": {
+            "context": 128000,
+            "output": 32000
+          }
+        },
+        "glm-4.7-flash": {
+          "name": "glm-4.7-flash",
+          "limit": {
+            "context": 64000,
+            "output": 16000
+          }
+        }
+      }
     }
   }
 }
