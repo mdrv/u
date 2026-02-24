@@ -54,6 +54,23 @@ Task Management
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 - **No Build/Transpile**: ❌ NEVER run `bun build` or transpile TypeScript to JavaScript. Run TS files directly with `bun run` or `bun x`. JS files become stale and cause confusion.
 
+## 📋 Understanding CodeGraphContext Modes
+CodeGraphContext operates in **two modes**, and you can use either or both:
+
+### 🛠️ Mode 1: CLI Toolkit (Standalone)
+Use CodeGraphContext as a **powerful command-line toolkit** for code analysis:
+- Index and analyze codebases directly from your terminal
+- Query code relationships, find dead code, analyze complexity
+- Visualize code graphs and dependencies
+- Perfect for developers who want direct control via CLI commands
+
+### 🤖 Mode 2: MCP Server (AI-Powered)
+Use CodeGraphContext as an **MCP server** for AI assistants:
+- Connect to AI IDEs (VS Code, Cursor, Windsurf, Claude, Kiro, etc.)
+- Let AI agents query your codebase using natural language
+- Automatic code understanding and relationship analysis
+- Perfect for AI-assisted development workflows
+
 ## 🧠 Memory Protocol (OUTDATED, memory-mcp deleted)
 
 Two memory systems via MCP:
@@ -292,16 +309,3 @@ Specialists must follow: Bun runtime, dprint formatter, type safety, no `any`, m
 - Use `svelte_svelte-autofixer` before returning Svelte code
 - Use `svelte_list-sections` then `svelte_get-documentation` for Svelte 5/SvelteKit docs
 - Offer playground link via `svelte_playground-link` for code snippets (ask first)
-
-## Browser Automation
-
-Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
-
-Core workflow:
-
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
-
-Note: playwright-cli could also be alternative.

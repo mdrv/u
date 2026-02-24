@@ -95,6 +95,38 @@
       ],
       "enabled": false
     },
+    "github-mcp": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "oauth": false,
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      },
+      "enabled": true
+    },
+    // https://github.com/billy-enrizky/openbrowser-ai
+    "openbrowser": {
+      "type": "local",
+      "command": ["uvx", "openbrowser-ai[mcp]", "--mcp"],
+      "enabled": true
+    },
+    "inkscape": {
+      "type": "local",
+      "command": ["{env:HOME}/.config/inkscape/extensions/inkmcp/run_inkscape_mcp_uv.sh"],
+      "enabled": false
+    },
+    "CodeGraphContext": {
+      "type": "local",
+      "command": ["cgc", "mcp", "start"],
+      "enabled": false
+    },
+    "firecrawl-mcp": {
+      "type": "local",
+      "command": ["bunx", "firecrawl-mcp"],
+      "environment": {
+        "FIRECRAWL_API_KEY": "YOUR-API-KEY"
+      }
+    },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",

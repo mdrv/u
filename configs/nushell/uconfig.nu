@@ -82,7 +82,16 @@ def mg --wrapped [
 	--paths (-p) = [/x/g/*/.git]
 	...cmd: string
 ] {
-	$paths | par-each {glob $in} | flatten | par-each {|path| run-external "git" "-C" $path "--work-tree" ($path | path parse | get parent) ...$cmd | complete | insert path $path | print } | ignore
+	$paths | par-each {glob $in} | flatten | par-each {|path|
+		let result = (run-external "git" "-C" $path "--work-tree" ($path | path parse | get parent) ...$cmd | complete | insert path $path)
+
+		# Filter out "nothing to commit" and "working tree clean" messages
+		let has_changes = not ($result.stdout | str contains "nothing to commit") and not ($result.stdout | str contains "working tree clean")
+
+		if $has_changes and not ($result.stdout | is-empty) {
+			$result | print
+		}
+	} | ignore
 }
 
 def rgfzf [
