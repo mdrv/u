@@ -58,8 +58,8 @@ export def --wrapped main [
 		}
 
 		generatehelp => {
+			let $HYPRLAND_CONFIG_DIR = ("~/.config/hypr" | path expand)
 			let lines = (glob $"($HYPRLAND_CONFIG_DIR)/*.conf"
-				| where name not-in ["hyprland-generic.conf"]
 				| each { |f| open --raw $f | lines }
 				| flatten
 				| where $it starts-with '## '
