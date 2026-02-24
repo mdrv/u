@@ -68,7 +68,7 @@
     // "opencode-hashline@latest"
   ],
   "mcp": {
-    "sumemory": {
+   "sumemory": {
       "type": "local",
       "command": ["sumemory", "mcp"],
       "environment": {
@@ -102,13 +102,13 @@
       "headers": {
         "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
       },
-      "enabled": true
+      "enabled": false
     },
     // https://github.com/billy-enrizky/openbrowser-ai
     "openbrowser": {
       "type": "local",
       "command": ["uvx", "openbrowser-ai[mcp]", "--mcp"],
-      "enabled": true
+      "enabled": false
     },
     "inkscape": {
       "type": "local",
@@ -124,13 +124,6 @@
       "type": "local",
       "command": ["cgc", "mcp", "start"],
       "enabled": false
-    },
-    "firecrawl-mcp": {
-      "type": "local",
-      "command": ["bunx", "firecrawl-mcp"],
-      "environment": {
-        "FIRECRAWL_API_KEY": "YOUR-API-KEY"
-      }
     },
     "context7": {
       "type": "remote",
@@ -165,7 +158,7 @@
     "tmux": {
       "type": "local",
       "command": ["bunx", "tmux-mcp", "--shell-type=nu"],
-      "enabled": true
+      "enabled": false
     },
     "megamemory": {
       "type": "local",

@@ -45,6 +45,7 @@ $env.TESSERACT_OEM = "1"
 if ($"($nu.home-dir)/.u.nuon" | path exists) {
 	let tmp = (open ($nu.home-dir)/.u.nuon)
 	if not ($"($nu.home-dir)/.u.json" | path exists) or (open ($nu.home-dir)/.u.json) != $tmp {
+		print "Generating .u.json from .u.nuon..."
 		$tmp | save -f ($nu.home-dir)/.u.json
 	}
 	$tmp | get ENV? | default {} | load-env
