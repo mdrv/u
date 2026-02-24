@@ -35,12 +35,22 @@ const DEVICE_PROFILES = {
 def postinstall [app_name: string]: nothing -> nothing {
 	match $app_name {
 		nvim => {
-			cd (resolve_target $app_name)
-			if (".u.lua" | path exists) {
-				print ".u.lua already exists"
-			} else {
-				print "Creating .u.lua..."
-				"return {LV=0}" | save .u.lua
+			# check .u.nuon if NVIM.LV is already set
+			let unuon_path = $"($nu.home-dir)/.u.nuon"
+			if ($unuon_path | path exists) {
+				let unuon = (open $unuon_path)
+				if ($unuon | get NVIM | get LV | is-not-empty) {
+					print "NVIM.LV already set in ~/.u.nuon, skipping postinstall for nvim"
+					return
+				} else {
+					print "Setting NVIM.LV = true in ~/.u.nuon"
+					let updated = $unuon | update NVIM.LV 0
+					(updated | to json) | save -f $unuon_path
+				}
+			 } else {
+				print "~/.u.nuon not found, creating with NVIM.LV = true"
+				let new_unuon = { NVIM: { LV: 0 } }
+				(new_unuon | to json) | save -f $unuon_path
 			}
 		}
 		hypr => {
@@ -56,7 +66,7 @@ def postinstall [app_name: string]: nothing -> nothing {
 				}
 				_ => {
 					print "uses default monitor config"
-					ln -sf monitors/monitor.conf hypr-monitor.conf
+					ln -sf monitors/default.conf hypr-monitor.conf
 				}
 			}
 		}

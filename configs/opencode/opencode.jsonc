@@ -115,6 +115,11 @@
       "command": ["{env:HOME}/.config/inkscape/extensions/inkmcp/run_inkscape_mcp_uv.sh"],
       "enabled": false
     },
+    "blender": {
+      "type": "local",
+      "command": ["uvx", "blender-mcp"],
+      "enabled": false
+    },
     "CodeGraphContext": {
       "type": "local",
       "command": ["cgc", "mcp", "start"],
