@@ -23,7 +23,7 @@ export def main [
 
         # Set default wallpaper
         use ($nu.default-config-dir + /u/hypr-wp.nu)
-        hypr-wp $default_wp
+        hypr-wp $default_wp --persist
 
         ^dunstify -t 2000 "Wallpaper" $"Set to default\n($default_wp | path basename)"
     } else {
