@@ -73,6 +73,8 @@ alias mpvxxxt = u mpv t1lite [*.flac] -d (ls -s /n/audio | get name | str join "
 alias shizuku = ^adb shell /data/app/moe.shizuku.privileged.api-j5XlxmLhVhDNXXQgyrL4Nw==/lib/arm/libshizuku.so
 alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
+alias prayertimes = u print-prayer-times
+
 alias ocb = opencode run --agent build
 alias ocp = opencode run --agent plan
 
