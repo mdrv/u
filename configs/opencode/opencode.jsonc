@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "theme": "lucent-orng",
   "instructions": [
     "AGENTS.md"
   ],
@@ -78,6 +77,14 @@
         "SURREALDB_USER": "ua",
         "SURREALDB_PASS": "japan8"
       },
+      "enabled": false
+    },
+    "surrealmcp": {
+      "type": "local",
+      "command": [
+        "surrealmcp",
+        "start"
+      ],
       "enabled": false
     },
     "nushell": {
