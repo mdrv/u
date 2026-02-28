@@ -1,2 +1,1 @@
-Always cross-check what @fixer sub-agents have done (don't assume they work
-without any testing/debugging).
+Prefer high-class @oracle over low-class @fixer when fixing bugs.

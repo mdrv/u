@@ -234,6 +234,19 @@
           }
         }
       }
-    }
+    },
+	"router": {
+		"npm": "@ai-sdk/openai-compatible",
+		"name": "modelrelay",
+		"options": {
+			"baseURL": "http://127.0.0.1:7352/v1",
+			"apiKey": "dummy-key"
+		},
+		"models": {
+			"auto-fastest": {
+				"name": "Auto Fastest"
+			}
+		}
+	}
   }
 }
