@@ -108,7 +108,6 @@ export def main [
         error make {msg: "No Hyprland instance."}
     } else if XDG_RUNTIME_DIR not-in $env {
         $">\t($LOG_TIME) SETUP: Environment variables\n" | save -a $LOG_FILE
-        $env.HOSTNAME = (open --raw /etc/hostname | str trim) # needed for file naming
         $env.XDG_RUNTIME_DIR = "/run/user/1000" # NEEDED for dunst!
         # $env.XDG_SEAT = "seat0"
         # $env.XDG_SESSION_CLASS = "user"
@@ -121,6 +120,10 @@ export def main [
         # $env.XDG_BACKEND = "wayland"
         # $env.XDG_CURRENT_DESKTOP = "Hyprland"
     }
+
+	if HOSTNAME not-in $env {
+        $env.HOSTNAME = (try {open --raw /etc/hostname | str trim} catch {"unknown"}) # needed for file naming
+	}
 
     # $">\t($LOG_TIME) @ ([$loop $notify $toggle])\n" | save -a $LOG_FILE
     if $loop {

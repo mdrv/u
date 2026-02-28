@@ -75,6 +75,10 @@ alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.pr
 
 alias prayertimes = u print-prayer-times
 
+alias cq = copilot-quota
+alias gq = glm-quota
+alias kq = kimi-quota
+
 alias ocb = opencode run --agent build
 alias ocp = opencode run --agent plan
 
