@@ -180,8 +180,7 @@
     "exa": {
       "type": "local",
       "command": [
-        "npx",
-        "-y",
+        "bunx",
         "mcp-remote",
         "https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"
       ],
