@@ -58,6 +58,7 @@ export def main [
 	--verbose (-v)
 	--dir (-d): string
 	--ctrl: string
+	--no-warmup (-n)
 ] {
 	if ($ctrl | is-not-empty) {
 		assert-missing socat
@@ -227,7 +228,7 @@ export def main [
 
 	let $files = (ls ...($glob | par-each -k {|| into glob}) | get name)
 	# Check if using ALSA with exclusive mode (devices that need warm-up)
-	let $needs_warmup = (
+	let $needs_warmup = (not $no_warmup) and (
 		["q15" "ja11" "dc03pro"] | any { |dev| $dev in $args }
 	)
 
