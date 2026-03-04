@@ -52,6 +52,9 @@ export def hyprland [] {
 	run-external ...$PACMAN nemo nemo-fileroller nemo-preview
 	run-external ...$PACMAN mkvtoolnix-cli mkvtoolnix-gui
 	run-external ...$PACMAN neovide fcitx5 fcitx5-config-qt
+	if $env.HOSTNAME? == 'armpipa-alx' {
+		run-external ...$PACMAN vulkan-freedreno
+	}
 	print $"Might be needed: vulkan-intel"
 	print $"AUR: grimblast-git bibata-cursor-git noctalia-shell google-breakpad localsend-bin tofi ttf-twemoji bulky qpdfview"
 	print $"for armpipa-alx: sddm xorg-xrandr xorg-xinput qt6-virtualkeyboard"
