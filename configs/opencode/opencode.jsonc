@@ -63,8 +63,8 @@
 		"@sveltejs/opencode@latest",
 		"oh-my-opencode-slim@latest",
 		"@tarquinen/opencode-dcp@latest",
-		"openslimedit@latest"
-		// "opencode-hashline@latest"
+		"openslimedit@latest",
+		"hashline-opencode@latest"
 	],
 	"mcp": {
 		"engram": {
