@@ -8,7 +8,7 @@
     "build": {
       "description": "Build-focused agent with full access",
       "mode": "primary",
-      "model": "opencode/trinity-large-preview-free"
+      "model": "modelrelay/auto-fastest"
     },
     "plan": {
       "description": "Planning-only agent, no write/edit access",
@@ -235,7 +235,8 @@
         }
       }
     },
-	"router": {
+	"modelrelay": {
+		// https://github.com/ellipticmarketing/modelrelay
 		"npm": "@ai-sdk/openai-compatible",
 		"name": "modelrelay",
 		"options": {

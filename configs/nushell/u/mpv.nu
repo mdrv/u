@@ -230,7 +230,7 @@ export def main [
 	# Check if using ALSA with exclusive mode (devices that need warm-up)
 	let $needs_warmup = (not $no_warmup) and (
 		["q15" "ja11" "dc03pro"] | any { |dev| $dev in $args }
-	)
+	) and ($env.HOSTNAME? not-in [x86hp-alx])
 
 	if $needs_warmup {
 		job spawn {run-warmup}
