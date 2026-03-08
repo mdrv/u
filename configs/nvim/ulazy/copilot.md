@@ -21,12 +21,12 @@ GitHub Copilot inline suggestions and NES (Next Edit Suggestion) for Neovim.
 
 ### Insert Mode (Suggestions)
 
-| Keymap   | Action                              |
-| -------- | ----------------------------------- |
-| `Ctrl+j` | Accept suggestion                   |
-| `Ctrl+h` | Dismiss suggestion                  |
-| `Ctrl+m` | Accept NES edit                     |
-| `Ctrl+n` | Dismiss NES                         |
+| Keymap   | Action             |
+| -------- | ------------------ |
+| `Ctrl+j` | Accept suggestion  |
+| `Ctrl+h` | Dismiss suggestion |
+| `Ctrl+m` | Accept NES edit    |
+| `Ctrl+n` | Dismiss NES        |
 
 ## Menu Actions (Via `<Leader>zc`)
 
@@ -46,6 +46,7 @@ Available actions:
 | Authenticate       | Start GitHub OAuth flow           |
 | Version            | Show plugin version               |
 | Clear history      | Clear suggestion history          |
+
 ## Menu Features
 
 ### Status Display

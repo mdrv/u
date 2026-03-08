@@ -5,12 +5,31 @@ local o = vim.o
 -- Theme lists by background mode
 local themes = {
 	dark = {
-		'cyberdream', 'tokyonight-storm', 'tokyonight', 'kanagawa', 'juliana', 'minimal', 'sonokai',
-		'default', 'slate', 'habamax', 'desert', 'industry', 'lunaperche', 'darkblue',
+		'cyberdream',
+		'tokyonight-storm',
+		'tokyonight',
+		'kanagawa',
+		'juliana',
+		'minimal',
+		'sonokai',
+		'default',
+		'slate',
+		'habamax',
+		'desert',
+		'industry',
+		'lunaperche',
+		'darkblue',
 	},
 	light = {
-		'kanso-pearl', 'classic-monokai', 'catppuccin-latte', 'tokyonight-day', 'rose-pine-dawn',
-		'shine', 'peachpuff', 'quiet', 'morning',
+		'kanso-pearl',
+		'classic-monokai',
+		'catppuccin-latte',
+		'tokyonight-day',
+		'rose-pine-dawn',
+		'shine',
+		'peachpuff',
+		'quiet',
+		'morning',
 	},
 }
 

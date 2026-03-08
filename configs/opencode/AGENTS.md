@@ -50,12 +50,14 @@
 ## 🎯 UA's Preferences
 
 ### Wording
+
 - Perfectionist about accuracy
 - Prefer clarity and precision over cleverness
 - Provide 2-4 options with rationale when naming
 - Explain trade-offs, wait for choice
 
 ### File Structure
+
 - **500-line limit**: Small modules = easier navigation, fewer bugs
 - Exceptions: Core orchestrator files only
 - Document exceptions with comments

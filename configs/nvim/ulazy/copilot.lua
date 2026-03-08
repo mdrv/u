@@ -1,5 +1,5 @@
 --- @type LazyPluginSpec
-	return {
+return {
 	'zbirenbaum/copilot.lua',
 	dependencies = {
 		'ibhagwan/fzf-lua', -- Required for copilot-menu
@@ -9,7 +9,7 @@
 				vim.g.copilot_nes_debounce = 500
 				-- copilot_ls is disabled by default - enable via copilot menu
 			end,
-		}
+		},
 	},
 	cmd = 'Copilot',
 	event = 'InsertEnter',
@@ -36,9 +36,9 @@
 			nes = {
 				enabled = true,
 				keymap = {
-					accept_and_goto = "<C-m>",
+					accept_and_goto = '<C-m>',
 					accept = false,
-					dismiss = "<C-n>",
+					dismiss = '<C-n>',
 				},
 			},
 		})

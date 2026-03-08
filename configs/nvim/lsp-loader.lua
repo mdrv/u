@@ -21,7 +21,6 @@ function M.enable_for_filetype(ft)
 	end
 end
 
-
 -- Return list of loaded configs for fzf-lua
 function M.list_available()
 	local result = {}

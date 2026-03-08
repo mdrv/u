@@ -22,24 +22,14 @@ function M.setup()
 	vim.keymap.set('n', 'qs', ':mksession! ', { desc = 'Save session' }) -- Save session (prompt for path)
 
 	-- Lua execution utilities
-	vim.keymap.set(
-		'n',
-		'<Leader>xll',
-		function()
-			utils.execute_lua_and_notify(vim.fn.getline('.'))
-		end,
-		{ desc = 'Execute Lua on current line' }
-	)
-	vim.keymap.set(
-		'v',
-		'<Leader>xll',
-		function()
-			local start, end_ = vim.fn.line("'<"), vim.fn.line("'>")
-			local lines = vim.fn.getline(start, end_)
-			utils.execute_lua_and_notify(table.concat(lines, '\n'))
-		end,
-		{ desc = 'Execute Lua on selection' }
-	)
+	vim.keymap.set('n', '<Leader>xll', function()
+		utils.execute_lua_and_notify(vim.fn.getline('.'))
+	end, { desc = 'Execute Lua on current line' })
+	vim.keymap.set('v', '<Leader>xll', function()
+		local start, end_ = vim.fn.line('\'<'), vim.fn.line('\'>')
+		local lines = vim.fn.getline(start, end_)
+		utils.execute_lua_and_notify(table.concat(lines, '\n'))
+	end, { desc = 'Execute Lua on selection' })
 
 	-- Navigation shortcuts
 	vim.keymap.set('n', '<Leader>tcd', function()
@@ -52,7 +42,12 @@ function M.setup()
 	-- LSP and plugin management
 	vim.keymap.set('n', '<Leader>lz', '<Cmd>Lazy<CR>', { desc = 'Open lazy.nvim' })
 	vim.keymap.set('n', '<Leader>li', '<Cmd>checkhealth vim.lsp<CR>', { desc = 'Check LSP health' })
-	vim.keymap.set('n', '<Leader>ls', '<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>', { desc = 'LSP workspace symbols' })
+	vim.keymap.set(
+		'n',
+		'<Leader>ls',
+		'<Cmd>Telescope lsp_dynamic_workspace_symbols<CR>',
+		{ desc = 'LSP workspace symbols' }
+	)
 
 	-- Diagnostic navigation
 	vim.keymap.set('n', ']e', function()

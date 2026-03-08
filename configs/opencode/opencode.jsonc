@@ -1,253 +1,257 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "instructions": [
-    "AGENTS.md"
-  ],
-  "default_agent": "tens",
-  "agent": {
-    "build": {
-      "description": "Build-focused agent with full access",
-      "mode": "primary",
-      "model": "modelrelay/auto-fastest"
-    },
-    "plan": {
-      "description": "Planning-only agent, no write/edit access",
-      "mode": "primary",
-      "model": "opencode/big-pickle"
-    }
-  },
-  "permission": {
-    "external_directory": "allow",
-    "edit": "allow",
-    "bash": "allow"
-  },
-  "watcher": {
-    "ignore": [
-      "node_modules/**",
-      "dist/**",
-      ".git/**",
-      ".svelte-kit/**",
-      "build/**",
-      "__gen__/**"
-    ]
-  },
-  "compaction": {
-    "auto": true,
-    "prune": true
-  },
-  "formatter": {
-    "dprint": {
-      "command": [
-        "dprint",
-        "fmt",
-        "$FILE"
-      ],
-      "extensions": [
-        ".svelte",
-        ".ts",
-        ".js",
-        ".tsx",
-        ".jsx",
-        ".html",
-        ".css",
-        ".json",
-        ".yaml",
-        ".md"
-      ]
-    },
-    "prettier": {
-      "disabled": true
-    }
-  },
-  "plugin": [
-    "@sveltejs/opencode@latest",
-    "oh-my-opencode-slim@latest",
-    "@tarquinen/opencode-dcp@latest",
-    "openslimedit@latest"
-    // "opencode-hashline@latest"
-  ],
-  "mcp": {
-   "sumemory": {
-      "type": "local",
-      "command": ["sumemory", "mcp"],
-      "environment": {
-        "SURREALDB_URL": "ws://127.0.0.1:8000",
-        "SURREALDB_NS": "sumemory",
-        "SURREALDB_DB": "sumemory",
-        "SURREALDB_USER": "ua",
-        "SURREALDB_PASS": "japan8"
-      },
-      "enabled": false
-    },
-    "surrealmcp": {
-      "type": "local",
-      "command": [
-        "surrealmcp",
-        "start"
-      ],
-      "enabled": false
-    },
-    "nushell": {
-      "type": "local",
-      "command": [
-        "nu",
-        "--mcp"
-      ],
-      "enabled": false
-    },
-    "svelte": {
-      "type": "local",
-      "command": [
-        "svelte-mcp"
-      ],
-      "enabled": false
-    },
-    "github-mcp": {
-      "type": "remote",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "oauth": false,
-      "headers": {
-        "Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
-      },
-      "enabled": false
-    },
-    // https://github.com/billy-enrizky/openbrowser-ai
-    "openbrowser": {
-      "type": "local",
-      "command": ["uvx", "openbrowser-ai[mcp]", "--mcp"],
-      "enabled": false
-    },
-    "inkscape": {
-      "type": "local",
-      "command": ["{env:HOME}/.config/inkscape/extensions/inkmcp/run_inkscape_mcp_uv.sh"],
-      "enabled": false
-    },
-    "blender": {
-      "type": "local",
-      "command": ["uvx", "blender-mcp"],
-      "enabled": false
-    },
-    "CodeGraphContext": {
-      "type": "local",
-      "command": ["cgc", "mcp", "start"],
-      "enabled": false
-    },
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "enabled": true
-    },
-    "fetch": {
-      "type": "local",
-      "command": [
-        "uvx",
-        "mcp-server-fetch"
-      ],
-      "enabled": true
-    },
-    "searxng": {
-      "type": "local",
-      "command": [
-        "mcp-searxng"
-      ],
-      "environment": {
-        "SEARXNG_URL": "{env:SEARXNG_URL}",
-        "AUTH_USERNAME": "{env:SEARXNG_AUTH_USERNAME}",
-        "AUTH_PASSWORD": "{env:SEARXNG_AUTH_PASSWORD}"
-      },
-      "enabled": true
-    },
-    "zellij": {
-      "type": "local",
-      "command": ["bun", "run", "/g/zellij-pane-tracker/mcp-server/index.ts"],
-      "enabled": false
-    },
-    "tmux": {
-      "type": "local",
-      "command": ["bunx", "tmux-mcp", "--shell-type=nu"],
-      "enabled": false
-    },
-    "megamemory": {
-      "type": "local",
-      "command": [
-        "megamemory"
-      ],
-      "environment": {
-        "MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db"
-      },
-      "enabled": true
-    },
-    "exa": {
-      "type": "local",
-      "command": [
-        "bunx",
-        "mcp-remote",
-        "https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"
-      ],
-      "enabled": true
-    },
-    "grep_app": {
-      "type": "remote",
-      "url": "https://mcp.grep.app",
-      "enabled": true
-    }
-  },
-  "lsp": {
-    "qmlls": {
-      "command": [
-        "qmlls6",
-        "-E"
-      ],
-      "extensions": [
-        ".qml"
-      ]
-    },
-    "nushell": {
-      "command": [
-        "nu",
-        "--lsp"
-      ],
-      "extensions": [
-        ".nu"
-      ]
-    }
-  },
-  "provider": {
-    "zai-anthropic": {
-      "npm": "@ai-sdk/anthropic",
-      "options": {
-        "baseURL": "https://api.z.ai/api/anthropic/v1"
-      },
-      "models": {
-        "glm-4.7": {
-          "name": "glm-4.7",
-          "limit": {
-            "context": 128000,
-            "output": 32000
-          }
-        },
-        "glm-4.7-flash": {
-          "name": "glm-4.7-flash",
-          "limit": {
-            "context": 64000,
-            "output": 16000
-          }
-        }
-      }
-    },
-	"modelrelay": {
-		// https://github.com/ellipticmarketing/modelrelay
-		"npm": "@ai-sdk/openai-compatible",
-		"name": "modelrelay",
-		"options": {
-			"baseURL": "http://127.0.0.1:7352/v1",
-			"apiKey": "dummy-key"
+	"$schema": "https://opencode.ai/config.json",
+	"instructions": [
+		"AGENTS.md"
+	],
+	"default_agent": "tens",
+	"agent": {
+		"build": {
+			"description": "Build-focused agent with full access",
+			"mode": "primary",
+			"model": "modelrelay/auto-fastest"
 		},
-		"models": {
-			"auto-fastest": {
-				"name": "Auto Fastest"
+		"plan": {
+			"description": "Planning-only agent, no write/edit access",
+			"mode": "primary",
+			"model": "opencode/big-pickle"
+		}
+	},
+	"permission": {
+		"external_directory": "allow",
+		"edit": "allow",
+		"bash": "allow"
+	},
+	"watcher": {
+		"ignore": [
+			"node_modules/**",
+			"dist/**",
+			".git/**",
+			".svelte-kit/**",
+			"build/**",
+			"__gen__/**"
+		]
+	},
+	"compaction": {
+		"auto": true,
+		"prune": true
+	},
+	"formatter": {
+		"dprint": {
+			"command": [
+				"dprint",
+				"fmt",
+				"$FILE"
+			],
+			"extensions": [
+				".svelte",
+				".ts",
+				".js",
+				".tsx",
+				".jsx",
+				".html",
+				".css",
+				".json",
+				".yaml",
+				".md"
+			]
+		},
+		"prettier": {
+			"disabled": true
+		}
+	},
+	"plugin": [
+		"@sveltejs/opencode@latest",
+		"oh-my-opencode-slim@latest",
+		"@tarquinen/opencode-dcp@latest",
+		"openslimedit@latest"
+		// "opencode-hashline@latest"
+	],
+	"mcp": {
+		"engram": {
+			"type": "local",
+			"command": ["engram", "mcp", "--tools=agent"]
+		},
+		"sumemory": {
+			"type": "local",
+			"command": ["sumemory", "mcp"],
+			"environment": {
+				"SURREALDB_URL": "ws://127.0.0.1:8000",
+				"SURREALDB_NS": "sumemory",
+				"SURREALDB_DB": "sumemory",
+				"SURREALDB_USER": "ua",
+				"SURREALDB_PASS": "japan8"
+			},
+			"enabled": false
+		},
+		"surrealmcp": {
+			"type": "local",
+			"command": [
+				"surrealmcp",
+				"start"
+			],
+			"enabled": false
+		},
+		"nushell": {
+			"type": "local",
+			"command": [
+				"nu",
+				"--mcp"
+			],
+			"enabled": false
+		},
+		"svelte": {
+			"type": "local",
+			"command": [
+				"svelte-mcp"
+			],
+			"enabled": false
+		},
+		"github-mcp": {
+			"type": "remote",
+			"url": "https://api.githubcopilot.com/mcp/",
+			"oauth": false,
+			"headers": {
+				"Authorization": "Bearer {env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+			},
+			"enabled": false
+		},
+		// https://github.com/billy-enrizky/openbrowser-ai
+		"openbrowser": {
+			"type": "local",
+			"command": ["uvx", "openbrowser-ai[mcp]", "--mcp"],
+			"enabled": false
+		},
+		"inkscape": {
+			"type": "local",
+			"command": ["{env:HOME}/.config/inkscape/extensions/inkmcp/run_inkscape_mcp_uv.sh"],
+			"enabled": false
+		},
+		"blender": {
+			"type": "local",
+			"command": ["uvx", "blender-mcp"],
+			"enabled": false
+		},
+		"CodeGraphContext": {
+			"type": "local",
+			"command": ["cgc", "mcp", "start"],
+			"enabled": false
+		},
+		"context7": {
+			"type": "remote",
+			"url": "https://mcp.context7.com/mcp",
+			"enabled": true
+		},
+		"fetch": {
+			"type": "local",
+			"command": [
+				"uvx",
+				"mcp-server-fetch"
+			],
+			"enabled": true
+		},
+		"searxng": {
+			"type": "local",
+			"command": [
+				"mcp-searxng"
+			],
+			"environment": {
+				"SEARXNG_URL": "{env:SEARXNG_URL}",
+				"AUTH_USERNAME": "{env:SEARXNG_AUTH_USERNAME}",
+				"AUTH_PASSWORD": "{env:SEARXNG_AUTH_PASSWORD}"
+			},
+			"enabled": true
+		},
+		"zellij": {
+			"type": "local",
+			"command": ["bun", "run", "/g/zellij-pane-tracker/mcp-server/index.ts"],
+			"enabled": false
+		},
+		"tmux": {
+			"type": "local",
+			"command": ["bunx", "tmux-mcp", "--shell-type=nu"],
+			"enabled": false
+		},
+		"megamemory": {
+			"type": "local",
+			"command": [
+				"megamemory"
+			],
+			"environment": {
+				"MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db"
+			},
+			"enabled": true
+		},
+		"exa": {
+			"type": "local",
+			"command": [
+				"bunx",
+				"mcp-remote",
+				"https://mcp.exa.ai/mcp?tools=web_search_exa,get_code_context_exa,crawling_exa"
+			],
+			"enabled": true
+		},
+		"grep_app": {
+			"type": "remote",
+			"url": "https://mcp.grep.app",
+			"enabled": true
+		}
+	},
+	"lsp": {
+		"qmlls": {
+			"command": [
+				"qmlls6",
+				"-E"
+			],
+			"extensions": [
+				".qml"
+			]
+		},
+		"nushell": {
+			"command": [
+				"nu",
+				"--lsp"
+			],
+			"extensions": [
+				".nu"
+			]
+		}
+	},
+	"provider": {
+		"zai-anthropic": {
+			"npm": "@ai-sdk/anthropic",
+			"options": {
+				"baseURL": "https://api.z.ai/api/anthropic/v1"
+			},
+			"models": {
+				"glm-4.7": {
+					"name": "glm-4.7",
+					"limit": {
+						"context": 128000,
+						"output": 32000
+					}
+				},
+				"glm-4.7-flash": {
+					"name": "glm-4.7-flash",
+					"limit": {
+						"context": 64000,
+						"output": 16000
+					}
+				}
+			}
+		},
+		"modelrelay": {
+			// https://github.com/ellipticmarketing/modelrelay
+			"npm": "@ai-sdk/openai-compatible",
+			"name": "modelrelay",
+			"options": {
+				"baseURL": "http://127.0.0.1:7352/v1",
+				"apiKey": "dummy-key"
+			},
+			"models": {
+				"auto-fastest": {
+					"name": "Auto Fastest"
+				}
 			}
 		}
 	}
-  }
 }

@@ -12,9 +12,9 @@ return {
 			keymap = {
 				editor = {
 					['<leader>zc'] = false,
-					['<leader>zq'] = { 'diff_close' }
-				}
-			}
+					['<leader>zq'] = { 'diff_close' },
+				},
+			},
 		})
 	end,
 	dependencies = {

@@ -77,9 +77,8 @@ o.termguicolors = true
 o.laststatus = 3
 
 -- Shada: persistent history, registers, marks
-o.shada = "!,'1000,<50,s10,h"
+o.shada = '!,\'1000,<50,s10,h'
 -- 1000 files, 50 lines per register, 10KB per item
-
 
 -- Diagnostic display: minimal signs (⏺), virtual text on current line only
 -- Reduces visual noise while keeping diagnostics accessible

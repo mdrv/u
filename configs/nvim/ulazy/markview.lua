@@ -6,8 +6,8 @@ return {
 	'OXY2DEV/markview.nvim',
 	lazy = false,
 
-    -- Completion for `blink.cmp`
-    dependencies = { "saghen/blink.cmp" },
+	-- Completion for `blink.cmp`
+	dependencies = { 'saghen/blink.cmp' },
 	keys = {
 		{
 			'<Leader>mv',
@@ -16,5 +16,5 @@ return {
 			end,
 			desc = 'knap: process_once()',
 		},
-	}
+	},
 }
