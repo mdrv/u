@@ -51,6 +51,7 @@ alias ac = aichat
 alias dp = dprint
 alias zj = zellij
 alias oc = opencode
+alias nc = nullclaw
 alias ff = fastfetch
 alias pb = pocketbase
 alias H = start-hyprland
