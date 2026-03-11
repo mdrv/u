@@ -63,13 +63,19 @@
 		"@sveltejs/opencode@latest",
 		"oh-my-opencode-slim@latest",
 		"@tarquinen/opencode-dcp@latest",
-		"openslimedit@latest",
-		"hashline-opencode@latest"
+		// "openslimedit@latest",
+		"hashline-opencode@latest",
+		"oc-transcript-save@latest",
+		"oc-quota@latest"
 	],
 	"mcp": {
+		"nanolens": {
+			"type": "local",
+			"command": ["nanolens", "--mcp"]
+		},
 		"engram": {
 			"type": "local",
-			"command": ["engram", "mcp", "--tools=agent"]
+			"command": ["engram", "mcp", "--tools=all"]
 		},
 		"sumemory": {
 			"type": "local",
@@ -179,7 +185,7 @@
 			"environment": {
 				"MEGAMEMORY_DB_PATH": "{env:HOME}/.megamemory/knowledge.db"
 			},
-			"enabled": true
+			"enabled": false
 		},
 		"exa": {
 			"type": "local",

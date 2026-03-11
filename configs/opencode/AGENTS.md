@@ -1,63 +1,49 @@
 # Agent Instructions
 
-## Workflow Orchestration
+## FIRST: Check Engram
 
-1. **Plan Mode Default**
-   - Non-trivial tasks (3+ steps or architectural decisions): enter plan mode
-   - Re-plan immediately if things go sideways
-   - Use for verification, not just building
-   - Write detailed specs upfront
+Before starting any task, call `engram_mem_search` with `scope="personal"` to check for UA's preferences, patterns, and prior decisions.
 
-2. **Subagent Strategy**
-   - Use liberally to keep context clean
-   - Offload research, exploration, parallel analysis
-   - One task per subagent for focus
+## When to Save
 
-3. **Self-Improvement Loop**
-   - After user corrections: update `.plan/lessons.md` with pattern
-   - Write rules to prevent same mistake
-   - Review lessons at session start
+Call `mem_save` proactively after significant work:
 
-4. **Verification Before Done**
-   - Never mark complete without proving it works
-   - Ask: "Would a staff engineer approve this?"
-   - Run tests, check logs, demonstrate correctness
+| When | Type | Example Title |
+|------|------|---------------|
+| Bug fix | `bugfix` | "Fixed N+1 query in UserList" |
+| Architecture decision | `decision` | "Chose Zustand over Redux" |
+| Pattern established | `pattern` | "Repository pattern for data access" |
+| Config change | `config` | "Switched to pnpm workspace" |
+| Discovery/gotcha | `discovery` | "FTS5 MATCH needs quoted terms" |
 
-5. **Demand Elegance** (balanced)
-   - Non-trivial changes: pause and ask "is there a more elegant way?"
-   - Hacky fix? Implement elegant solution
-   - Skip for simple/obvious fixes
+**Format:**
+```
+**What**: One sentence
+**Why**: Reasoning or motivation
+**Where**: Files/paths affected
+**Learned**: Gotchas or edge cases (optional)
+```
 
-6. **Autonomous Bug Fixing**
-   - Fix bugs without hand-holding
-   - Point at logs/errors, then resolve
-   - Fix failing CI tests without being told
+## When to Search
 
-## Task Management
+- **Proactive:** At session start for UA preferences (`scope="personal"`)
+- **Reactive:** User says "remember", "recall", "what did we do"
+- **Before decisions:** Starting work that might overlap past sessions
 
-1. **Plan First**: Write plan to `.plan/todo.md` with checklist
-2. **Verify Plan**: Check in before implementation
-3. **Track Progress**: Mark complete as you go
-4. **Capture Lessons**: Update `.plan/lessons.md` after corrections
+## Session Protocol
 
-## Core Principles
+1. **Start:** `mem_session_start` with project name
+2. **During:** Save observations proactively (see above)
+3. **End:** `mem_session_summary` with Goal/Discoveries/Accomplished/Files — mandatory
 
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
-- **No Build/Transpile**: Run TS files directly with `bun run`; type-check with `bun tsc --noEmit`.
+## Scope Usage
 
-## 🎯 UA's Preferences
+- `scope="personal"` — UA preferences and cross-project patterns
+- `scope="project"` (default) — Codebase-specific memories
 
-### Wording
+## Efficient Retrieval
 
-- Perfectionist about accuracy
-- Prefer clarity and precision over cleverness
-- Provide 2-4 options with rationale when naming
-- Explain trade-offs, wait for choice
-
-### File Structure
-
-- **500-line limit**: Small modules = easier navigation, fewer bugs
-- Exceptions: Core orchestrator files only
-- Document exceptions with comments
+Use progressive disclosure to save tokens:
+1. `mem_search` → Get relevant observation IDs
+2. `mem_timeline` → Chronological context around specific observation
+3. `mem_get_observation` → Full untruncated content only when needed
