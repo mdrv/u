@@ -74,6 +74,8 @@ alias mpvxxxt = u mpv t1lite [*.flac] -d (ls -s /n/audio | get name | str join "
 alias shizuku = ^adb shell /data/app/moe.shizuku.privileged.api-j5XlxmLhVhDNXXQgyrL4Nw==/lib/arm/libshizuku.so
 alias shizukuold = ^adb shell sh /storage/emulated/0/Android/data/moe.shizuku.privileged.api/start.sh
 
+alias actp = act --container-daemon-socket $"($env.XDG_RUNTIME_DIR)/podman/podman.sock"
+
 alias prayertimes = u print-prayer-times
 
 alias cq = copilot-quota

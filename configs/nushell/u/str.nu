@@ -18,5 +18,9 @@ export def main [
         let $str = (date now | date to-timezone local | format date '%Y%m%d-%H%M%S')
         $str | wl-copy
         ^dunstify -u low -t 1000 $"Copied: ($str)"
+    } else if ($type == 'epoch') {
+        let $str = (date now | format date '%s')
+        $str | wl-copy
+        ^dunstify -u low -t 1000 $"Copied: ($str)"
 	}
 }

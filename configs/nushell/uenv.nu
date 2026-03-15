@@ -42,6 +42,8 @@ $env.HOMEBREW_REPOSITORY = "/home/linuxbrew/.linuxbrew/Homebrew"
 
 $env.TESSERACT_OEM = "1"
 
+$env.DOCKER_HOST = $"unix://($env.XDG_RUNTIME_DIR)/podman/podman.sock"
+
 if ($"($nu.home-dir)/.u.nuon" | path exists) {
 	let tmp = (open ($nu.home-dir)/.u.nuon)
 	if not ($"($nu.home-dir)/.u.json" | path exists) or (open ($nu.home-dir)/.u.json) != $tmp {
