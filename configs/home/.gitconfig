@@ -14,21 +14,22 @@
 [color]
 	ui = auto
 [alias]
-    ap = add --patch
-    ai = add --interactive
+	ap = add --patch
+	ai = add --interactive
 	pr = pull --rebase
 	lo = log --oneline
-    sp = stash push
-    sm = submodule
-    co = checkout
-    cp = cherry-pick
+	sp = stash push
+	sm = submodule
+	co = checkout
+	cp = cherry-pick
+	sc = sparse-checkout
 	st = status
-    rs = restore
-    conf = config
-    d = diff
-    dt = difftool
-    rso = reset --soft
-    rha = reset --hard
+	rs = restore
+	conf = config
+	d = diff
+	dt = difftool
+	rso = reset --soft
+	rha = reset --hard
 [pull]
 	ff = only
 [credential "https://github.com"]
@@ -38,7 +39,7 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [core]
-    editor = nvim
+	editor = nvim
 	pager = delta
 [interactive]
 	diffFilter = delta --color-only

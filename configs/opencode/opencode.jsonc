@@ -3,7 +3,7 @@
 	"instructions": [
 		"AGENTS.md"
 	],
-	"default_agent": "tens",
+	"default_agent": "orchestrator",
 	"agent": {
 		"build": {
 			"description": "Build-focused agent with full access",
@@ -60,11 +60,12 @@
 		}
 	},
 	"plugin": [
+		"openrtk@latest",
 		"@sveltejs/opencode@latest",
 		"oh-my-opencode-slim@latest",
 		"@tarquinen/opencode-dcp@latest",
 		// "openslimedit@latest",
-		"hashline-opencode@latest",
+		"hashline-edit-opencode@latest",
 		"oc-transcript-save@latest",
 		"oc-quota@latest"
 	],

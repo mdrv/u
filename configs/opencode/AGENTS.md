@@ -8,15 +8,16 @@ Before starting any task, call `engram_mem_search` with `scope="personal"` to ch
 
 Call `mem_save` proactively after significant work:
 
-| When | Type | Example Title |
-|------|------|---------------|
-| Bug fix | `bugfix` | "Fixed N+1 query in UserList" |
-| Architecture decision | `decision` | "Chose Zustand over Redux" |
-| Pattern established | `pattern` | "Repository pattern for data access" |
-| Config change | `config` | "Switched to pnpm workspace" |
-| Discovery/gotcha | `discovery` | "FTS5 MATCH needs quoted terms" |
+| When                  | Type        | Example Title                        |
+| --------------------- | ----------- | ------------------------------------ |
+| Bug fix               | `bugfix`    | "Fixed N+1 query in UserList"        |
+| Architecture decision | `decision`  | "Chose Zustand over Redux"           |
+| Pattern established   | `pattern`   | "Repository pattern for data access" |
+| Config change         | `config`    | "Switched to pnpm workspace"         |
+| Discovery/gotcha      | `discovery` | "FTS5 MATCH needs quoted terms"      |
 
 **Format:**
+
 ```
 **What**: One sentence
 **Why**: Reasoning or motivation
@@ -44,6 +45,7 @@ Call `mem_save` proactively after significant work:
 ## Efficient Retrieval
 
 Use progressive disclosure to save tokens:
+
 1. `mem_search` → Get relevant observation IDs
 2. `mem_timeline` → Chronological context around specific observation
 3. `mem_get_observation` → Full untruncated content only when needed

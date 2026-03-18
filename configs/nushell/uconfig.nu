@@ -59,6 +59,12 @@ alias gdl = gallery-dl
 alias cop = copilot --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 alias coph = copilot --model claude-haiku-4.5 --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 
+alias bd = bun run dev
+alias bf = bun run fmt
+alias bb = bun run build
+alias bs = bun run start
+alias bc = bun run check
+
 alias umod = nu ~/.config/nushell/u/mod_.nu
 alias um = u mount
 alias up = u pacaur
