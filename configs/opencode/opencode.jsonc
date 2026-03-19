@@ -159,7 +159,7 @@
 		"searxng": {
 			"type": "local",
 			"command": [
-				"mcp-searxng"
+				"bunx", "mcp-searxng"
 			],
 			"environment": {
 				"SEARXNG_URL": "{env:SEARXNG_URL}",

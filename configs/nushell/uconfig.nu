@@ -59,6 +59,8 @@ alias gdl = gallery-dl
 alias cop = copilot --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 alias coph = copilot --model claude-haiku-4.5 --allow-all-tools --enable-all-github-mcp-tools --add-dir . --resume -p
 
+alias bi = bun install
+alias bu = bun update --latest
 alias bd = bun run dev
 alias bf = bun run fmt
 alias bb = bun run build
@@ -84,9 +86,9 @@ alias actp = act --container-daemon-socket $"($env.XDG_RUNTIME_DIR)/podman/podma
 
 alias prayertimes = u print-prayer-times
 
-alias cq = copilot-quota
-alias gq = glm-quota
-alias kq = kimi-quota
+alias cq = oc-quota copilot
+alias gq = oc-quota zai
+alias zq = oc-quota zai
 
 alias ocb = opencode run --agent build
 alias ocp = opencode run --agent plan
