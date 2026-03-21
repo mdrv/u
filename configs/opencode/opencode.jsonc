@@ -228,6 +228,17 @@
 		}
 	},
 	"provider": {
+		"zai-coding-plan": {
+			"models": {
+				"glm-5": {
+					"name": "GLM-5",
+					"limit": {
+						"context": 80000,
+						"output": 4096
+					}
+				}
+			}
+		},
 		"zai-anthropic": {
 			"npm": "@ai-sdk/anthropic",
 			"options": {

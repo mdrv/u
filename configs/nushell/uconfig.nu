@@ -47,6 +47,7 @@ alias no = do { SHOW_NEOTREE=1 nvim -c $"cd ($env.NOTE_PATH)" }
 alias m = micro
 alias s = serai
 alias h = hirari
+alias sm = suemo
 alias ac = aichat
 alias dp = dprint
 alias zj = zellij
