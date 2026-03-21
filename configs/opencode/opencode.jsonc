@@ -8,12 +8,12 @@
 		"build": {
 			"description": "Build-focused agent with full access",
 			"mode": "primary",
-			"model": "modelrelay/auto-fastest"
+			"model": "zai-coding-plan/glm-5" // "modelrelay/auto-fastest"
 		},
 		"plan": {
 			"description": "Planning-only agent, no write/edit access",
 			"mode": "primary",
-			"model": "opencode/big-pickle"
+			"model": "zai-coding-plan/glm-5" // "opencode/big-pickle"
 		}
 	},
 	"permission": {
@@ -78,17 +78,20 @@
 			"type": "local",
 			"command": ["engram", "mcp", "--tools=all"]
 		},
-		"sumemory": {
+		"suemo": {
 			"type": "local",
-			"command": ["sumemory", "mcp"],
+			"command": ["suemo", "serve", "--stdio", "--dev"],
 			"environment": {
-				"SURREALDB_URL": "ws://127.0.0.1:8000",
-				"SURREALDB_NS": "sumemory",
-				"SURREALDB_DB": "sumemory",
-				"SURREALDB_USER": "ua",
-				"SURREALDB_PASS": "japan8"
+				"SUEMO_URL": "ws://sdb.localhost",
+				"SUEMO_NS": "mdrv",
+				"SUEMO_DB": "suemo",
+				"SUEMO_USER": "ua",
+				"SUEMO_PASS": "japan8",
+				"SUEMO_LLM_URL": "https://api.z.ai/api/coding/paas/v4",
+				"SUEMO_LLM_MODEL": "glm-4.7-flash",
+				"SUEMO_LLM_API_KEY": "c28e5e85d9714c8abfb6408353fe54a7.dG0sZUU1Jovsvyib"
 			},
-			"enabled": false
+			"enabled": true
 		},
 		"surrealmcp": {
 			"type": "local",
@@ -159,7 +162,8 @@
 		"searxng": {
 			"type": "local",
 			"command": [
-				"bunx", "mcp-searxng"
+				"bunx",
+				"mcp-searxng"
 			],
 			"environment": {
 				"SEARXNG_URL": "{env:SEARXNG_URL}",

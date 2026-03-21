@@ -19,7 +19,7 @@ export def essential [] {
 # Install essential Arch Linux packages for a basic working system
 
 export def cli [] {
-	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli codeberg-cli glab bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd sd bat android-tools rhash copyparty rtorrent evtest keyd iperf3 eza acpi batsignal chezmoi lazygit gitui tig ugrep typos trash-cli
+	run-external ...$PACMAN aichat ttyper rsync rclone yt-dlp git-delta github-cli codeberg-cli glab bottom brightnessctl dust neovim fzf git nushell socat unison openssh autossh zellij fastfetch ffmpeg atuin ripgrep zoxide man-db less yazi jq fd sd bat android-tools rhash copyparty rtorrent evtest keyd iperf3 eza acpi batsignal chezmoi lazygit gitui tig ugrep typos trash-cli watchexec entr
 	print $"AUR: dprint-bin paru-bin gallery-dl-bin gitui-bin"
 	print "aarch64 has gnu-netcat available in pacman"
 }

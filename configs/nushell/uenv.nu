@@ -17,6 +17,8 @@ $env.PATH = ($env.PATH ++ [
 	$"($env.HOME)/.npm-global/bin"
 ] | uniq | where {path exists})
 
+$env.XDG_RUNTIME_DIR = ($env.XDG_RUNTIME_DIR? | default /run/user)
+
 $env.TMPDIR = if (^vercmp $env.NU_VERSION 0.110.0 | into int) >= 0 {$nu.temp-dir} else {$nu.temp-path}
 
 $env.EDITOR = "nvim"

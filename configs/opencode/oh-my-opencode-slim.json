@@ -1,9 +1,10 @@
 {
-	"preset": "zen-glm",
+	"$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+	"preset": "glm",
 	"presets": {
-		"zen-glm": {
+		"glm": {
 			"orchestrator": {
-				"model": "github-copilot/gpt-5.3-codex",
+				"model": "zai-coding-plan/glm-5",
 				"variant": "high",
 				"skills": ["*"],
 				"mcps": ["*"]
@@ -15,7 +16,7 @@
 				"mcps": ["*"]
 			},
 			"librarian": {
-				"model": "github-copilot/gemini-3.1-pro-preview",
+				"model": "zai-coding-plan/glm-5",
 				"variant": "low",
 				"skills": ["*"],
 				"mcps": ["*"]
